@@ -145,6 +145,13 @@ export default {
     partners: {
       title: 'Partners',
     },
+    paidInsights: {
+      title: 'Paid Insights',
+      subtitle: 'Hands-on enterprise AI adoption tips · Pay to read the full article',
+      count: '{count} articles',
+      pricePrefix: '[Pay ¥{price} to unlock]',
+      note: 'All articles above are paid content. Click a title to open the payment page and scan the QR code to unlock the full article.',
+    },
   },
 
   solutions: {
@@ -282,5 +289,29 @@ export default {
 
   aiInsight: {
     title: 'AI Insight',
+  },
+
+  // ========================
+  // Paid Insight
+  // ========================
+  paidInsight: {
+    back: 'Back to Paid Insights',
+    notFound: 'This article does not exist or has been removed.',
+    locked: 'Full content requires payment',
+    previewIntro: 'This is a preview. The full version includes ready-to-use checklists, templates and step-by-step instructions, available after payment.',
+    payTitle: 'Scan to pay and unlock the full article',
+    amount: 'Amount due',
+    method: 'Payment method',
+    wechat: 'WeChat Pay',
+    alipay: 'Alipay',
+    qrAlt: '{method} payment QR code',
+    scanHint: 'Scan the QR code below with your phone to complete payment',
+    step1: 'Choose WeChat Pay or Alipay and open the scanner on your phone',
+    step2: 'Scan the payment QR code and pay the amount due',
+    step3: 'Tap "I have paid" after payment; our team will send the full article within 1 business day',
+    confirmPaid: 'I have paid',
+    paidTitle: 'Payment confirmation received',
+    paidDesc: 'We will verify the payment shortly and send the full article to your contact details. Contact us if you have any questions.',
+    disclaimer: 'This page demonstrates a scan-to-pay flow and does not process real-time online payments. Paid content is original material compiled by CubixAI for the purchaser\'s personal reference only; please do not redistribute.',
   },
 }

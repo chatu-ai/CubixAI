@@ -145,6 +145,13 @@ export default {
     partners: {
       title: '파트너',
     },
+    paidInsights: {
+      title: '유료 인사이트',
+      subtitle: '기업 AI 도입 실전 노하우 · 결제 후 전문 보기',
+      count: '총 {count}편',
+      pricePrefix: '[{price}위안 결제 후 전문 보기]',
+      note: '위 콘텐츠는 모두 유료입니다. 제목을 클릭해 결제 페이지로 이동한 뒤 QR 코드를 스캔해 결제하면 전문을 볼 수 있습니다.',
+    },
   },
 
   solutions: {
@@ -282,5 +289,29 @@ export default {
 
   aiInsight: {
     title: 'AI 인사이트',
+  },
+
+  // ========================
+  // Paid Insight
+  // ========================
+  paidInsight: {
+    back: '유료 인사이트로 돌아가기',
+    notFound: '해당 콘텐츠가 존재하지 않거나 게시가 종료되었습니다.',
+    locked: '전문은 결제 후 열람 가능합니다',
+    previewIntro: '아래는 미리보기입니다. 전체 버전에는 바로 활용할 수 있는 체크리스트, 템플릿, 단계별 절차가 포함되며 결제 후 열람할 수 있습니다.',
+    payTitle: 'QR 코드를 스캔해 결제하고 전문 보기',
+    amount: '결제 금액',
+    method: '결제 수단',
+    wechat: 'WeChat Pay',
+    alipay: 'Alipay',
+    qrAlt: '{method} 결제 QR 코드',
+    scanHint: '휴대폰으로 아래 QR 코드를 스캔해 결제를 완료하세요',
+    step1: 'WeChat Pay 또는 Alipay를 선택하고 휴대폰 스캐너를 엽니다',
+    step2: '결제 QR 코드를 스캔하고 표시된 금액을 결제합니다',
+    step3: '결제 후 "결제를 완료했습니다"를 누르면 영업일 기준 1일 이내에 전문을 보내드립니다',
+    confirmPaid: '결제를 완료했습니다',
+    paidTitle: '결제 확인 요청을 접수했습니다',
+    paidDesc: '입금을 확인한 뒤 등록하신 연락처로 전문을 보내드립니다. 문의 사항은 연락 주세요.',
+    disclaimer: '이 페이지는 QR 결제 데모 흐름이며 실시간 온라인 결제를 처리하지 않습니다. 유료 콘텐츠는 CubixAI가 직접 정리한 자료로 구매자 본인의 참고용이며, 무단 전재 및 재배포를 금합니다.',
   },
 }
