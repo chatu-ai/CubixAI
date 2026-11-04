@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { Icon } from '@iconify/vue'
 import AppImage from '../../components/AppImage.vue'
 import chatuMateImg from '@/assets/ChatUMate.webp'
 
@@ -30,52 +31,59 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
             <span
               class="inline-block px-3 py-1 rounded-full bg-[#E6F5FB] text-[#2DB4E6] text-xs font-semibold mb-4"
             >
-              专属操作系统
+              预装于每一台智方体
             </span>
             <h2 class="text-2xl md:text-3xl font-semibold text-ink-primary">
-              ChatU Mate
+              ChatU Mate：智能体的管家
             </h2>
             <p class="mt-3 text-ink-secondary">
-              一个人 + 一台设备 + 一套系统 = 完整工作闭环
+              智能体、模型、Skills、升级，一个入口全管好
             </p>
           </div>
           <div class="flex-1">
             <AppImage
               :src="chatuMateImg"
-              alt="ChatU Mate 系统界面"
+              alt="ChatU Mate 工作台"
               class="w-full h-full object-contain rounded-2xl border border-line/50"
             />
           </div>
+          <p class="mt-3 text-sm text-ink-tertiary text-center md:text-left">
+            ChatU Mate 工作台 · 手指触屏即可操作，无需命令行
+          </p>
         </div>
 
-        <!-- 右侧竖排三卡 -->
+        <!-- 右侧竖排四卡 -->
         <div class="w-full md:w-1/2 flex flex-col gap-4">
           <div
             class="flex-1 p-6 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#2DB4E6]/20 transition-all duration-300 flex flex-col justify-center"
           >
-            <h3 class="text-lg font-semibold text-ink-primary">多场景智能体</h3>
-            <p class="mt-2 text-sm text-ink-secondary">
-               OpenClaw + Hermes Agent 原生内置，可执行聊天、搜索、定时任务等操作，覆盖多智能体调度。
+            <h3 class="text-lg font-semibold text-ink-primary">多智能体管控</h3>
+            <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
+              DeepSeek Harness、OpenClaw、Hermes 一键启停；Codex、WorkBuddy 等主流平台随时可装
             </p>
-            <p class="mt-1 text-sm text-ink-tertiary">内置丰富的智能体，一键调用</p>
+          </div>
+          <div
+            class="flex-1 p-6 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#2DB4E6]/20 transition-all duration-300 flex flex-col justify-center"
+          >
+            <h3 class="text-lg font-semibold text-ink-primary">模型自由切换</h3>
+            <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
+              本地 Qwen、企业内网大模型、云端模型，一处配置、随时切换
+            </p>
           </div>
           <div
             class="flex-1 p-6 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#2DB4E6]/20 transition-all duration-300 flex flex-col justify-center"
           >
             <h3 class="text-lg font-semibold text-ink-primary">全能 Skills</h3>
-            <p class="mt-2 text-sm text-ink-secondary">
-              内置多场景技能统一调度模块，支持快速调用与灵活编排，持续扩展第三方能力，且统一计费。
+            <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
+              预装图片、视频生成技能；优秀流程可沉淀为模板，团队一键复用
             </p>
-            <p class="mt-1 text-sm text-ink-tertiary">多模态、多技能统一调度中心</p>
           </div>
           <div
             class="flex-1 p-6 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#2DB4E6]/20 transition-all duration-300 flex flex-col justify-center"
           >
-            <h3 class="text-lg font-semibold text-ink-primary">主流社交平台接入</h3>
-            <p class="mt-2 text-sm text-ink-secondary">
-              <!-- 微信 &middot; 飞书 &middot; 钉钉 &middot; QQ 全打通 -->
-              快速打通微信、飞书、钉钉、企业微信、QQ、Chatu...实现多端对话与任务下发。
-
+            <h3 class="text-lg font-semibold text-ink-primary">主流办公平台接入</h3>
+            <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
+              企业微信、飞书、钉钉等，AI 直接进入日常工作流。
             </p>
             <div class="mt-3 flex items-center gap-2 flex-wrap">
               <div
@@ -100,9 +108,14 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
                 </span>
               </div>
             </div>
-            <p class="mt-2 text-sm text-ink-tertiary">移动端远程操作</p>
           </div>
         </div>
+      </div>
+
+      <!-- 底部升级条 -->
+      <div class="mt-6 p-4 rounded-2xl bg-[#E6F5FB] border border-[#2DB4E6]/20 flex items-center justify-center gap-2 text-sm font-medium text-[#1A8BC4]">
+        <Icon icon="lucide:refresh-cw" class="w-4 h-4" />
+        一键升级 · 智能体与 ChatU Mate 软件终身免费更新
       </div>
     </div>
   </section>

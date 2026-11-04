@@ -6,44 +6,22 @@ import { Icon } from '@iconify/vue'
 const sectionRef = ref<HTMLElement | null>(null)
 useScrollReveal(sectionRef, { y: 30 })
 
-const activeTab = ref(2)
+const columns = ['对比项', '智方体', '云端 AI 工具', '传统 AI 盒子', '自行下载安装']
 
-const tabs = [
-  {
-    label: 'VS 普通 AI 工具',
-    rows: [
-      { dim: '运行依赖', us: '本地+云端混合，自带电池', them: '断网即失效' },
-      { dim: '数据安全', us: '物理级隔离', them: '云端隐私风险' },
-      { dim: '使用成本', us: '按量计费无捆绑', them: '年费捆绑不可控' },
-      { dim: '执行过程', us: '实时可视化监控', them: '黑盒运行' },
-    ],
-  },
-  {
-    label: 'VS 同类 AI 盒子',
-    rows: [
-      { dim: '屏幕交互', us: '自带触控屏+触控笔', them: '通常无屏' },
-      { dim: '操作系统', us: 'ChatU Mate 专属系统', them: '需自行刷写' },
-      { dim: '软件生态', us: '预置原生 Agent+Skills', them: '需自行安装' },
-      { dim: '上手体验', us: '开箱即用 · 小白友好', them: '极客专属' },
-    ],
-  },
-  {
-    label: 'VS 手动安装 OpenClaw',
-    rows: [
-      { dim: '安装耗时', us: '长按 2 秒开机', them: '数小时–数天' },
-      { dim: '技术门槛', us: '0 基础', them: '需技术基础' },
-      { dim: '维护成本', us: '自动无感升级', them: '手动频繁出错' },
-      { dim: '数据安全', us: '本地物理隔离', them: '无防护有后门' },
-      { dim: '使用体验', us: '可视化执行 · 可查可控', them: '黑盒无监控' },
-      { dim: '技术支持', us: '官方售后全链路', them: '无官方支持' },
-    ],
-  },
+const rows = [
+  { dim: '数据存放', us: '默认本地，可接内网 / 云端', cloud: '上传云端', box: '本地', diy: '取决于配置' },
+  { dim: '安装配置', us: '不需要，开箱即用', cloud: '不需要', box: '需要专业安装', diy: '需要自行搭建，门槛高' },
+  { dim: '新手上手', us: '2 分钟', cloud: '容易', box: '较难', diy: '很难' },
+  { dim: '费用方式', us: '一次买断，软件终身升级', cloud: '按月订阅', box: '硬件费用', diy: '时间成本高' },
+  { dim: '自带屏幕', us: '7 英寸触屏', cloud: '—', box: '无，需另配', diy: '视设备而定' },
+  { dim: '专为 Agent 设计', us: '预装整套智能体', cloud: '否', box: '部分', diy: '否' },
+  { dim: '出问题找谁', us: '24 小时智能客服 + 专家远程', cloud: '平台客服', box: '自己 / 社区', diy: '自己' },
 ]
 </script>
 
 <template>
   <section ref="sectionRef" class="py-20 md:py-[120px] bg-surface-base">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2
           class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
@@ -51,63 +29,47 @@ const tabs = [
           为什么选择智方体？
         </h2>
         <p class="mt-4 text-lg text-ink-secondary">
-          同价位、同需求下的对比
+          同样是「用 AI」，差别在这里
         </p>
       </div>
 
-      <!-- Tabs -->
-      <div class="flex flex-wrap justify-center gap-2 mb-10">
-        <button
-          v-for="(tab, i) in tabs"
-          :key="tab.label"
-          class="px-5 py-2.5 rounded-full text-sm font-medium transition-all"
-          :class="
-            activeTab === i
-              ? 'bg-[#2DB4E6] text-white'
-              : 'bg-surface-muted text-ink-secondary hover:text-ink-primary'
-          "
-          @click="activeTab = i"
-        >
-          {{ tab.label }}
-        </button>
-      </div>
-
       <!-- Table -->
-      <div
-        class="rounded-2xl bg-surface-card border border-line shadow-card overflow-hidden"
-      >
-        <div
-          v-for="(row, idx) in tabs[activeTab].rows"
-          :key="row.dim"
-          class="grid grid-cols-1 md:grid-cols-[140px_1fr_1fr] border-b border-line last:border-b-0"
-          :class="idx % 2 === 0 ? 'bg-surface-card' : 'bg-surface-muted/50'"
-        >
-          <div class="px-6 py-4 flex items-center">
-            <span
-              class="px-3 py-1 rounded-full bg-[#E6F5FB] text-[#2DB4E6] text-xs font-semibold"
-            >
-              {{ row.dim }}
-            </span>
+      <div class="rounded-2xl bg-surface-card border border-line shadow-card overflow-x-auto">
+        <!-- Header -->
+        <div class="grid grid-cols-[110px_1.2fr_1fr_1fr_1fr] min-w-[720px] border-b border-line bg-surface-muted/60">
+          <div class="px-4 py-4 text-xs font-semibold text-ink-tertiary"></div>
+          <div class="px-4 py-4 text-sm font-semibold text-white bg-[#2DB4E6] flex items-center">
+            {{ columns[1] }}
           </div>
-          <div
-            class="px-6 py-4 flex items-center gap-2 text-sm font-semibold text-[#2DB4E6] border-l-2 border-[#2DB4E6]"
-          >
+          <div class="px-4 py-4 text-sm font-semibold text-ink-secondary flex items-center">{{ columns[2] }}</div>
+          <div class="px-4 py-4 text-sm font-semibold text-ink-secondary flex items-center">{{ columns[3] }}</div>
+          <div class="px-4 py-4 text-sm font-semibold text-ink-secondary flex items-center">{{ columns[4] }}</div>
+        </div>
+
+        <!-- Rows -->
+        <div
+          v-for="(row, idx) in rows"
+          :key="row.dim"
+          class="grid grid-cols-[110px_1.2fr_1fr_1fr_1fr] min-w-[720px] border-b border-line last:border-b-0"
+          :class="idx % 2 === 0 ? 'bg-surface-card' : 'bg-surface-muted/40'"
+        >
+          <div class="px-4 py-4 flex items-center">
+            <span class="text-sm text-ink-tertiary">{{ row.dim }}</span>
+          </div>
+          <div class="px-4 py-4 flex items-center gap-1.5 text-sm font-semibold text-[#2DB4E6] bg-[#E6F5FB]/50">
             <Icon icon="lucide:check" class="w-4 h-4 shrink-0" />
             {{ row.us }}
           </div>
-          <div
-            class="px-6 py-4 flex items-center gap-2 text-sm text-ink-tertiary"
-          >
-            <Icon icon="lucide:x" class="w-4 h-4 shrink-0" />
-            {{ row.them }}
-          </div>
+          <div class="px-4 py-4 flex items-center text-sm text-ink-secondary">{{ row.cloud }}</div>
+          <div class="px-4 py-4 flex items-center text-sm text-ink-secondary">{{ row.box }}</div>
+          <div class="px-4 py-4 flex items-center text-sm text-ink-secondary">{{ row.diy }}</div>
         </div>
       </div>
 
       <!-- 底部大字 -->
       <div class="mt-10 text-center">
         <p class="text-2xl md:text-[32px] font-semibold text-[#2DB4E6]">
-          省心、省时、省力、安全 — 这就是智方体
+          省时、省力、省心、零门槛
         </p>
       </div>
     </div>

@@ -5,6 +5,8 @@ import BrandButton from '../../components/BrandButton.vue'
 import AppImage from '../../components/AppImage.vue'
 
 const openModal = inject<() => void>('agentStationOpenModal')
+const BOOKING_URL = 'https://ruanjimu.feishu.cn/share/base/form/shrcnO4m2xMY6ma9mnYSuAkSSKg'
+const goBooking = () => window.open(BOOKING_URL, '_blank')
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
@@ -15,6 +17,7 @@ useScrollReveal(rightRef, { y: 30, delay: 0.15 })
 const heroImages = [
   { src: new URL('@/assets/zft/hero1.webp', import.meta.url).href, alt: '智方体 AgentStation' },
   { src: new URL('@/assets/zft/hero2.webp', import.meta.url).href, alt: '智方体 AgentStation' },
+  { src: new URL('@/assets/zft/hero3.webp', import.meta.url).href, alt: '智方体 AgentStation' },
 ]
 
 const currentIndex = ref(0)
@@ -60,13 +63,12 @@ onUnmounted(stopCarousel)
       >
         <!-- 左侧 -->
         <div ref="leftRef">
-          <!-- <div class="flex flex-wrap gap-2">
-            <Chip variant="gold">HARDWARE</Chip>
-            <Chip class="!bg-[#E6F5FB] !text-[#1A8BC4]">AI WORKSTATION</Chip>
-          </div> -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E6F5FB] text-[#1A8BC4] text-xs font-medium tracking-wide">
+            AI 时代的新物种
+          </div>
 
           <h1
-            class="mt-6 text-[40px] md:text-[56px] lg:text-[72px] font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em] whitespace-nowrap"
+            class="mt-6 text-3xl md:text-5xl lg:text-6xl font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em] whitespace-nowrap"
           >
             智方体 · AgentStation
           </h1>
@@ -74,33 +76,40 @@ onUnmounted(stopCarousel)
           <p
             class="mt-4 text-[36px] md:text-[48px] font-semibold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-tight"
           >
-            智能工作 · 安全到家
+            你可靠的 AI 工作站
           </p>
 
           <p class="mt-2 text-sm text-ink-tertiary tracking-wider uppercase">
-            Work Smart · Stay Safe
+            YOUR RELIABLE AI WORKSTATION
           </p>
 
           <p
             class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-lg"
           >
-            开箱即用的企业 AI 工作站 · 数据不出盒
+            不用装、不用配，数据默认留在本地。开箱 2 分钟，拥有一台真正属于你的 AI。
           </p>
 
           <div
             class="flex flex-wrap items-center gap-3 mt-6 text-sm text-ink-tertiary"
           >
-            <span>开箱即用</span>
+            <span>7 英寸触屏</span>
             <span class="w-1 h-1 rounded-full bg-ink-tertiary" />
-            <span>本地安全</span>
+            <span>2 分钟开机</span>
             <span class="w-1 h-1 rounded-full bg-ink-tertiary" />
-            <span>预置智能体</span>
+            <span>预装智能体</span>
             <span class="w-1 h-1 rounded-full bg-ink-tertiary" />
-            <span>高清触控可视屏</span>
+            <span>软件终身免费升级</span>
           </div>
 
-          <div class="mt-8 flex flex-wrap items-center gap-4">
-            <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="openModal">¥2999 起购</BrandButton>
+          <div class="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E6F5FB] text-xs font-medium text-[#1A8BC4]">
+            <span>一次买断</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#2DB4E6]"></span>
+            <span>700 克</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#2DB4E6]"></span>
+            <span>待机 5 小时</span>
+          </div>
+          <div class="mt-5 flex flex-wrap items-center gap-4">
+            <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">立即预订 ¥3,999</BrandButton>
             <BrandButton variant="ghost" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" arrow @click="openModal">
               查看所有版本
             </BrandButton>

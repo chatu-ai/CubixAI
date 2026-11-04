@@ -7,31 +7,30 @@ useScrollReveal(bottomRef, { y: 30, delay: 0.15 })
 
 const modes = [
   {
-    icon: 'lucide:mouse',
-    title: '鼠标键盘',
-    desc: '桌面级操控',
+    icon: 'lucide:mouse-pointer-touch',
+    title: '指尖触屏',
+    desc: '自带屏幕，手指一点即可对话',
+    images: [
+      new URL('@/assets/sb/手指触控.webp', import.meta.url).href,
+    ],
+  },
+  {
+    icon: 'lucide:keyboard',
+    title: '键盘鼠标',
+    desc: '插上键鼠，像电脑一样高效输入',
     images: [new URL('@/assets/sb/jp.webp', import.meta.url).href],
   },
   {
-    icon: 'lucide:smartphone',
-    title: '手机',
-    desc: '便携互联',
-    images: [new URL('@/assets/sb/sj.webp', import.meta.url).href],
-  },
-  {
     icon: 'lucide:monitor',
-    title: '显示器',
-    desc: '大屏沉浸',
+    title: '外接显示器',
+    desc: 'HDMI / DP 接大屏，桌面级办公',
     images: [new URL('@/assets/sb/显示屏.webp', import.meta.url).href],
   },
   {
-    icon: 'lucide:pen-tool',
-    title: '触控笔',
-    desc: '一键直达',
-    images: [
-      // new URL('@/assets/sb/lxh.webp', import.meta.url).href,
-      new URL('@/assets/sb/触控笔.webp', import.meta.url).href,
-    ],
+    icon: 'lucide:smartphone',
+    title: '手机远程',
+    desc: '通过企业微信、飞书随时派任务',
+    images: [new URL('@/assets/sb/sj.webp', import.meta.url).href],
   },
 ]
 </script>
@@ -67,7 +66,7 @@ const modes = [
                     ? 'w-1/2 h-24 md:h-28 rounded-lg bg-white'
                     : 'w-full h-full',
                   mode.images.length > 1 && idx === 1 ? '-ml-6 md:-ml-8' : '',
-                  mode.title === '手机' || mode.title === '触控笔' ? 'max-h-20 md:max-h-24 mx-auto' : '',
+                  mode.title === '手机远程' || mode.title === '指尖触屏' ? 'max-h-20 md:max-h-24 mx-auto' : '',
                 ]"
               />
             </div>

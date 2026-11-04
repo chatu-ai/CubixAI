@@ -6,51 +6,43 @@ import Chip from '../../components/Chip.vue'
 import BrandButton from '../../components/BrandButton.vue'
 
 const openModal = inject<() => void>('agentStationOpenModal')
+const BOOKING_URL = 'https://ruanjimu.feishu.cn/share/base/form/shrcnO4m2xMY6ma9mnYSuAkSSKg'
+const onCta = (cta: string) => {
+  if (cta === '立即预订') window.open(BOOKING_URL, '_blank')
+  else openModal?.()
+}
 
 const sectionRef = ref<HTMLElement | null>(null)
 useScrollReveal(sectionRef, { y: 30 })
 
 const versions = [
   {
-    name: 'Vision 版',
-    price: '¥2999',
-    badge: '直观交互 · 桌面陪伴',
-    audience: '个人创作者 · 设计师 · 小团队',
+    name: '专业版',
+    price: '¥3,999',
+    badge: '一次买断',
+    audience: '个人与小团队',
     features: [
-      '5.5" 触控屏 + 触控笔',
-      '8GB 内存 + 128GB 存储',
-      '内置 500 万 token(30 天)',
+      '主机 + Windows 11 企业版 + 预装 ChatU Mate',
+      'DeepSeek Harness + Qwen 本地模型，软件终身免费升级',
+      '赠送 1000 万 Token',
+      '24 小时智能客服 + 激活后 7 天免费人工远程指导',
     ],
-    cta: '立即购买',
+    cta: '立即预订',
     ctaVariant: 'primary' as const,
     to: '/contact',
   },
   {
-    name: 'Vision Pro 版',
-    price: '¥3999',
-    badge: '交互与算力集大成',
-    audience: '政府机构 · 大型企业 · 高端用户',
+    name: '企业版',
+    price: '商务洽谈',
+    badge: '定制部署',
+    audience: '部门 / 内网集群',
     features: [
-      '顶级硬件 + 极致性能',
-      '16GB 内存 + 256GB 存储',
-      '内置 1000 万 token(30 天)',
+      '多设备集群统一管理、权限可控、定制部署',
+      '同专业版，可接企业内网大模型',
+      '赠送 Token 按方案',
+      '专属服务',
     ],
-    cta: '立即购买',
-    ctaVariant: 'primary' as const,
-    to: '/contact',
-    recommended: true,
-  },
-  {
-    name: 'One 算力版',
-    price: '价格待定',
-    badge: '超强算力 · 后台中枢',
-    audience: 'B 端企业 · 开发团队',
-    features: [
-      '纯主机极简工业设计',
-      '强大本地算力核心',
-      '支持私有化模型部署',
-    ],
-    cta: '联系销售',
+    cta: '联系我们',
     ctaVariant: 'ghost' as const,
     to: '/contact',
   },
@@ -67,29 +59,16 @@ const versions = [
           选择适合你的版本
         </h2>
         <p class="mt-4 text-lg text-ink-secondary">
-          一次投入 · 持续享受技术迭代红利
+          一次买断，终身使用
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         <div
           v-for="v in versions"
           :key="v.name"
-          class="relative flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card"
-          :class="
-            v.recommended
-              ? 'md:-mt-4 md:mb-4 border-[#2DB4E6] shadow-lg'
-              : 'hover:shadow-lg transition-all duration-300 hover:-translate-y-1'
-          "
+          class="relative flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
-          <!-- 推荐 badge -->
-          <div
-            v-if="v.recommended"
-            class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#2DB4E6] text-white text-xs font-semibold"
-          >
-            最受欢迎
-          </div>
-
           <span
             class="text-xs font-semibold text-[#2DB4E6] uppercase tracking-wider"
           >
@@ -124,7 +103,7 @@ const versions = [
                 'w-full justify-center',
                 v.ctaVariant === 'primary' ? '!bg-none !bg-[#2DB4E6]' : 'hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]',
               ]"
-              @click="openModal"
+              @click="onCta(v.cta)"
             >
               {{ v.cta }}
             </BrandButton>
@@ -133,7 +112,7 @@ const versions = [
       </div>
 
       <p class="mt-10 text-center text-xs text-ink-tertiary">
-        * 最终产品的软硬件配置及价格，以官方正式发布版本为准
+        Token 赠送政策以购买时官方公告为准。另有多元 Token 订阅方案，适配不同使用需求，详情请咨询客服。
       </p>
     </div>
   </section>

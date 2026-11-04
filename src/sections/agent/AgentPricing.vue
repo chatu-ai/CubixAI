@@ -1,98 +1,60 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
-import Chip from '../../components/Chip.vue'
+import { Icon } from '@iconify/vue'
 
 const sectionRef = ref<HTMLElement | null>(null)
 useScrollReveal(sectionRef, { y: 30 })
 
-const plans = [
+const cards = [
   {
-    title: '点数充值',
-    subtitle: '按需付费',
-    items: ['100 万 · ¥59', '500 万 · ¥269', '1000 万 · ¥499', '5000 万 · ¥1999'],
-    fit: '低频使用 · 小团队',
+    icon: 'lucide:graduation-cap',
+    title: '全面课程体系',
+    desc: 'L0 AI 认知入门 → L1 工具实操 → L2 多智能体协同 → L3 企业工作流设计；线上录播 + 线下面授',
   },
   {
-    title: '月度订阅',
-    subtitle: '高频首选',
-    items: [
-      '首月 100 万 → ¥9.9',
-      '常规 100 万 · ¥49/月',
-      '500 万 · ¥199/月',
-      '3000 万 · ¥999/月',
-    ],
-    fit: '短期项目 · 高频使用',
-    badge: '首月 9.9 元',
-    highlight: true,
+    icon: 'lucide:presentation',
+    title: '线下训练营',
+    desc: '园区夜校、OPC 实战营（通识 → 认证 → 实战）、加速营；优秀学员可注册 OPC 入园',
   },
   {
-    title: '年度订阅',
-    subtitle: '最划算',
-    items: ['100 万×12 · ¥499', '500 万×12 · ¥1999', '3000 万×12 · ¥9999'],
-    fit: '长期企业用户',
+    icon: 'lucide:map-pin',
+    title: '多城社群网络',
+    desc: '线上交流经验，线下面对面分享；PEC 大会 · 250 万+ 社群',
+  },
+  {
+    icon: 'lucide:headset',
+    title: '客服与售后',
+    desc: '24 小时智能客服；激活后 7 天免费人工远程指导，之后按次付费',
   },
 ]
 </script>
 
 <template>
   <section ref="sectionRef" class="py-20 md:py-[120px] bg-surface-base">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12 md:mb-16">
         <h2
           class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
         >
-          灵活计费 · 按需付费
+          到手不是结束，是开始
         </h2>
-        <p class="mt-4 text-sm text-ink-tertiary">
-          * 100 万点数 ≈ 70 万字上下文 / 100 张图片
+        <p class="mt-4 text-lg text-ink-secondary">
+          不止入手一台智方体，配套服务同步就位
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div
-          v-for="plan in plans"
-          :key="plan.title"
-          class="relative flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card"
-          :class="
-            plan.highlight
-              ? 'md:-mt-4 md:mb-4 border-gold shadow-lg'
-              : 'hover:shadow-lg transition-all duration-300 hover:-translate-y-1'
-          "
+          v-for="c in cards"
+          :key="c.title"
+          class="flex flex-col p-7 rounded-2xl bg-surface-card border border-line/50 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
-          <!-- badge -->
-          <div
-            v-if="plan.badge"
-            class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gold text-white text-xs font-semibold"
-          >
-            {{ plan.badge }}
+          <div class="w-12 h-12 rounded-xl bg-[#E6F5FB] flex items-center justify-center mb-5">
+            <Icon :icon="c.icon" class="w-6 h-6 text-[#2DB4E6]" />
           </div>
-
-          <span
-            class="text-xs font-semibold text-[#2DB4E6] uppercase tracking-wider"
-          >
-            {{ plan.title }}
-          </span>
-          <p class="mt-1 text-sm text-ink-secondary">{{ plan.subtitle }}</p>
-
-          <ul class="mt-6 space-y-3 flex-1">
-            <li
-              v-for="(item, i) in plan.items"
-              :key="item"
-              class="text-sm"
-              :class="
-                plan.highlight && i === 0
-                  ? 'text-gold font-semibold'
-                  : 'text-ink-primary'
-              "
-            >
-              {{ item }}
-            </li>
-          </ul>
-
-          <Chip variant="muted" class="mt-6 self-start">
-            {{ plan.fit }}
-          </Chip>
+          <h3 class="text-lg font-semibold text-ink-primary">{{ c.title }}</h3>
+          <p class="mt-2 text-sm text-ink-secondary leading-relaxed flex-1">{{ c.desc }}</p>
         </div>
       </div>
     </div>

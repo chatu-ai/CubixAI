@@ -192,7 +192,7 @@ onUnmounted(() => {
                   </div>
                 </div>
               </RouterLink>
-              <!-- <RouterLink
+              <RouterLink
                 to="/products/agentstation"
                 class="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-muted transition-colors mt-1"
                 @click="closeProductMenu"
@@ -208,7 +208,7 @@ onUnmounted(() => {
                     {{ t('header.agentDesc') }}
                   </div>
                 </div>
-              </RouterLink> -->
+              </RouterLink>
               <RouterLink
                 to="/opc-hub"
                 class="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-muted transition-colors mt-1"

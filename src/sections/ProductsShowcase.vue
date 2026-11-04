@@ -76,11 +76,8 @@ useScrollReveal(card4Ref, { y: 30, delay: 0.25 })
                 <Chip class="!bg-[#2DB4E6]/8 !text-[#2DB4E6]">{{ t('home.products.card2Tag3') }}</Chip>
               </div>
               <div class="mt-auto pt-8">
-                <!-- <BrandButton variant="ghost" size="sm" to="/products/agentstation" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" arrow>
+                <BrandButton variant="ghost" size="sm" to="/products/agentstation" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" arrow>
                   {{ t('common.learnMore') }}
-                </BrandButton> -->
-                <BrandButton variant="ghost" size="sm" disabled class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6] disabled:opacity-50 disabled:cursor-not-allowed" arrow>
-                    {{ t('common.comingSoon') }}
                 </BrandButton>
               </div>
             </div>

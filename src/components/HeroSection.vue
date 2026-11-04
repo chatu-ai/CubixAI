@@ -151,7 +151,7 @@ onUnmounted(() => {
 <template>
   <section class="relative w-full overflow-hidden bg-surface-base">
     <div
-      class="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y"
+      class="relative w-full h-[220px] sm:aspect-[3392/1120] sm:h-auto overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y"
       @pointerdown="onPointerDown"
       @pointermove="onPointerMove"
       @pointerup="onPointerUp"

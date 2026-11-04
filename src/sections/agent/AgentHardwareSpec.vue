@@ -2,7 +2,7 @@
 import { ref, onUnmounted } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import AppImage from '../../components/AppImage.vue'
-import hero1 from '@/assets/zft/hero1.webp'
+import hero1 from '@/assets/zft/hero1(2).webp'
 import zft1 from '@/assets/zft/1.webp'
 import zft2 from '@/assets/zft/2.webp'
 import zft3 from '@/assets/zft/3.webp'
@@ -36,21 +36,22 @@ onUnmounted(() => {
 })
 
 const coreSpecs = [
-  { name: '处理器', value: 'Intel(R) Celeron(R) N5100 @ 1.10GHz 1.10 GHz', highlight: '', suffix: '' },
-  { name: '内存', value: '8GB / 16GB', highlight: '', suffix: ' LPDDR5' },
-  { name: '存储', value: '128GB / 512GB', highlight: '', suffix: ' SSD' },
-  { name: '显卡', value: 'Intel® UHD Graphics', highlight: '', suffix: '' },
-  { name: '屏幕', value: '5.5英寸智能触控屏显', highlight: 'G + G5 多点触控', suffix: '分辨率 720×1280（IPS）' },
-  { name: '电池', value: '2500mAh  续航约 ', highlight: '5', suffix: ' 小时' },
+  { name: '屏幕', value: '7 英寸高清触控屏', highlight: '', suffix: '' },
+  { name: '重量', value: '约 700 克', highlight: '', suffix: '' },
+  { name: '续航', value: '内置电池，待机约 5 小时', highlight: '', suffix: '' },
+  { name: '操作系统', value: 'Windows 11 企业版', highlight: '', suffix: '' },
+  { name: '处理器', value: 'Intel(R) N150', highlight: '', suffix: '' },
+  { name: '内存', value: '16G', highlight: '', suffix: '' },
+  { name: '存储', value: '256G / 512G / 1TB', highlight: '', suffix: '' },
+  { name: '本地模型', value: 'Qwen 等，离线可用', highlight: '', suffix: '' },
 ]
 
 const ioSpecs = [
-  { name: 'USB', value: '4×USB 3.0  +  1×USB-C', highlight: '', suffix: '' },
-  { name: '视频', value: 'HDMI 2.1(', highlight: '4K', suffix: ')' },
-  { name: '网络', value: '双千兆网口、Wi‑Fi 2.4G/5G、蓝牙 5.0/5.2', highlight: '', suffix: '' },
-  { name: '机身', value: '全铝金属外壳 · 无风扇静音散热', highlight: '', suffix: '' },
-  { name: '尺寸', value: '130×120×45mm  仅 ', highlight: '0.2KG', suffix: '' },
-  { name: '认证', value: 'CE / FCC · 支持 PXE 预启动', highlight: '', suffix: '' },
+  { name: 'USB', value: 'USB × 4 + Type-C × 1，键鼠、U 盘、摄像头、打印机即插即用', highlight: '', suffix: '' },
+  { name: '视频输出', value: 'HDMI / DP，外接大屏或投影', highlight: '', suffix: '' },
+  { name: '网络', value: '千兆网口 + Wi-Fi，内网大模型直连', highlight: '', suffix: '' },
+  { name: '尺寸', value: '长 17.5 cm × 宽 2 cm × 高 11 cm', highlight: '', suffix: '' },
+  { name: '认证', value: '3C 认证', highlight: '', suffix: '' },
 ]
 </script>
 
@@ -95,21 +96,27 @@ const ioSpecs = [
               />
             </button>
           </div>
+          <p class="mt-4 text-xs md:text-[11px] text-ink-tertiary text-center whitespace-nowrap">
+            7 英寸触屏正面：开机即桌面　｜　一体支架：随手立起　｜　侧面接口：USB、HDMI、散热
+          </p>
         </div>
 
         <!-- 右：规格表 -->
         <div ref="rightRef">
           <h2
-            class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight mb-10"
+            class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
           >
-            工业级硬件规格
+            掌上 AI 工作站
           </h2>
+          <p class="mt-3 text-lg text-ink-secondary leading-relaxed">
+            手掌大小，装进包里带走；接上显示器，秒变桌面生产力
+          </p>
 
-          <div class="mb-8">
+          <div class="mt-10 mb-8">
             <h3
               class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
             >
-              核心计算
+              核心配置
             </h3>
             <div class="divide-y divide-line">
               <div
@@ -138,7 +145,7 @@ const ioSpecs = [
             <h3
               class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
             >
-              接口与工艺
+              接口与扩展
             </h3>
             <div class="divide-y divide-line">
               <div
