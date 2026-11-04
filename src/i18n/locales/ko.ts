@@ -31,6 +31,7 @@ export default {
     ecosystem: '에코시스템',
     aiInsight: 'AI 인사이트',
     aboutUs: '회사 소개',
+    paidInsights: '유료 인사이트',
     language: '언어',
     chatuName: 'ChatU',
     chatuDesc: '기업 AI 운영체제',

@@ -20,7 +20,7 @@ const contactLangMenuRef = ref<HTMLElement | null>(null)
 const SHOW_CONTACT_LANG_SWITCHER = true
 
 // 控制左侧全局 i18n 语言切换按钮显示/隐藏
-const SHOW_GLOBAL_LANG_SWITCHER = false
+const SHOW_GLOBAL_LANG_SWITCHER = true
 const languageLoading = ref(false)
 const languageError = ref('')
 
@@ -87,6 +87,7 @@ const moreNavItems = computed(() => [
   { label: t('header.ecosystem'), to: '/ecosystem' },
   { label: t('header.aiInsight'), to: '/ai-insight' },
   { label: t('header.aboutUs'), to: '/contact' },
+  { label: t('header.paidInsights'), to: '/paid-insights' },
 ])
 
 const mobileProductItems = computed(() => [
@@ -99,6 +100,9 @@ const mobileProductItems = computed(() => [
 function isActive(path: string): boolean {
   if (path === '/') {
     return route.path === '/'
+  }
+  if (path === '/paid-insights' && route.path.startsWith('/paid-insight/')) {
+    return true
   }
   return route.path === path || route.path.startsWith(path + '/')
 }
@@ -141,18 +145,21 @@ onUnmounted(() => {
     class="fixed top-0 left-0 right-0 z-50 bg-surface-base/80 backdrop-blur-xl border-b border-line/50"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- 左中右三栏：左右两栏等宽伸缩，保证导航在任何页面都居中 -->
       <div class="flex items-center justify-between h-16 md:h-20">
         <!-- Logo -->
-        <RouterLink to="/" class="flex items-center gap-2.5">
-          <img
-            src="@/assets/logo.webp"
-            alt="软积木"
-            class="h-[84px] w-[84px] md:h-[108px] md:w-[108px] rounded-2xl object-contain"
-          />
-        </RouterLink>
+        <div class="flex-1 basis-0 min-w-0 flex items-center">
+          <RouterLink to="/" class="flex items-center gap-2.5">
+            <img
+              src="@/assets/logo.webp"
+              alt="软积木"
+              class="h-[84px] w-[84px] md:h-[108px] md:w-[108px] rounded-2xl object-contain"
+            />
+          </RouterLink>
+        </div>
 
         <!-- Desktop Nav -->
-        <nav class="hidden md:flex items-center gap-0.5">
+        <nav class="hidden md:flex shrink-0 items-center justify-center gap-0.5">
           <RouterLink
             to="/"
             class="px-3 py-2 text-sm font-medium transition-colors rounded-lg"
@@ -271,10 +278,13 @@ onUnmounted(() => {
           </RouterLink>
         </nav>
 
+        <!-- Right controls -->
+        <div class="flex-1 basis-0 min-w-0 flex items-center justify-end gap-1">
         <!-- Language Switcher -->
         <div
-          v-if="SHOW_GLOBAL_LANG_SWITCHER"
+          v-if="SHOW_GLOBAL_LANG_SWITCHER && !isContactPage"
           ref="langMenuRef"
+          data-lang-switcher="global"
           class="hidden md:block relative"
           @mouseenter="showLangMenu = true"
           @mouseleave="showLangMenu = false"
@@ -313,6 +323,7 @@ onUnmounted(() => {
         <div
           v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage"
           ref="contactLangMenuRef"
+          data-lang-switcher="contact"
           class="hidden md:block relative"
           @mouseenter="showContactLangMenu = true"
           @mouseleave="showContactLangMenu = false"
@@ -353,6 +364,7 @@ onUnmounted(() => {
             class="w-6 h-6 text-ink-primary"
           />
         </button>
+        </div>
       </div>
     </div>
 
@@ -397,7 +409,7 @@ onUnmounted(() => {
       >
         {{ item.label }}
       </RouterLink>
-      <template v-if="SHOW_GLOBAL_LANG_SWITCHER">
+      <template v-if="SHOW_GLOBAL_LANG_SWITCHER && !isContactPage">
         <div class="border-t border-line/50 my-2" />
         <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
           {{ t('header.language') }}
@@ -420,7 +432,7 @@ onUnmounted(() => {
         <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
           Contact {{ t('header.language') }}
         </div>
-        <div class="flex gap-2 px-3 py-2">
+        <div class="flex gap-2 px-3 py-2" data-lang-switcher="contact">
           <button
             v-for="l in langList"
             :key="l"

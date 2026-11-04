@@ -53,7 +53,7 @@ function confirmPaid() {
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
       <RouterLink
-        to="/#paid-insights"
+        to="/paid-insights"
         class="inline-flex items-center gap-1.5 text-sm font-medium text-ink-secondary hover:text-brand transition-colors"
       >
         <Icon icon="lucide:arrow-left" class="w-4 h-4" aria-hidden="true" />
@@ -68,7 +68,7 @@ function confirmPaid() {
         <Icon icon="lucide:file-x" class="w-10 h-10 mx-auto text-ink-tertiary" aria-hidden="true" />
         <p class="mt-4 text-lg font-medium text-ink-primary">{{ t('paidInsight.notFound') }}</p>
         <div class="mt-8">
-          <BrandButton variant="ghost" to="/#paid-insights">{{ t('paidInsight.back') }}</BrandButton>
+          <BrandButton variant="ghost" to="/paid-insights">{{ t('paidInsight.back') }}</BrandButton>
         </div>
       </div>
 

@@ -130,6 +130,22 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/paid-insights',
+    name: 'PaidInsights',
+    component: () => import('../views/PaidInsightsView.vue'),
+    meta: {
+      title: '有偿资讯 · 企业 AI 落地实战技巧 | 软积木 CubixAI',
+      description:
+        '软积木有偿资讯栏目，汇集企业 AI 落地实战技巧：知识库清洗、RAG 调优、私有化部署选型等，扫码付费即可查看完整内容。',
+      schema: {
+        '@type': 'CollectionPage',
+        name: '有偿资讯 · 企业 AI 落地实战技巧',
+        description: '软积木有偿资讯栏目，汇集企业 AI 落地实战技巧，扫码付费查看完整内容。',
+        url: `${SITE_ORIGIN}/paid-insights`,
+      },
+    },
+  },
+  {
     path: '/paid-insight/:id',
     name: 'PaidInsight',
     component: () => import('../views/PaidInsightPayView.vue'),

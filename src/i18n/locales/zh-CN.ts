@@ -38,6 +38,7 @@ export default {
     ecosystem: '生态',
     aiInsight: 'AI洞察',
     aboutUs: '关于我们',
+    paidInsights: '有偿资讯',
     language: '语言',
     chatuName: 'ChatU（才兔）',
     chatuDesc: '企业 AI 操作系统',

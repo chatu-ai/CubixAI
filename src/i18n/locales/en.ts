@@ -31,6 +31,7 @@ export default {
     ecosystem: 'Ecosystem',
     aiInsight: 'AI Insight',
     aboutUs: 'About Us',
+    paidInsights: 'Paid Insights',
     language: 'Language',
     chatuName: 'ChatU',
     chatuDesc: 'Enterprise AI Operating System',

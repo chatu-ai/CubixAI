@@ -15,7 +15,7 @@ useScrollReveal(cardRef, { y: 40, delay: 0.1 })
 </script>
 
 <template>
-  <section id="paid-insights" class="py-20 md:py-[120px] bg-surface-base scroll-mt-24">
+  <section id="paid-insights" class="pt-12 md:pt-16 pb-20 md:pb-[120px] bg-surface-base scroll-mt-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-10 md:mb-14">
         <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
