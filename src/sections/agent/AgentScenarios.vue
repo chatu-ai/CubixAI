@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import AppImage from '../../components/AppImage.vue'
 
 const sectionRef = ref<HTMLElement | null>(null)
 useScrollReveal(sectionRef, { y: 30 })
@@ -43,7 +44,7 @@ const audiences = [
           class="flex flex-col p-6 rounded-2xl bg-surface-card border border-line/50 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
           <div class="aspect-video rounded-xl overflow-hidden mb-4">
-            <img
+            <AppImage
               :src="s.image"
               :alt="s.title"
               class="w-full h-full object-cover"

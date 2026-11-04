@@ -1,8 +1,5 @@
 import { createI18n } from 'vue-i18n'
 import zhCN from './locales/zh-CN'
-import en from './locales/en'
-import ja from './locales/ja'
-import ko from './locales/ko'
 
 export type SupportedLocale = 'zh-CN' | 'en' | 'ja' | 'ko'
 
@@ -20,7 +17,7 @@ export const localeLabels: Record<SupportedLocale, string> = {
   'ko': '한국어',
 }
 
-function getInitialLocale(): SupportedLocale {
+export function getInitialLocale(): SupportedLocale {
   // 1. Check localStorage
   const stored = localStorage.getItem('locale')
   if (stored && ['zh-CN', 'en', 'ja', 'ko'].includes(stored)) {
@@ -36,16 +33,27 @@ function getInitialLocale(): SupportedLocale {
   return 'zh-CN'
 }
 
+const initialMessages: Record<string, typeof zhCN> = { 'zh-CN': zhCN }
+
 const i18n = createI18n({
   legacy: false,
-  locale: getInitialLocale(),
+  locale: 'zh-CN',
   fallbackLocale: 'zh-CN',
-  messages: {
-    'zh-CN': zhCN,
-    en,
-    ja,
-    ko,
-  },
+  messages: initialMessages,
 })
+
+const localeLoaders = {
+  en: () => import('./locales/en'),
+  ja: () => import('./locales/ja'),
+  ko: () => import('./locales/ko'),
+}
+
+export async function setLocale(locale: SupportedLocale) {
+  if (locale !== 'zh-CN' && !i18n.global.availableLocales.includes(locale)) {
+    const messages = await localeLoaders[locale]()
+    i18n.global.setLocaleMessage(locale, messages.default)
+  }
+  i18n.global.locale.value = locale
+}
 
 export default i18n

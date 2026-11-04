@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
-import i18n, { localeMap, localeLabels } from '../i18n'
+import i18n, { localeMap, localeLabels, setLocale } from '../i18n'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -17,11 +17,12 @@ const productMenuRef = ref<HTMLElement | null>(null)
 const langMenuRef = ref<HTMLElement | null>(null)
 const contactLangMenuRef = ref<HTMLElement | null>(null)
 
-// 上线前将此处改为 false 即可隐藏第二个语言按钮
 const SHOW_CONTACT_LANG_SWITCHER = true
 
 // 控制左侧全局 i18n 语言切换按钮显示/隐藏
 const SHOW_GLOBAL_LANG_SWITCHER = false
+const languageLoading = ref(false)
+const languageError = ref('')
 
 const contactLangRoutes: Record<string, string> = {
   'zh-CN': '/contact',
@@ -47,14 +48,22 @@ const currentContactLangLabel = computed(() => {
 
 const langList: string[] = ['中文', 'English', '한국어', '日本語']
 
-function selectLang(lang: string) {
+async function selectLang(lang: string) {
   const newLocale = localeMap[lang]
-  if (newLocale) {
-    i18n.global.locale.value = newLocale
+  if (!newLocale || languageLoading.value) return
+  languageError.value = ''
+  languageLoading.value = true
+  try {
+    await setLocale(newLocale)
     localStorage.setItem('locale', newLocale)
+    showLangMenu.value = false
+    mobileOpen.value = false
+  } catch (error) {
+    console.error('[i18n] Failed to switch language', error)
+    languageError.value = t('common.languageLoadError')
+  } finally {
+    languageLoading.value = false
   }
-  showLangMenu.value = false
-  mobileOpen.value = false
 }
 
 function selectContactLang(lang: string) {
@@ -62,12 +71,7 @@ function selectContactLang(lang: string) {
   if (!newLocale) return
 
   if (isContactPage.value) {
-    // 在 Contact 系列页面时，切换路由到对应语言的完整页面
     router.replace(contactLangRoutes[newLocale])
-  } else {
-    // 测试模式：非 Contact 页面点击后跳转到对应语言的 Contact 页面，便于测试功能
-    // TODO: 上线前改为 return 或 disabled，保持其他页面内容不变
-    router.push(contactLangRoutes[newLocale])
   }
 
   showContactLangMenu.value = false
@@ -294,6 +298,7 @@ onUnmounted(() => {
             <button
               v-for="l in langList"
               :key="l"
+              :disabled="languageLoading"
               class="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-xl transition-colors"
               :class="currentLangLabel === l ? 'bg-brand-soft text-brand font-medium' : 'text-ink-secondary hover:bg-surface-muted'"
               @click="selectLang(l)"
@@ -306,7 +311,7 @@ onUnmounted(() => {
 
         <!-- Contact Language Switcher -->
         <div
-          v-if="SHOW_CONTACT_LANG_SWITCHER"
+          v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage"
           ref="contactLangMenuRef"
           class="hidden md:block relative"
           @mouseenter="showContactLangMenu = true"
@@ -403,13 +408,14 @@ onUnmounted(() => {
             :key="l"
             class="px-3 py-1.5 text-sm rounded-lg border transition-colors"
             :class="currentLangLabel === l ? 'border-brand bg-brand-soft text-brand font-medium' : 'border-line text-ink-secondary hover:bg-surface-muted'"
+            :disabled="languageLoading"
             @click="selectLang(l)"
           >
             {{ l }}
           </button>
         </div>
       </template>
-      <template v-if="SHOW_CONTACT_LANG_SWITCHER">
+      <template v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage">
         <div class="border-t border-line/50 my-2" />
         <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
           Contact {{ t('header.language') }}
@@ -427,5 +433,8 @@ onUnmounted(() => {
         </div>
       </template>
     </div>
+    <p v-if="languageError" role="alert" class="px-4 py-2 text-sm text-red-700">
+      {{ languageError }}
+    </p>
   </header>
 </template>

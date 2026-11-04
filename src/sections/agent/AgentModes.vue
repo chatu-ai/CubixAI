@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import AppImage from '../../components/AppImage.vue'
 
 const bottomRef = ref<HTMLElement | null>(null)
 useScrollReveal(bottomRef, { y: 30, delay: 0.15 })
@@ -55,7 +56,7 @@ const modes = [
               class="w-full mb-4 rounded-xl overflow-hidden bg-white border border-line/30"
               :class="mode.images.length > 1 ? 'flex items-center justify-center p-2' : 'h-28 md:h-32'"
             >
-              <img
+              <AppImage
                 v-for="(img, idx) in mode.images"
                 :key="img"
                 :src="img"

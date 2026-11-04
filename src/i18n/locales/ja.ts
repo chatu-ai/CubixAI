@@ -19,6 +19,8 @@ export default {
     solveProblems: '解決した問題',
     effect: '成果',
     comingSoon: 'まもなく公開',
+    close: '閉じる',
+    languageLoadError: '言語リソースを読み込めませんでした。ページを再読み込みするか、しばらくしてから再試行してください。',
   },
 
   header: {

@@ -6,10 +6,7 @@ import sharp from 'sharp'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const rootDir = path.resolve(__dirname, '..')
-const assetsDir = path.join(rootDir, 'src', 'assets')
-const srcDir = path.join(rootDir, 'src')
-
-const imageExts = ['.png', '.jpg', '.jpeg']
+const imageExts = ['.png', '.jpg', '.jpeg', '.webp']
 const codeExts = ['.vue', '.ts', '.js', '.css', '.scss']
 
 async function walk(dir) {
@@ -23,64 +20,85 @@ async function walk(dir) {
   return files
 }
 
-async function main() {
+export async function convertAssets(projectDir = rootDir) {
+  const assetsDir = path.join(projectDir, 'src', 'assets')
+  const srcDir = path.join(projectDir, 'src')
   const allFiles = await walk(assetsDir)
   const imageFiles = allFiles.filter((f) =>
     imageExts.includes(path.extname(f).toLowerCase())
   )
-
-  console.log(`Found ${imageFiles.length} images in src/assets`)
-
-  const converted = []
-  const failed = []
+  const conversions = []
 
   for (const file of imageFiles) {
-    const webpFile = file.replace(/\.(png|jpe?g)$/i, '.webp')
-    try {
-      await sharp(file)
-        .webp({ quality: 80, effort: 4 })
-        .toFile(webpFile)
-      await fs.unlink(file)
-      converted.push(path.relative(rootDir, file))
-    } catch (err) {
-      failed.push({ file: path.relative(rootDir, file), error: err.message })
-      // cleanup partial output
-      try {
-        await fs.unlink(webpFile)
-      } catch {}
+    const input = await fs.readFile(file)
+    const metadata = await sharp(input).metadata()
+    if (path.extname(file) === '.webp' && metadata.format === 'webp') {
+      continue
     }
+    if (!['png', 'jpeg', 'webp'].includes(metadata.format) || metadata.pages > 1) {
+      throw new Error(`Unsupported image: ${path.relative(projectDir, file)}`)
+    }
+    const webpFile = file.replace(/\.(png|jpe?g|webp)$/i, '.webp')
+    if (file !== webpFile && allFiles.includes(webpFile)) {
+      throw new Error(`Output already exists: ${path.relative(projectDir, webpFile)}`)
+    }
+    if (conversions.some((item) => item.webpFile === webpFile)) {
+      throw new Error(`Duplicate output: ${path.relative(projectDir, webpFile)}`)
+    }
+    const output = await sharp(input).webp({ lossless: true, effort: 4 }).toBuffer()
+    conversions.push({ file, webpFile, input, output })
   }
 
-  console.log(`Converted ${converted.length} images to .webp`)
-  if (failed.length) {
-    console.error(`Failed to convert ${failed.length} images:`)
-    failed.forEach((f) => console.error(`  ${f.file}: ${f.error}`))
-  }
-
-  // Update source references
+  // Validate and prepare every conversion before changing any source files.
   const srcFiles = (await walk(srcDir)).filter((f) =>
     codeExts.includes(path.extname(f).toLowerCase())
   )
-
-  const assetPathRegex =
-    /(@\/assets\/|(?:\.\.\/)+assets\/|\\.\/assets\/|\/assets\/)([^'"\s)]+)\.(png|jpe?g)/gi
-
-  let updatedFiles = 0
+  const references = conversions.filter(({ file, webpFile }) => file !== webpFile)
+  const updates = []
   for (const file of srcFiles) {
     const content = await fs.readFile(file, 'utf8')
-    const newContent = content.replace(assetPathRegex, (_match, prefix, filename) => {
-      return prefix + filename + '.webp'
-    })
+    let newContent = content
+    for (const conversion of references) {
+      const oldName = path.relative(assetsDir, conversion.file).split(path.sep).join('/')
+      const newName = path.relative(assetsDir, conversion.webpFile).split(path.sep).join('/')
+      const escapedName = oldName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const pattern = new RegExp(
+        `((?:@/|(?:\\.\\./)+|\\./|/)assets/)${escapedName}(?=['"\`\\s)?#]|$)`,
+        'g'
+      )
+      newContent = newContent.replace(pattern, (_match, prefix) => prefix + newName)
+    }
     if (newContent !== content) {
-      await fs.writeFile(file, newContent, 'utf8')
-      updatedFiles++
+      updates.push({ file, content: newContent })
     }
   }
 
-  console.log(`Updated ${updatedFiles} source files`)
+  for (const { file, webpFile, output } of conversions) {
+    await fs.writeFile(webpFile, output, { flag: file === webpFile ? 'w' : 'wx' })
+  }
+  for (const { file, content } of updates) {
+    await fs.writeFile(file, content, 'utf8')
+  }
+  for (const { file, webpFile } of references) {
+    await fs.unlink(file)
+  }
+
+  return {
+    converted: conversions.length,
+    updatedFiles: updates.length,
+    bytesBefore: conversions.reduce((total, item) => total + item.input.length, 0),
+    bytesAfter: conversions.reduce((total, item) => total + item.output.length, 0),
+  }
 }
 
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  convertAssets()
+    .then(({ converted, updatedFiles, bytesBefore, bytesAfter }) => {
+      console.log(`Converted ${converted} images; updated ${updatedFiles} source files`)
+      console.log(`Image bytes: ${bytesBefore} -> ${bytesAfter}`)
+    })
+    .catch((err) => {
+      console.error(err)
+      process.exitCode = 1
+    })
+}

@@ -27,30 +27,34 @@ const items = [
 
 const certImages = [
   {
-    src: getImageUrl('zz/图片1.webp'),
+    image: '图片1.webp',
     name: 'ISO 9001 质量管理体系认证证书',
   },
   {
-    src: getImageUrl('zz/图片2.webp'),
+    image: '图片2.webp',
     name: 'ChatU CE 符合性认证证书',
   },
   {
-    src: getImageUrl('zz/图片3.webp'),
+    image: '图片3.webp',
     name: '发明专利公布',
   },
   {
-    src: getImageUrl('zz/图片4.webp'),
+    image: '图片4.webp',
     name: 'ChatU 企业大模型生成合成调度整合算法备案',
   },
   {
-    src: getImageUrl('zz/CubixAI大模型调度系统证书_01.webp'),
+    image: 'CubixAI大模型调度系统证书_01.webp',
     name: 'CubixAI 大模型调度系统软著证书',
   },
   {
-    src: getImageUrl('zz/企业智能销售后台管理系统证书_01.webp'),
+    image: '企业智能销售后台管理系统证书_01.webp',
     name: '企业智能销售后台管理系统软著证书',
   },
-]
+].map((cert) => ({
+  ...cert,
+  src: getImageUrl(`zz/${cert.image}`),
+  preview: getImageUrl(`zz/previews/${cert.image}`),
+}))
 </script>
 
 <template>
@@ -86,10 +90,15 @@ const certImages = [
             :key="cert.src"
             class="flex-shrink-0 px-3 md:px-4"
           >
-            <div class="w-64 md:w-80 rounded-xl overflow-hidden shadow-sm border border-line/50 bg-white p-3">
+            <a
+              :href="cert.src"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-64 md:w-80 rounded-xl overflow-hidden shadow-sm border border-line/50 bg-white p-3"
+            >
               <div class="h-48 md:h-60 flex items-center justify-center">
                 <AppImage
-                  :src="cert.src"
+                  :src="cert.preview"
                   :alt="cert.name"
                   class="max-w-full max-h-full object-contain"
                 />
@@ -97,18 +106,25 @@ const certImages = [
               <p class="mt-3 text-center text-xs md:text-sm text-ink-secondary leading-tight line-clamp-2">
                 {{ cert.name }}
               </p>
-            </div>
+            </a>
           </div>
           <!-- 复制一组实现无缝循环 -->
           <div
             v-for="cert in certImages"
             :key="`${cert.src}-dup`"
+            aria-hidden="true"
             class="flex-shrink-0 px-3 md:px-4"
           >
-            <div class="w-64 md:w-80 rounded-xl overflow-hidden shadow-sm border border-line/50 bg-white p-3">
+            <a
+              :href="cert.src"
+              target="_blank"
+              rel="noopener noreferrer"
+              tabindex="-1"
+              class="block w-64 md:w-80 rounded-xl overflow-hidden shadow-sm border border-line/50 bg-white p-3"
+            >
               <div class="h-48 md:h-60 flex items-center justify-center">
                 <AppImage
-                  :src="cert.src"
+                  :src="cert.preview"
                   :alt="cert.name"
                   class="max-w-full max-h-full object-contain"
                 />
@@ -116,7 +132,7 @@ const certImages = [
               <p class="mt-3 text-center text-xs md:text-sm text-ink-secondary leading-tight line-clamp-2">
                 {{ cert.name }}
               </p>
-            </div>
+            </a>
           </div>
         </div>
       </div>

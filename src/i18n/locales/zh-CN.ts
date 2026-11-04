@@ -23,6 +23,8 @@ export default {
     solveProblems: '解决问题',
     effect: '成效',
     comingSoon: '敬请期待',
+    close: '关闭',
+    languageLoadError: '语言资源加载失败，请刷新页面或稍后重试。',
   },
 
   // ========================

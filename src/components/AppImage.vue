@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type HTMLAttributes } from 'vue'
 
 interface Props {
   src: string
   alt?: string
-  class?: string
+  class?: HTMLAttributes['class']
   width?: number | string
   height?: number | string
   loading?: 'lazy' | 'eager'
@@ -25,7 +25,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const shouldPreload = computed(() => props.priority)
 const imgLoading = computed(() => (props.priority ? 'eager' : props.loading))
-const imgDecoding = computed(() => (props.priority ? 'sync' : props.decoding))
 </script>
 
 <template>
@@ -47,7 +46,8 @@ const imgDecoding = computed(() => (props.priority ? 'sync' : props.decoding))
     :width="width"
     :height="height"
     :loading="imgLoading"
-    :decoding="imgDecoding"
+    :decoding="decoding"
+    :fetchpriority="priority ? 'high' : undefined"
     :srcset="srcset"
     :sizes="sizes"
   />

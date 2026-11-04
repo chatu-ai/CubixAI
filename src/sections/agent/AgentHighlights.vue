@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
+import AppImage from '../../components/AppImage.vue'
 
 const sectionRef = ref<HTMLElement | null>(null)
 useScrollReveal(sectionRef, { y: 30 })
@@ -48,7 +49,7 @@ const items = [
           class="flex flex-col p-6 md:p-8 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
           <div class="mt-4 aspect-video rounded-xl overflow-hidden">
-            <img
+            <AppImage
               :src="item.image"
               :alt="item.title"
               class="w-full h-full object-cover"

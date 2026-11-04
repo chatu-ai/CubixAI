@@ -18,6 +18,8 @@ jobs:
 
       - run: npm ci
 
+      - run: npm test
+
       - run: npm run build
 
       # 安装腾讯云 COSCMD

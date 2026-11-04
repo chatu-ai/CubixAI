@@ -19,6 +19,8 @@ export default {
     solveProblems: 'Problems Solved',
     effect: 'Results',
     comingSoon: 'Coming Soon',
+    close: 'Close',
+    languageLoadError: 'Language resources could not be loaded. Please refresh or try again later.',
   },
 
   header: {

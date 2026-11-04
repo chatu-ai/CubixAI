@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, useId, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+const titleId = useId()
+const dialogRef = ref<HTMLElement | null>(null)
+const closeButtonRef = ref<HTMLButtonElement | null>(null)
+let previousFocus: HTMLElement | null = null
+let previousOverflow: string | null = null
 
 const props = defineProps<{
   modelValue: boolean
@@ -20,17 +28,70 @@ function onBackdropClick(event: MouseEvent) {
 }
 
 function onKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape' && props.modelValue) {
+  if (!props.modelValue) return
+  if (event.key === 'Escape') {
+    event.preventDefault()
     close()
+  }
+  if (event.key === 'Tab') {
+    const focusable = dialogRef.value?.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )
+    const first = focusable?.[0]
+    const last = focusable?.[focusable.length - 1]
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last?.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first?.focus()
+    }
   }
 }
 
+function onFocusIn(event: FocusEvent) {
+  if (
+    props.modelValue &&
+    event.target instanceof Node &&
+    !dialogRef.value?.contains(event.target)
+  ) {
+    closeButtonRef.value?.focus()
+  }
+}
+
+function releaseDialog() {
+  if (previousOverflow === null) return
+  document.body.style.overflow = previousOverflow
+  previousOverflow = null
+  if (previousFocus?.isConnected) previousFocus.focus()
+  previousFocus = null
+}
+
+watch(
+  () => props.modelValue,
+  async (open) => {
+    if (open) {
+      previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+      previousOverflow = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      await nextTick()
+      if (props.modelValue) closeButtonRef.value?.focus()
+    } else {
+      releaseDialog()
+    }
+  },
+  { immediate: true, flush: 'post' }
+)
+
 onMounted(() => {
   document.addEventListener('keydown', onKeydown)
+  document.addEventListener('focusin', onFocusIn)
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('focusin', onFocusIn)
+  releaseDialog()
 })
 </script>
 
@@ -55,8 +116,22 @@ onUnmounted(() => {
         >
           <div
             v-if="modelValue"
-            class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden p-4"
+            ref="dialogRef"
+            role="dialog"
+            aria-modal="true"
+            :aria-labelledby="titleId"
+            class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden p-4 pt-10"
           >
+            <h2 :id="titleId" class="sr-only">{{ t('common.contactUs') }}</h2>
+            <button
+              ref="closeButtonRef"
+              type="button"
+              :aria-label="t('common.close')"
+              class="absolute top-2 right-2 w-8 h-8 rounded-full hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand"
+              @click="close"
+            >
+              <span aria-hidden="true" class="text-xl">&times;</span>
+            </button>
             <!-- Content -->
             <div class="flex gap-4 items-stretch">
               <div class="w-28 shrink-0 rounded-xl overflow-hidden">

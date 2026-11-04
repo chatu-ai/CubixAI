@@ -76,7 +76,6 @@ const ioSpecs = [
                 :src="img"
                 :alt="`角度 ${i + 1}`"
                 class="w-full h-full shrink-0 object-contain"
-                :priority="i === 0"
               />
             </div>
           </div>
@@ -86,7 +85,8 @@ const ioSpecs = [
               :key="i"
               type="button"
               class="aspect-square rounded-xl bg-white border flex items-center justify-center overflow-hidden transition-colors"
-              :class="currentIndex === i ? 'border-[#2DB4E6] ring-2 ring-[#2DB4E6]/20' : 'border-line hover:border-[#2DB4E6]/50'"
+              :aria-pressed="currentIndex === i + 1"
+              :class="currentIndex === i + 1 ? 'border-[#2DB4E6] ring-2 ring-[#2DB4E6]/20' : 'border-line hover:border-[#2DB4E6]/50'"
               @click="selectImage(i)"
             >
               <AppImage

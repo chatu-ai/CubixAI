@@ -19,6 +19,8 @@ export default {
     solveProblems: '해결된 문제',
     effect: '성과',
     comingSoon: '곧 출시 예정',
+    close: '닫기',
+    languageLoadError: '언어 리소스를 불러오지 못했습니다. 페이지를 새로고침하거나 나중에 다시 시도해 주세요.',
   },
 
   header: {
