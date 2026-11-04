@@ -111,6 +111,39 @@ function isProductActive(): boolean {
   return ['/products/chatu', '/products/agentstation', '/opc-hub', '/training'].includes(route.path)
 }
 
+// 悬停菜单：延迟关闭，避免鼠标从按钮移向面板途中触发 mouseleave 导致菜单消失
+const HOVER_CLOSE_DELAY = 150
+let langMenuCloseTimer: ReturnType<typeof setTimeout> | null = null
+let contactLangMenuCloseTimer: ReturnType<typeof setTimeout> | null = null
+
+function openLangMenu() {
+  if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
+  langMenuCloseTimer = null
+  showLangMenu.value = true
+}
+
+function scheduleCloseLangMenu() {
+  if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
+  langMenuCloseTimer = setTimeout(() => {
+    showLangMenu.value = false
+    langMenuCloseTimer = null
+  }, HOVER_CLOSE_DELAY)
+}
+
+function openContactLangMenu() {
+  if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
+  contactLangMenuCloseTimer = null
+  showContactLangMenu.value = true
+}
+
+function scheduleCloseContactLangMenu() {
+  if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
+  contactLangMenuCloseTimer = setTimeout(() => {
+    showContactLangMenu.value = false
+    contactLangMenuCloseTimer = null
+  }, HOVER_CLOSE_DELAY)
+}
+
 function toggleProductMenu() {
   showProductMenu.value = !showProductMenu.value
 }
@@ -137,6 +170,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
+  if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
+  if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
 })
 </script>
 
@@ -286,8 +321,8 @@ onUnmounted(() => {
           ref="langMenuRef"
           data-lang-switcher="global"
           class="hidden md:block relative"
-          @mouseenter="showLangMenu = true"
-          @mouseleave="showLangMenu = false"
+          @mouseenter="openLangMenu"
+          @mouseleave="scheduleCloseLangMenu"
         >
           <button
             class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink-primary transition-colors rounded-lg hover:bg-surface-muted"
@@ -301,10 +336,9 @@ onUnmounted(() => {
               :class="showLangMenu && 'rotate-180'"
             />
           </button>
-          <div
-            v-show="showLangMenu"
-            class="absolute top-full right-0 mt-1 w-36 bg-surface-card rounded-2xl shadow-card border border-line/50 p-1.5"
-          >
+          <!-- pt-1 作为按钮与面板之间的悬停桥接区，避免出现空隙 -->
+          <div v-show="showLangMenu" class="absolute top-full right-0 pt-1 w-36">
+            <div class="bg-surface-card rounded-2xl shadow-card border border-line/50 p-1.5">
             <button
               v-for="l in langList"
               :key="l"
@@ -316,6 +350,7 @@ onUnmounted(() => {
               <span class="w-2 h-2 rounded-full" :class="currentLangLabel === l ? 'bg-brand' : 'bg-line'"></span>
               {{ l }}
             </button>
+            </div>
           </div>
         </div>
 
@@ -325,8 +360,8 @@ onUnmounted(() => {
           ref="contactLangMenuRef"
           data-lang-switcher="contact"
           class="hidden md:block relative"
-          @mouseenter="showContactLangMenu = true"
-          @mouseleave="showContactLangMenu = false"
+          @mouseenter="openContactLangMenu"
+          @mouseleave="scheduleCloseContactLangMenu"
         >
           <button
             class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink-primary transition-colors rounded-lg hover:bg-surface-muted"
@@ -340,10 +375,8 @@ onUnmounted(() => {
               :class="showContactLangMenu && 'rotate-180'"
             />
           </button>
-          <div
-            v-show="showContactLangMenu"
-            class="absolute top-full right-0 mt-1 w-36 bg-surface-card rounded-2xl shadow-card border border-line/50 p-1.5"
-          >
+          <div v-show="showContactLangMenu" class="absolute top-full right-0 pt-1 w-36">
+            <div class="bg-surface-card rounded-2xl shadow-card border border-line/50 p-1.5">
             <button
               v-for="l in langList"
               :key="l"
@@ -354,6 +387,7 @@ onUnmounted(() => {
               <span class="w-2 h-2 rounded-full" :class="currentContactLangLabel === l ? 'bg-brand' : 'bg-line'"></span>
               {{ l }}
             </button>
+            </div>
           </div>
         </div>
 
