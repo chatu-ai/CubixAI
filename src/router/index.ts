@@ -130,6 +130,23 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/paid-insight/:id',
+    name: 'PaidInsight',
+    component: () => import('../views/PaidInsightPayView.vue'),
+    meta: {
+      title: '有偿资讯 · 企业 AI 落地实战技巧 | 软积木 CubixAI',
+      description:
+        '软积木有偿资讯栏目，提供企业 AI 落地实战技巧，扫码付费即可查看完整内容。',
+      schema: {
+        '@type': 'WebPage',
+        name: '有偿资讯 · 企业 AI 落地实战技巧',
+        description: '软积木有偿资讯栏目，提供企业 AI 落地实战技巧，扫码付费查看完整内容。',
+        url: `${SITE_ORIGIN}/paid-insight`,
+        isAccessibleForFree: false,
+      },
+    },
+  },
+  {
     path: '/solutions',
     name: 'Solutions',
     component: () => import('../views/SolutionsView.vue'),
@@ -287,7 +304,10 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  scrollBehavior() {
+  scrollBehavior(to, _from, savedPosition) {
+    if (savedPosition) return savedPosition
+    // 支持 /#paid-insights 之类的锚点定位，预留固定头部高度
+    if (to.hash) return { el: to.hash, top: 96, behavior: 'smooth' }
     return { top: 0 }
   },
   routes,
