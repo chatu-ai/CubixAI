@@ -181,6 +181,38 @@ describe('header navigation', () => {
     }
   })
 
+  it('keeps the language menu open while the pointer crosses from the button to the panel', async () => {
+    vi.useFakeTimers()
+    try {
+      const container = await mountHeader('/')
+      const switcher = container.querySelector<HTMLElement>('[data-lang-switcher="global"]')!
+      const panel = switcher.querySelector<HTMLElement>('[class*="top-full"]')!
+      // 面板紧贴按钮：用内边距桥接而不是外边距留空隙
+      expect(panel.className).toContain('pt-1')
+      expect(panel.className).not.toContain('mt-1')
+      expect(panel.style.display).toBe('none')
+
+      switcher.dispatchEvent(new MouseEvent('mouseenter'))
+      await settle()
+      expect(panel.style.display).not.toBe('none')
+
+      // 鼠标短暂离开（穿过缝隙）再回来，菜单不应关闭
+      switcher.dispatchEvent(new MouseEvent('mouseleave'))
+      await vi.advanceTimersByTimeAsync(50)
+      expect(panel.style.display).not.toBe('none')
+      switcher.dispatchEvent(new MouseEvent('mouseenter'))
+      await vi.advanceTimersByTimeAsync(500)
+      expect(panel.style.display).not.toBe('none')
+
+      // 真正离开后延迟关闭
+      switcher.dispatchEvent(new MouseEvent('mouseleave'))
+      await vi.advanceTimersByTimeAsync(500)
+      expect(panel.style.display).toBe('none')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
   it('highlights 有偿资讯 on the pay page', async () => {
     const container = await mountHeader(`/paid-insight/${paidInsights[0]!.id}`)
     expect(container.querySelector('nav a[href="/paid-insights"]')?.className).toContain('text-brand')
