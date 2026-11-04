@@ -1,7 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createApp, h, nextTick, type App } from 'vue'
 import { createMemoryHistory, createRouter, RouterView, type Router } from 'vue-router'
-import PaidInsightsSection from './sections/PaidInsightsSection.vue'
+import AppHeader from './components/AppHeader.vue'
+import PaidInsightsView from './views/PaidInsightsView.vue'
 import PaidInsightPayView from './views/PaidInsightPayView.vue'
 import { PAID_INSIGHT_CATEGORY, findPaidInsight, paidInsights } from './data/paidInsights'
 import i18n from './i18n'
@@ -15,7 +16,8 @@ function createTestRouter(): Router {
   return createRouter({
     history: createMemoryHistory(),
     routes: [
-      { path: '/', component: PaidInsightsSection },
+      { path: '/', component: { render: () => null } },
+      { path: '/paid-insights', component: PaidInsightsView },
       { path: '/paid-insight/:id', component: PaidInsightPayView },
       { path: '/contact', component: { render: () => null } },
     ],
@@ -68,9 +70,9 @@ describe('paid insight data', () => {
   })
 })
 
-describe('home paid insights section', () => {
+describe('paid insights page', () => {
   it('lists every entry with a price prefix and a link to its pay page', async () => {
-    const { container } = await mountAt('/')
+    const { container } = await mountAt('/paid-insights')
     const section = container.querySelector('#paid-insights')!
     expect(section).not.toBeNull()
     expect(text(section.querySelector('h2'))).toBe('有偿资讯')
@@ -87,7 +89,7 @@ describe('home paid insights section', () => {
   })
 
   it('navigates to the pay page and shows the QR code when a title is clicked', async () => {
-    const { container, router } = await mountAt('/')
+    const { container, router } = await mountAt('/paid-insights')
     const target = paidInsights[2]!
     const link = container.querySelector<HTMLAnchorElement>(`a[href="/paid-insight/${target.id}"]`)!
     link.click()
@@ -129,13 +131,58 @@ describe('paid insight pay page', () => {
     expect(status.textContent).toContain('已收到您的支付确认')
     expect(qr()).toBeNull()
     expect([...container.querySelectorAll('button')].some((button) => text(button) === '我已完成支付')).toBe(false)
-    expect(container.querySelector('a[href="/#paid-insights"]')).not.toBeNull()
+    expect(container.querySelector('a[href="/paid-insights"]')).not.toBeNull()
   })
 
   it('shows a not-found message for an unknown id', async () => {
     const { container } = await mountAt('/paid-insight/does-not-exist')
     expect(container.textContent).toContain('该资讯不存在或已下架')
     expect(container.querySelector('img[data-testid="pay-qr"]')).toBeNull()
-    expect(container.querySelector('a[href="/#paid-insights"]')).not.toBeNull()
+    expect(container.querySelector('a[href="/paid-insights"]')).not.toBeNull()
+  })
+})
+
+describe('header navigation', () => {
+  async function mountHeader(path: string) {
+    const router = createTestRouter()
+    await router.push(path)
+    await router.isReady()
+    const container = document.createElement('div')
+    document.body.append(container)
+    const app = createApp({ render: () => h(AppHeader) })
+    app.use(i18n)
+    app.use(router)
+    app.mount(container)
+    apps.push(app)
+    await settle()
+    return container
+  }
+
+  it('lists 有偿资讯 right after 关于我们 and links to the standalone page', async () => {
+    const container = await mountHeader('/')
+    const labels = [...container.querySelectorAll('nav > a, nav > div > button')].map((el) => text(el))
+    expect(labels).toEqual(['首页', '产品', '解决方案', '案例', '生态', 'AI洞察', '关于我们', '有偿资讯'])
+    expect(container.querySelector('nav a[href="/paid-insights"]')).not.toBeNull()
+  })
+
+  it('keeps the nav in a centered column with the language switcher on the right, on every page', async () => {
+    for (const path of ['/', '/paid-insights', '/contact']) {
+      const container = await mountHeader(path)
+      const nav = container.querySelector('nav')!
+      const row = nav.parentElement!
+      const [left, middle, right] = [...row.children]
+      expect(middle).toBe(nav)
+      expect(left!.className).toContain('flex-1')
+      expect(right!.className).toContain('flex-1')
+      expect(right!.className).toContain('justify-end')
+      const switcher = right!.querySelector('[data-lang-switcher]')!
+      expect(switcher.getAttribute('data-lang-switcher')).toBe(path === '/contact' ? 'contact' : 'global')
+      expect(right!.querySelectorAll('[data-lang-switcher]')).toHaveLength(1)
+    }
+  })
+
+  it('highlights 有偿资讯 on the pay page', async () => {
+    const container = await mountHeader(`/paid-insight/${paidInsights[0]!.id}`)
+    expect(container.querySelector('nav a[href="/paid-insights"]')?.className).toContain('text-brand')
   })
 })

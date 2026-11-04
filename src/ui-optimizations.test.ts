@@ -103,7 +103,7 @@ describe('contact language navigation', () => {
   async function headerAt(path: string) {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: ['/', '/products/agentstation', '/contact', '/en/contact', '/hg/contact', '/jp/contact']
+      routes: ['/', '/products/agentstation', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/paid-insights']
         .map((route) => ({ path: route, component: { render: () => null } })),
     })
     await router.push(path)
@@ -114,7 +114,8 @@ describe('contact language navigation', () => {
 
   it('does not expose contact-only language controls on product pages', async () => {
     const { container, router } = await headerAt('/products/agentstation')
-    expect([...container.querySelectorAll('button')].some((button) => button.textContent?.trim() === 'English')).toBe(false)
+    expect(container.querySelector('[data-lang-switcher="contact"]')).toBeNull()
+    expect(container.querySelector('[data-lang-switcher="global"]')).not.toBeNull()
     expect(router.currentRoute.value.path).toBe('/products/agentstation')
   })
 
