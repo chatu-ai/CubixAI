@@ -56,10 +56,10 @@ const ioSpecs = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start"
       >
         <!-- 左：多角度图 -->
         <div ref="leftRef" class="relative">
@@ -104,7 +104,7 @@ const ioSpecs = [
         <!-- 右：规格表 -->
         <div ref="rightRef">
           <h2
-            class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+            class="section-title"
           >
             掌上 AI 工作站
           </h2>
@@ -114,7 +114,7 @@ const ioSpecs = [
 
           <div class="mt-10 mb-8">
             <h3
-              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
+              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
             >
               核心配置
             </h3>
@@ -131,7 +131,7 @@ const ioSpecs = [
                   {{ s.value }}
                   <span
                     v-if="s.highlight"
-                    class="text-lg font-bold text-[#2DB4E6]"
+                    class="text-lg font-semibold text-[#2DB4E6]"
                   >
                     {{ s.highlight }}
                   </span>
@@ -143,7 +143,7 @@ const ioSpecs = [
 
           <div>
             <h3
-              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
+              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
             >
               接口与扩展
             </h3>
@@ -160,7 +160,7 @@ const ioSpecs = [
                   {{ s.value }}
                   <span
                     v-if="s.highlight"
-                    class="text-lg font-bold text-[#2DB4E6]"
+                    class="text-lg font-semibold text-[#2DB4E6]"
                   >
                     {{ s.highlight }}
                   </span>

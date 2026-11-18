@@ -37,7 +37,7 @@ provide('agentStationOpenModal', openModal)
     <AgentVersions />
     <AgentPricing />
     <AgentFinalCTA />
-  </div>
 
-  <EnterpriseModal v-model="showModal" />
+    <EnterpriseModal v-model="showModal" />
+  </div>
 </template>

@@ -171,12 +171,21 @@ function onDocumentClick(event: MouseEvent) {
   }
 }
 
+// 页面滚动后页头背景更实、加一层淡阴影，和内容区分开
+const scrolled = ref(false)
+function onScroll() {
+  scrolled.value = window.scrollY > 8
+}
+
 onMounted(() => {
   document.addEventListener('click', onDocumentClick)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
+  window.removeEventListener('scroll', onScroll)
   if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
   if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
 })
@@ -184,7 +193,10 @@ onUnmounted(() => {
 
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 bg-surface-base/80 backdrop-blur-xl border-b border-line/50"
+    class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b transition-[background-color,box-shadow,border-color] duration-300"
+    :class="scrolled
+      ? 'bg-surface-card/90 border-line shadow-[0_1px_12px_rgba(15,31,23,0.06)]'
+      : 'bg-surface-base/80 border-line/50'"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- 左中右三栏：左右两栏等宽伸缩，保证导航在任何页面都居中 -->
@@ -423,7 +435,7 @@ onUnmounted(() => {
         {{ t('header.home') }}
       </RouterLink>
       <div class="border-t border-line/50 my-2" />
-      <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
+      <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
         {{ t('header.products') }}
       </div>
       <RouterLink
@@ -452,7 +464,7 @@ onUnmounted(() => {
       </RouterLink>
       <template v-if="SHOW_GLOBAL_LANG_SWITCHER && !isContactPage">
         <div class="border-t border-line/50 my-2" />
-        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
+        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
           {{ t('header.language') }}
         </div>
         <div class="flex gap-2 px-3 py-2">
@@ -470,7 +482,7 @@ onUnmounted(() => {
       </template>
       <template v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage">
         <div class="border-t border-line/50 my-2" />
-        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
+        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
           Contact {{ t('header.language') }}
         </div>
         <div class="flex gap-2 px-3 py-2" data-lang-switcher="contact">

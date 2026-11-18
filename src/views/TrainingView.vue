@@ -121,10 +121,10 @@ const consultWays = [
 <template>
   <div class="min-h-screen bg-white training-theme">
     <!-- Hero -->
-    <section ref="heroRef" class="relative overflow-hidden bg-surface-base pt-16 md:pt-20 pb-12 md:pb-16">
+    <section ref="heroRef" class="relative overflow-hidden bg-surface-base pt-10 md:pt-14 pb-10 md:pb-12">
       <div class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(253, 174, 55, 0.15) 0%, transparent 70%); filter: blur(60px);" />
       <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-ink-primary leading-tight tracking-tight">
+        <h1 class="page-title">
           模块化 AI 实训：打通业务与营收闭环
         </h1>
         <p class="mt-6 text-lg md:text-xl text-ink-secondary max-w-3xl mx-auto leading-relaxed">
@@ -133,7 +133,7 @@ const consultWays = [
 
         <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
           <div v-for="s in heroStats" :key="s.label" class="p-5 rounded-2xl bg-white border border-line/50 shadow-sm">
-            <div class="text-2xl md:text-3xl font-bold text-brand">{{ s.value }}</div>
+            <div class="text-2xl md:text-3xl font-semibold text-brand">{{ s.value }}</div>
             <div class="mt-1 text-sm text-ink-secondary">{{ s.label }}</div>
           </div>
         </div>
@@ -141,10 +141,10 @@ const consultWays = [
     </section>
 
     <!-- 我们解决什么问题 -->
-    <section ref="problemRef" class="py-12 md:py-20 bg-white">
+    <section ref="problemRef" class="py-10 md:py-16 bg-white">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8 md:mb-10">
-          <h2 class="text-3xl md:text-4xl font-semibold text-ink-primary tracking-tight">我们解决什么问题</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">我们解决什么问题</h2>
         </div>
 
         <div class="rounded-2xl border border-line overflow-hidden">
@@ -165,12 +165,12 @@ const consultWays = [
     </section>
 
     <!-- 课程架构 -->
-    <section ref="architectureRef" class="py-12 md:py-20 bg-surface-base">
+    <section ref="architectureRef" class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8 md:mb-10">
-          <h2 class="text-3xl md:text-4xl font-semibold text-ink-primary tracking-tight">课程架构：积木式组合</h2>
-          <p class="mt-4 text-lg text-ink-secondary">课程不是一条线，而是一盒积木。</p>
-          <p class="mt-4 text-lg text-ink-secondary">初中高三阶主线 + 6大行业纵深 + 5大前沿扩展，像搭积木一样自由组合你的学习路径。</p>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">课程架构：积木式组合</h2>
+          <p class="section-subtitle">课程不是一条线，而是一盒积木。</p>
+          <p class="section-subtitle">初中高三阶主线 + 6大行业纵深 + 5大前沿扩展，像搭积木一样自由组合你的学习路径。</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -191,10 +191,10 @@ const consultWays = [
     </section>
 
     <!-- 六大核心差异 -->
-    <section ref="differenceRef" class="py-12 md:py-20 bg-white">
+    <section ref="differenceRef" class="py-10 md:py-16 bg-white">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8 md:mb-10">
-          <h2 class="text-3xl md:text-4xl font-semibold text-ink-primary tracking-tight">六大核心差异</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">六大核心差异</h2>
         </div>
 
         <div class="rounded-2xl border border-line overflow-hidden">
@@ -204,9 +204,9 @@ const consultWays = [
             <div class="col-span-8 px-6 py-4 text-sm font-semibold text-ink-primary">说明</div>
           </div>
           <div v-for="d in differences" :key="d.index" class="grid grid-cols-1 md:grid-cols-12 bg-white border-b border-line last:border-b-0">
-            <div class="md:col-span-1 px-6 py-5 text-brand font-bold border-r border-line hidden md:flex items-center">{{ d.index }}</div>
+            <div class="md:col-span-1 px-6 py-5 text-brand font-semibold border-r border-line hidden md:flex items-center">{{ d.index }}</div>
             <div class="md:col-span-3 px-6 py-5 text-ink-primary font-semibold border-r border-line flex items-center">
-              <span class="md:hidden text-brand font-bold mr-2">{{ d.index }}.</span>
+              <span class="md:hidden text-brand font-semibold mr-2">{{ d.index }}.</span>
               {{ d.title }}
             </div>
             <div class="md:col-span-8 px-6 py-5 text-ink-secondary flex items-center">{{ d.desc }}</div>
@@ -216,18 +216,18 @@ const consultWays = [
     </section>
 
     <!-- 典型学习路径 -->
-    <section ref="pathRef" class="py-12 md:py-20 bg-surface-base">
+    <section ref="pathRef" class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8 md:mb-10">
-          <h2 class="text-3xl md:text-4xl font-semibold text-ink-primary tracking-tight">全赛道 AI 能力进阶</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">全赛道 AI 能力进阶</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div v-for="p in paths" :key="p.role">
             <div class="aspect-video rounded-2xl overflow-hidden mb-6 bg-surface-muted">
               <AppImage v-if="p.image" :src="p.image" :alt="p.role" class="w-full h-full object-cover" />
             </div>
-            <h3 class="text-xl md:text-2xl font-semibold text-ink-primary mb-4">{{ p.role }}</h3>
+            <h3 class="text-xl md:text-xl font-semibold text-ink-primary mb-4">{{ p.role }}</h3>
             <div class="text-sm text-ink-secondary mb-3">
               <span class="text-ink-primary font-medium">路径：</span>{{ p.route }}
             </div>
@@ -240,14 +240,14 @@ const consultWays = [
     </section>
 
     <!-- 咨询方式 -->
-    <section ref="consultRef" class="py-12 md:py-20 bg-white">
+    <section ref="consultRef" class="py-10 md:py-16 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8 md:mb-10">
-          <h2 class="text-3xl md:text-4xl font-semibold text-ink-primary tracking-tight">三大授课形式</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">三大授课形式</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="way in consultWays" :key="way.title" class="p-6 md:p-8 rounded-2xl bg-surface-base border border-line/50">
+          <div v-for="way in consultWays" :key="way.title" class="p-6 md:p-7 rounded-2xl bg-surface-base border border-line/50">
             <span class="mb-4 w-11 h-11 rounded-xl bg-brand-soft text-brand flex items-center justify-center">
               <Icon :icon="way.icon" class="w-5 h-5" aria-hidden="true" />
             </span>
@@ -264,12 +264,12 @@ const consultWays = [
     </section>
 
     <!-- CTA -->
-    <section ref="ctaRef" class="py-12 md:py-20 bg-surface-base">
+    <section ref="ctaRef" class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-semibold text-ink-primary tracking-tight">
+        <h2 class="section-title">
           AI 赋能成长，沉淀可落地的企业生产力
         </h2>
-        <p class="mt-6 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           89+课时 · 40+实战场景 · 6大行业方向
         </p>
         <p class="mt-2 text-lg text-ink-secondary">

@@ -76,15 +76,15 @@ const versions = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           5 大版本矩阵
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           覆盖企业、教育、集团、创业、物联网全场景
         </p>
       </div>
@@ -108,7 +108,7 @@ const versions = [
             <div class="w-8 h-8 rounded-xl bg-[#433487]/10 flex items-center justify-center shrink-0">
               <Icon :icon="v.icon" class="w-4 h-4 text-[#433487]" />
             </div>
-            <span class="text-sm font-bold text-[#433487]">
+            <span class="text-sm font-semibold text-[#433487]">
               {{ v.name }}
             </span>
             <img
@@ -127,7 +127,7 @@ const versions = [
               <div class="w-8 h-8 rounded-xl bg-[#433487]/10 flex items-center justify-center shrink-0">
                 <Icon :icon="v.icon" class="w-4 h-4 text-[#433487]" />
               </div>
-              <span class="text-sm font-bold text-[#433487] [writing-mode:vertical-rl]">
+              <span class="text-sm font-semibold text-[#433487] [writing-mode:vertical-rl]">
                 {{ v.name }}
               </span>
             </div>
@@ -151,7 +151,7 @@ const versions = [
                   <div class="w-7 h-7 rounded-lg bg-[#433487]/10 flex items-center justify-center shrink-0">
                     <Icon :icon="v.icon" class="w-4 h-4 text-[#433487]" />
                   </div>
-                  <span class="text-sm font-bold text-[#433487]">
+                  <span class="text-sm font-semibold text-[#433487]">
                     {{ v.name }}
                   </span>
                 </div>
@@ -187,7 +187,7 @@ const versions = [
         </div>
       </div>
 
-      <p class="mt-10 text-center text-base md:text-lg font-bold text-ink-primary">
+      <p class="mt-10 text-center text-base md:text-lg font-semibold text-ink-primary">
         全部版本均支持私有化部署
       </p>
     </div>

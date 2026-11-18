@@ -39,7 +39,7 @@ onUnmounted(stopCarousel)
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-10 md:pt-14 pb-10 md:pb-16"
+    class="relative overflow-hidden bg-surface-base pt-8 md:pt-12 pb-8 md:pb-12"
   >
     <!-- 右上绿色光晕 -->
     <div
@@ -56,24 +56,24 @@ onUnmounted(stopCarousel)
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左侧 -->
         <div ref="leftRef">
           <!-- <Chip class="!bg-[#433487]/10 !text-[#433487]">SOFTWARE · AI AGENT OS</Chip> -->
 
           <h1
-            class="mt-6 text-[48px] md:text-[64px] lg:text-[72px] font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em]"
+            class="mt-2 page-title"
           >
             ChatU（才兔）<br />
             <span
-              class="text-3xl md:text-4xl lg:text-5xl font-semibold text-ink-primary"
+              class="inline-block mt-2 text-[22px] md:text-[28px] lg:text-[32px] font-semibold text-ink-primary"
             >
               企业 AI 操作系统
             </span>
           </h1>
 
-          <p class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-xl">
+          <p class="page-subtitle max-w-xl">
             多引擎、多模态、多智能体，2023 年 3 月上线至今 服务近 3000
             家企业，覆盖 100+ 行业
           </p>

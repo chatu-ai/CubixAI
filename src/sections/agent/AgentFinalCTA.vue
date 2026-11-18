@@ -37,15 +37,15 @@ const items = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden py-12 md:py-20 bg-white">
+  <section class="relative overflow-hidden py-10 md:py-16 bg-white">
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="contentRef" class="text-center mb-12">
+      <div ref="contentRef" class="text-center mb-8">
         <h2
           class="text-4xl md:text-5xl lg:text-[64px] font-semibold text-ink-primary tracking-tight leading-tight"
         >
           你可靠的 AI 工作站
         </h2>
-        <p class="mt-4 text-sm text-ink-tertiary tracking-[0.2em] uppercase">
+        <p class="mt-4 text-sm text-ink-tertiary tracking-wide uppercase">
           WORK SMART · STAY SAFE
         </p>
         <p class="mt-4 text-xl text-ink-secondary">

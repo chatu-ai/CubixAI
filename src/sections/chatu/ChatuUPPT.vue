@@ -13,10 +13,10 @@ const steps = ['生成大纲', '选择模板', '线上优化']
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左：文字 -->
         <div ref="leftRef">
@@ -25,7 +25,7 @@ const steps = ['生成大纲', '选择模板', '线上优化']
           >
             UPPT · 一键生成，重新定义 PPT 创作
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary leading-relaxed">
+          <p class="section-subtitle">
             从创意到成品，三步完成专业级演示文稿。
           </p>
 
@@ -36,7 +36,7 @@ const steps = ['生成大纲', '选择模板', '线上优化']
               class="flex items-center gap-4"
             >
               <div
-                class="w-8 h-8 rounded-full bg-[#433487] text-white flex items-center justify-center text-sm font-bold shrink-0"
+                class="w-8 h-8 rounded-full bg-[#433487] text-white flex items-center justify-center text-sm font-semibold shrink-0"
               >
                 {{ i + 1 }}
               </div>

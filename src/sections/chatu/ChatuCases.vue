@@ -40,11 +40,11 @@ function openCaseModal(caseItem: CaseItem) {
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           客户案例精选
         </h2>
@@ -55,7 +55,7 @@ function openCaseModal(caseItem: CaseItem) {
           v-for="(c, idx) in featuredCases"
           :key="c.id"
           :ref="(el) => setCardRef(el as HTMLElement | null, idx)"
-          class="group rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+          class="group rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
         >
           <!-- 图片区域 -->
           <div class="relative h-52 overflow-hidden">
@@ -70,7 +70,7 @@ function openCaseModal(caseItem: CaseItem) {
           </div>
 
           <!-- 内容区域 -->
-          <div class="p-6 md:p-8">
+          <div class="p-6 md:p-7">
             <Chip variant="muted">{{ c.tag }}</Chip>
             <h3 class="mt-4 text-xl font-semibold text-ink-primary leading-tight">
               {{ c.client }}

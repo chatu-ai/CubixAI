@@ -27,11 +27,14 @@ export default {
         gold: '#C9A961',
       },
       fontFamily: {
+        // 全站、所有语言共用一套字体：拉丁字母用 Inter，中日韩文字按系统依次回退
         sans: [
           'Inter',
           '"HarmonyOS Sans SC"',
           '"PingFang SC"',
           '"Microsoft YaHei"',
+          '"Noto Sans SC"',
+          '"Source Han Sans SC"',
           'sans-serif',
         ],
       },

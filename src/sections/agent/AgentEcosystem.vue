@@ -21,7 +21,7 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- 左文案+图片 与 右竖排三卡 -->
       <div ref="contentRef" class="flex flex-col md:flex-row items-stretch gap-6">
@@ -33,7 +33,7 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
             >
               预装于每一台智方体
             </span>
-            <h2 class="text-2xl md:text-3xl font-semibold text-ink-primary">
+            <h2 class="section-title">
               ChatU Mate：智能体的管家
             </h2>
             <p class="mt-3 text-ink-secondary">

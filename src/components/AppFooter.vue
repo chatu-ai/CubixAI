@@ -40,7 +40,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
               >
                 <Icon icon="lucide:hexagon" class="w-5 h-5 text-white" />
               </div>
-              <span class="text-lg font-bold text-white tracking-tight">
+              <span class="text-lg font-semibold text-white tracking-tight">
                 {{ t('common.siteName') }}
               </span>
             </div>

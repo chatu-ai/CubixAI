@@ -13,16 +13,16 @@ const steps = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="topRef">
         <p
-          class="text-center text-sm font-semibold text-[#2DB4E6] tracking-wider mb-4"
+          class="text-center text-sm font-semibold text-[#2DB4E6] tracking-wide mb-4"
         >
           会用电脑，就能用 Agent
         </p>
         <h2
-          class="text-center text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight mb-12"
+          class="text-center text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight mb-8"
         >
           三步开启 AI 之旅
         </h2>
@@ -31,7 +31,7 @@ const steps = [
           <template v-for="(step, i) in steps" :key="step.num">
             <div class="text-center w-full md:w-48">
               <div
-                class="text-[72px] font-bold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-none"
+                class="text-[72px] font-semibold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-none"
               >
                 {{ step.num }}
               </div>

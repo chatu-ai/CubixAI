@@ -77,7 +77,7 @@ watch(
       @click="onBackdropClick"
     >
       <div
-        class="case-detail-modal-content bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        class="case-detail-modal-content bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
       >
         <!-- Header -->
         <div
@@ -95,7 +95,7 @@ watch(
               </span>
             </div>
             <h3
-              class="text-xl md:text-2xl font-bold text-ink-primary leading-tight"
+              class="text-xl md:text-2xl font-semibold text-ink-primary leading-tight"
             >
               {{ caseItem?.client }}
             </h3>
@@ -113,7 +113,7 @@ watch(
           <!-- 客户背景 -->
           <div>
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-ink-primary mb-3"
+              class="flex items-center gap-2 text-sm font-semibold text-ink-primary mb-3"
             >
               <Icon icon="lucide:building" class="w-4 h-4 text-brand" />
               客户背景
@@ -128,7 +128,7 @@ watch(
             class="rounded-2xl bg-[#FEF2F2] border border-[#FECACA] p-5 md:p-6"
           >
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-[#991B1B] mb-4"
+              class="flex items-center gap-2 text-sm font-semibold text-[#991B1B] mb-4"
             >
               <Icon icon="lucide:alert-circle" class="w-4 h-4" />
               核心痛点
@@ -150,7 +150,7 @@ watch(
           <!-- 方案细节 -->
           <div>
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+              class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
             >
               <Icon icon="lucide:check-circle" class="w-4 h-4" />
               方案细节
@@ -173,7 +173,7 @@ watch(
           <!-- 解决了什么问题 -->
           <div v-if="caseItem?.solved?.length">
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+              class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
             >
               <Icon icon="lucide:check-circle" class="w-4 h-4" />
               解决问题

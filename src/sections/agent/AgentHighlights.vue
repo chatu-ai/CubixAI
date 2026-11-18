@@ -40,13 +40,13 @@ const items = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
+  <section ref="sectionRef" class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div
           v-for="item in items"
           :key="item.num"
-          class="flex flex-col p-6 md:p-8 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+          class="flex flex-col p-6 md:p-7 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
           <div class="mt-4 aspect-video rounded-xl overflow-hidden">
             <AppImage

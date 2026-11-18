@@ -27,10 +27,10 @@ const cardFeatures = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-stretch"
       >
         <!-- 左 -->
         <div ref="leftRef" class="flex flex-col">
@@ -77,12 +77,12 @@ const cardFeatures = [
                 <img
                   src="@/assets/czk.webp"
                   alt="定制充值卡"
-                  class="flex-1 min-w-0 h-auto object-contain rounded-3xl shadow-md"
+                  class="flex-1 min-w-0 h-auto object-contain rounded-2xl shadow-md"
                 />
                 <img
                   src="@/assets/ChatU/llk2.webp"
                   alt="定制充值卡"
-                  class="flex-1 min-w-0 h-auto object-contain rounded-3xl shadow-md"
+                  class="flex-1 min-w-0 h-auto object-contain rounded-2xl shadow-md"
                 />
               </div>
               <div class="flex flex-col md:flex-row gap-6 md:gap-8">

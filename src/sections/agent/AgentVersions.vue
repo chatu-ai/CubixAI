@@ -50,15 +50,15 @@ const versions = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
+  <section ref="sectionRef" class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-8 md:mb-10">
+      <div class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           选择适合你的版本
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           一次买断，终身使用
         </p>
       </div>
@@ -67,14 +67,14 @@ const versions = [
         <div
           v-for="v in versions"
           :key="v.name"
-          class="relative flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+          class="relative flex flex-col p-6 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
           <span
-            class="text-xs font-semibold text-[#2DB4E6] uppercase tracking-wider"
+            class="text-xs font-semibold text-[#2DB4E6] uppercase tracking-wide"
           >
             {{ v.name }}
           </span>
-          <div class="mt-3 text-3xl font-bold text-ink-primary">
+          <div class="mt-3 text-3xl font-semibold text-ink-primary">
             {{ v.price }}
           </div>
           <p class="mt-2 text-sm font-medium text-ink-primary">

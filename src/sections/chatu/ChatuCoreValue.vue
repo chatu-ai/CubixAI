@@ -15,11 +15,11 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           三大核心价值
         </h2>
@@ -29,7 +29,7 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
         <!-- Card 1 -->
         <div
           ref="card1Ref"
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="aspect-video rounded-2xl overflow-hidden mb-6">
             <img
@@ -60,7 +60,7 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
         <!-- Card 2 -->
         <div
           ref="card2Ref"
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="aspect-video rounded-2xl overflow-hidden mb-6">
             <img
@@ -91,7 +91,7 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
         <!-- Card 3 -->
         <div
           ref="card3Ref"
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="aspect-video rounded-2xl overflow-hidden mb-6">
             <img

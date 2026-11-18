@@ -42,7 +42,7 @@ onUnmounted(stopCarousel)
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-10 md:pt-14 pb-10 md:pb-16"
+    class="relative overflow-hidden bg-surface-base pt-8 md:pt-12 pb-8 md:pb-12"
   >
     <!-- 右上绿色光晕 -->
     <div
@@ -59,7 +59,7 @@ onUnmounted(stopCarousel)
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-24 items-center"
       >
         <!-- 左侧 -->
         <div ref="leftRef">
@@ -68,23 +68,23 @@ onUnmounted(stopCarousel)
           </div>
 
           <h1
-            class="mt-6 text-3xl md:text-5xl lg:text-6xl font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em] whitespace-nowrap"
+            class="mt-5 page-title sm:whitespace-nowrap"
           >
             智方体 · AgentStation
           </h1>
 
           <p
-            class="mt-4 text-[36px] md:text-[48px] font-semibold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-tight"
+            class="mt-3 text-[26px] md:text-[34px] lg:text-[40px] font-semibold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-tight"
           >
             你可靠的 AI 工作站
           </p>
 
-          <p class="mt-2 text-sm text-ink-tertiary tracking-wider uppercase">
+          <p class="mt-2 text-sm text-ink-tertiary tracking-wide uppercase">
             YOUR RELIABLE AI WORKSTATION
           </p>
 
           <p
-            class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-lg"
+            class="page-subtitle max-w-lg"
           >
             不用装、不用配，数据默认留在本地。开箱 2 分钟，拥有一台真正属于你的 AI。
           </p>

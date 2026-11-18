@@ -37,15 +37,15 @@ const pains4 = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
           class="text-[28px] sm:text-[32px] md:text-[40px] lg:text-[52px] leading-tight font-semibold text-ink-primary tracking-tight sm:whitespace-nowrap"
         >
           <span class="text-[#2DB4E6]">"</span>不会装、不敢装、不会用、不想折腾<span class="text-[#2DB4E6]">"</span>
         </h2>
-        <p class="mt-6 text-2xl md:text-[28px] text-ink-secondary italic">
+        <p class="mt-4 text-xl md:text-2xl text-ink-secondary">
           AI 不该只是极客的玩具
         </p>
       </div>
@@ -53,7 +53,7 @@ const pains4 = [
       <div ref="cardsRef" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- 卡 01 · 不会装 -->
         <div
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="flex items-center gap-2 mb-5">
             <span class="w-2 h-2 rounded-full bg-red-500" />
@@ -79,7 +79,7 @@ const pains4 = [
 
         <!-- 卡 02 · 不敢装 -->
         <div
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="flex items-center gap-2 mb-5">
             <span class="w-2 h-2 rounded-full bg-orange-500" />
@@ -105,7 +105,7 @@ const pains4 = [
 
         <!-- 卡 03 · 不会用 -->
         <div
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="flex items-center gap-2 mb-5">
             <span class="w-2 h-2 rounded-full bg-amber-500" />
@@ -131,7 +131,7 @@ const pains4 = [
 
         <!-- 卡 04 · 不想折腾 -->
         <div
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="flex items-center gap-2 mb-5">
             <span class="w-2 h-2 rounded-full bg-violet-500" />

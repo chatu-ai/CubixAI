@@ -20,15 +20,15 @@ const rows = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
+  <section ref="sectionRef" class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           为什么选择智方体？
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           同样是「用 AI」，差别在这里
         </p>
       </div>
