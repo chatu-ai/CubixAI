@@ -513,7 +513,10 @@ const partners = [
             class="flex flex-col p-6 md:p-8 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="flex-1">
-              <h3 class="text-xl font-semibold text-ink-primary">{{ loc.city }}</h3>
+              <h3 class="text-xl font-semibold text-ink-primary flex items-start gap-2">
+                <Icon icon="lucide:map-pin" class="w-5 h-5 mt-1 text-brand shrink-0" aria-hidden="true" />
+                {{ loc.city }}
+              </h3>
               <p class="mt-4 text-sm text-ink-secondary leading-relaxed">{{ loc.address }}</p>
               <p class="mt-1 text-xs text-ink-tertiary">{{ loc.func }}</p>
             </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
 import { getImageUrl } from '../utils/image'
 import BrandButton from '../components/BrandButton.vue'
@@ -89,6 +90,7 @@ const showModal = ref(false)
 const consultWays = [
   {
     title: '线下名师面授',
+    icon: 'lucide:presentation',
     items: [
       '行业资深导师实地驻场授课，面对面深度答疑',
       '实地案例沙盘实操，现场拆解企业真实业务难题',
@@ -97,6 +99,7 @@ const consultWays = [
   },
   {
     title: '线上随心点播课',
+    icon: 'lucide:circle-play',
     items: [
       '下单即刻解锁全量课程，无时间地点观看限制',
       '课程永久回放，可反复复盘知识点、实操步骤',
@@ -105,6 +108,7 @@ const consultWays = [
   },
   {
     title: '沉浸式互动 AI 训练营',
+    icon: 'lucide:rocket',
     items: [
       '全程助教伴学，实时答疑纠偏，杜绝自学断层',
       '阶段性实战任务输出，配套点评打磨落地能力',
@@ -244,6 +248,9 @@ const consultWays = [
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div v-for="way in consultWays" :key="way.title" class="p-6 md:p-8 rounded-2xl bg-surface-base border border-line/50">
+            <span class="mb-4 w-11 h-11 rounded-xl bg-brand-soft text-brand flex items-center justify-center">
+              <Icon :icon="way.icon" class="w-5 h-5" aria-hidden="true" />
+            </span>
             <h3 class="text-xl font-semibold text-ink-primary mb-4">{{ way.title }}</h3>
             <ul class="space-y-3">
               <li v-for="item in way.items" :key="item" class="text-sm text-ink-secondary flex items-start gap-2">
