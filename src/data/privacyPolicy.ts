@@ -9,7 +9,7 @@ import type { SupportedLocale } from '@/i18n'
 
 export const PRIVACY_EMAIL = 'support@cubixai.com'
 /** 中文版写北京地址，海外版（英/日/韩）写新加坡地址 */
-const BEIJING_ADDRESS = '北京市海淀区海淀大悦信息科技园 D2-D401'
+const BEIJING_ADDRESS = '北京市海淀区中关村 AI 北纬社区D2-1'
 const SINGAPORE_ADDRESS = "139 PASIR RIS GROVE, #05-43, D'NEST, SINGAPORE"
 
 export type PolicyBlock =
