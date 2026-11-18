@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, inject } from 'vue'
+import { ref, computed, onMounted, onUnmounted, inject } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
 import BrandButton from '../../components/BrandButton.vue'
 import AppImage from '../../components/AppImage.vue'
+
+const c = useContent(agentStationContent)
 
 const openModal = inject<() => void>('agentStationOpenModal')
 const BOOKING_URL = 'https://ruanjimu.feishu.cn/share/base/form/shrcnO4m2xMY6ma9mnYSuAkSSKg'
@@ -14,18 +18,19 @@ const rightRef = ref<HTMLElement | null>(null)
 useScrollReveal(leftRef, { y: 30 })
 useScrollReveal(rightRef, { y: 30, delay: 0.15 })
 
-const heroImages = [
-  { src: new URL('@/assets/zft/hero1.webp', import.meta.url).href, alt: '智方体 AgentStation' },
-  { src: new URL('@/assets/zft/hero2.webp', import.meta.url).href, alt: '智方体 AgentStation' },
-  { src: new URL('@/assets/zft/hero3.webp', import.meta.url).href, alt: '智方体 AgentStation' },
+const HERO_IMAGE_SRCS = [
+  new URL('@/assets/zft/hero1.webp', import.meta.url).href,
+  new URL('@/assets/zft/hero2.webp', import.meta.url).href,
+  new URL('@/assets/zft/hero3.webp', import.meta.url).href,
 ]
+const heroImages = computed(() => HERO_IMAGE_SRCS.map((src) => ({ src, alt: c.value.hero.imageAlt })))
 
 const currentIndex = ref(0)
 let timer: ReturnType<typeof setInterval> | null = null
 
 function startCarousel() {
   timer = setInterval(() => {
-    currentIndex.value = (currentIndex.value + 1) % heroImages.length
+    currentIndex.value = (currentIndex.value + 1) % HERO_IMAGE_SRCS.length
   }, 3000)
 }
 
@@ -64,54 +69,54 @@ onUnmounted(stopCarousel)
         <!-- 左侧 -->
         <div ref="leftRef">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E6F5FB] text-[#1A8BC4] text-xs font-medium tracking-wide">
-            AI 时代的新物种
+            {{ c.hero.badge }}
           </div>
 
           <h1
             class="mt-5 page-title sm:whitespace-nowrap"
           >
-            智方体 · AgentStation
+            {{ c.hero.title }}
           </h1>
 
           <p
             class="mt-3 text-[26px] md:text-[34px] lg:text-[40px] font-semibold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-tight"
           >
-            你可靠的 AI 工作站
+            {{ c.hero.tagline }}
           </p>
 
           <p class="mt-2 text-sm text-ink-tertiary tracking-wide uppercase">
-            YOUR RELIABLE AI WORKSTATION
+            {{ c.hero.taglineCaps }}
           </p>
 
           <p
             class="page-subtitle max-w-lg"
           >
-            不用装、不用配，数据默认留在本地。开箱 2 分钟，拥有一台真正属于你的 AI。
+            {{ c.hero.subtitle }}
           </p>
 
           <div
             class="flex flex-wrap items-center gap-3 mt-6 text-sm text-ink-tertiary"
           >
-            <span>7 英寸触屏</span>
+            <span>{{ c.hero.features[0] }}</span>
             <span class="w-1 h-1 rounded-full bg-ink-tertiary" />
-            <span>2 分钟开机</span>
+            <span>{{ c.hero.features[1] }}</span>
             <span class="w-1 h-1 rounded-full bg-ink-tertiary" />
-            <span>预装智能体</span>
+            <span>{{ c.hero.features[2] }}</span>
             <span class="w-1 h-1 rounded-full bg-ink-tertiary" />
-            <span>软件终身免费升级</span>
+            <span>{{ c.hero.features[3] }}</span>
           </div>
 
           <div class="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E6F5FB] text-xs font-medium text-[#1A8BC4]">
-            <span>一次买断</span>
+            <span>{{ c.hero.badges[0] }}</span>
             <span class="w-1.5 h-1.5 rounded-full bg-[#2DB4E6]"></span>
-            <span>700 克</span>
+            <span>{{ c.hero.badges[1] }}</span>
             <span class="w-1.5 h-1.5 rounded-full bg-[#2DB4E6]"></span>
-            <span>待机 5 小时</span>
+            <span>{{ c.hero.badges[2] }}</span>
           </div>
           <div class="mt-5 flex flex-wrap items-center gap-4">
-            <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">立即预订 ¥3,999</BrandButton>
+            <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">{{ c.hero.bookCta }}</BrandButton>
             <BrandButton variant="ghost" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" arrow @click="openModal">
-              查看所有版本
+              {{ c.hero.versionsCta }}
             </BrandButton>
           </div>
         </div>

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
+
+const c = useContent(agentStationContent)
 
 const topRef = ref<HTMLElement | null>(null)
 useScrollReveal(topRef, { y: 30 })
 
-const steps = [
-  { num: '01', title: '开机', desc: '通电即用，没有安装向导，也不用敲命令行' },
-  { num: '02', title: '启动 ChatU Mate', desc: '点一下，DeepSeek Harness 等智能体随即就绪' },
-  { num: '03', title: '开始工作', desc: '说出任务，AI 拆解、调用工具、把事做完' },
-]
+const STEP_NUMS = ['01', '02', '03']
+const steps = computed(() => c.value.simplicity.steps.map((step, i) => ({ num: STEP_NUMS[i], ...step })))
 </script>
 
 <template>
@@ -19,12 +20,12 @@ const steps = [
         <p
           class="text-center text-sm font-semibold text-[#2DB4E6] tracking-wide mb-4"
         >
-          会用电脑，就能用 Agent
+          {{ c.simplicity.eyebrow }}
         </p>
         <h2
           class="text-center text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight mb-8"
         >
-          三步开启 AI 之旅
+          {{ c.simplicity.title }}
         </h2>
 
         <div class="flex flex-col md:flex-row items-center justify-center gap-4">

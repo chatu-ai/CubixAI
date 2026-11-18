@@ -1,19 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
 import { Icon } from '@iconify/vue'
 import AppImage from '../../components/AppImage.vue'
 import chatuMateImg from '@/assets/ChatUMate.webp'
 
-const platformIcons = [
-  { name: '微信', src: new URL('@/assets/icon/wx.webp', import.meta.url).href },
-  { name: '飞书', src: new URL('@/assets/icon/fs.webp', import.meta.url).href },
-  { name: '钉钉', src: new URL('@/assets/icon/dd.webp', import.meta.url).href },
-  { name: '企业微信', src: new URL('@/assets/icon/qywx.webp', import.meta.url).href },
-  { name: 'QQ', src: new URL('@/assets/icon/QQ.webp', import.meta.url).href },
-  { name: 'ChatU', src: new URL('@/assets/icon/chatu2.webp', import.meta.url).href },
-  { name: '更多...', icon: 'lucide:plus', color: '#9CA3AF' },
+const c = useContent(agentStationContent)
+
+// 名称按顺序取自 agentStationContent.ecosystem.platforms
+const PLATFORM_ICONS: { key: string; src?: string; icon?: string; color?: string }[] = [
+  { key: 'wechat', src: new URL('@/assets/icon/wx.webp', import.meta.url).href },
+  { key: 'feishu', src: new URL('@/assets/icon/fs.webp', import.meta.url).href },
+  { key: 'dingtalk', src: new URL('@/assets/icon/dd.webp', import.meta.url).href },
+  { key: 'wecom', src: new URL('@/assets/icon/qywx.webp', import.meta.url).href },
+  { key: 'qq', src: new URL('@/assets/icon/QQ.webp', import.meta.url).href },
+  { key: 'chatu', src: new URL('@/assets/icon/chatu2.webp', import.meta.url).href },
+  { key: 'more', icon: 'lucide:plus', color: '#9CA3AF' },
 ]
+
+const platformIcons = computed(() =>
+  PLATFORM_ICONS.map((p, i) => ({ ...p, name: c.value.ecosystem.platforms[i] })),
+)
 
 const contentRef = ref<HTMLElement | null>(null)
 
@@ -31,24 +40,24 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
             <span
               class="inline-block px-3 py-1 rounded-full bg-[#E6F5FB] text-[#2DB4E6] text-xs font-semibold mb-4"
             >
-              预装于每一台智方体
+              {{ c.ecosystem.badge }}
             </span>
             <h2 class="section-title">
-              ChatU Mate：智能体的管家
+              {{ c.ecosystem.title }}
             </h2>
             <p class="mt-3 text-ink-secondary">
-              智能体、模型、Skills、升级，一个入口全管好
+              {{ c.ecosystem.subtitle }}
             </p>
           </div>
           <div class="flex-1">
             <AppImage
               :src="chatuMateImg"
-              alt="ChatU Mate 工作台"
+              :alt="c.ecosystem.imageAlt"
               class="w-full h-full object-contain rounded-2xl border border-line/50"
             />
           </div>
           <p class="mt-3 text-sm text-ink-tertiary text-center md:text-left">
-            ChatU Mate 工作台 · 手指触屏即可操作，无需命令行
+            {{ c.ecosystem.caption }}
           </p>
         </div>
 
@@ -61,10 +70,10 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
               <span class="w-9 h-9 rounded-lg bg-[#E6F5FB] text-[#2DB4E6] flex items-center justify-center shrink-0">
                 <Icon icon="lucide:bot" class="w-[18px] h-[18px]" aria-hidden="true" />
               </span>
-              多智能体管控
+              {{ c.ecosystem.cards[0].title }}
             </h3>
             <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
-              DeepSeek Harness、OpenClaw、Hermes 一键启停；Codex、WorkBuddy 等主流平台随时可装
+              {{ c.ecosystem.cards[0].desc }}
             </p>
           </div>
           <div
@@ -74,10 +83,10 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
               <span class="w-9 h-9 rounded-lg bg-[#E6F5FB] text-[#2DB4E6] flex items-center justify-center shrink-0">
                 <Icon icon="lucide:repeat" class="w-[18px] h-[18px]" aria-hidden="true" />
               </span>
-              模型自由切换
+              {{ c.ecosystem.cards[1].title }}
             </h3>
             <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
-              本地 Qwen、企业内网大模型、云端模型，一处配置、随时切换
+              {{ c.ecosystem.cards[1].desc }}
             </p>
           </div>
           <div
@@ -87,10 +96,10 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
               <span class="w-9 h-9 rounded-lg bg-[#E6F5FB] text-[#2DB4E6] flex items-center justify-center shrink-0">
                 <Icon icon="lucide:wand-sparkles" class="w-[18px] h-[18px]" aria-hidden="true" />
               </span>
-              全能 Skills
+              {{ c.ecosystem.cards[2].title }}
             </h3>
             <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
-              预装图片、视频生成技能；优秀流程可沉淀为模板，团队一键复用
+              {{ c.ecosystem.cards[2].desc }}
             </p>
           </div>
           <div
@@ -100,17 +109,17 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
               <span class="w-9 h-9 rounded-lg bg-[#E6F5FB] text-[#2DB4E6] flex items-center justify-center shrink-0">
                 <Icon icon="lucide:plug" class="w-[18px] h-[18px]" aria-hidden="true" />
               </span>
-              主流办公平台接入
+              {{ c.ecosystem.cards[3].title }}
             </h3>
             <p class="mt-2 text-sm text-ink-secondary leading-relaxed">
-              企业微信、飞书、钉钉等，AI 直接进入日常工作流。
+              {{ c.ecosystem.cards[3].desc }}
             </p>
             <div class="mt-3 flex items-center gap-2 flex-wrap">
               <div
                 v-for="p in platformIcons"
-                :key="p.name"
+                :key="p.key"
                 class="rounded-lg bg-white flex items-center justify-center"
-                :class="p.name === 'ChatU' ? 'w-14 h-14 md:w-16 md:h-16' : 'w-9 h-9 md:w-10 md:h-10'"
+                :class="p.key === 'chatu' ? 'w-14 h-14 md:w-16 md:h-16' : 'w-9 h-9 md:w-10 md:h-10'"
                 :title="p.name"
               >
                 <AppImage
@@ -118,7 +127,7 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
                   :src="p.src"
                   :alt="p.name"
                   class="object-contain"
-                  :class="p.name === 'ChatU' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-5 h-5 md:w-6 md:h-6'"
+                  :class="p.key === 'chatu' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-5 h-5 md:w-6 md:h-6'"
                 />
                 <span
                   v-else
@@ -135,7 +144,7 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
       <!-- 底部升级条 -->
       <div class="mt-6 p-4 rounded-2xl bg-[#E6F5FB] border border-[#2DB4E6]/20 flex items-center justify-center gap-2 text-sm font-medium text-[#1A8BC4]">
         <Icon icon="lucide:refresh-cw" class="w-4 h-4" />
-        一键升级 · 智能体与 ChatU Mate 软件终身免费更新
+        {{ c.ecosystem.upgradeBar }}
       </div>
     </div>
   </section>
