@@ -37,11 +37,11 @@ const pains4 = [
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-8 md:mb-10">
         <h2
-          class="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink-primary tracking-tight whitespace-nowrap"
+          class="text-[28px] sm:text-[32px] md:text-[40px] lg:text-[52px] leading-tight font-semibold text-ink-primary tracking-tight sm:whitespace-nowrap"
         >
           <span class="text-[#2DB4E6]">"</span>不会装、不敢装、不会用、不想折腾<span class="text-[#2DB4E6]">"</span>
         </h2>

@@ -23,7 +23,7 @@ const backendFeatures = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-20 md:py-[120px] bg-surface-base">
+  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Tabs -->
       <div class="flex items-center justify-center gap-2 mb-12">

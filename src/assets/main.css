@@ -8,12 +8,12 @@
     --color-brand-deep: #2E8B57;
     --color-brand-soft: #E8F5EE;
     --color-brand-ink: #0F1F17;
-    --color-surface-base: #FAFAF7;
+    --color-surface-base: #F8FAF9;
     --color-surface-card: #FFFFFF;
-    --color-surface-muted: #F3F5F2;
+    --color-surface-muted: #F1F4F2;
     --color-ink-primary: #0F1F17;
     --color-ink-secondary: #5C6B63;
-    --color-ink-tertiary: #8A958F;
+    --color-ink-tertiary: #6E7A73;
     --color-line: #E5EBE7;
     --color-gold: #C9A961;
   }
@@ -27,5 +27,15 @@
     @apply bg-surface-base text-ink-primary font-sans antialiased;
     font-feature-settings: 'tnum';
     overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  html[lang='en'] :is(h1, h2) {
+    letter-spacing: -0.02em;
   }
 }

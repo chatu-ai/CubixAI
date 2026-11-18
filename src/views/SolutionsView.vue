@@ -360,7 +360,7 @@ onUnmounted(() => {
 <template>
   <div ref="containerRef" class="relative overflow-x-hidden">
     <!-- Hero -->
-    <section id="solutions-hero" class="relative overflow-hidden bg-surface-base pt-32 md:pt-40 pb-8 md:pb-10"
+    <section id="solutions-hero" class="relative overflow-hidden bg-surface-base pt-14 md:pt-20 pb-8 md:pb-10"
       style="contain: paint;">
       <div
         class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"
@@ -383,12 +383,12 @@ onUnmounted(() => {
     </section>
 
     <!-- Category Nav -->
-    <div class="z-40 sticky top-16 md:top-20 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3">
+    <div class="z-40 sticky top-14 md:top-16 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-center gap-2 md:gap-3 overflow-x-auto" style="scrollbar-width: none;">
           <button v-for="tab in categoryTabs" :key="tab.id"
             class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all shrink-0"
-            :class="activeCategory === tab.id ? 'bg-brand text-white shadow-sm' : 'bg-[#F3F5F2] text-ink-secondary hover:text-ink-primary'"
+            :class="activeCategory === tab.id ? 'bg-brand text-white shadow-sm' : 'bg-[#F1F4F2] text-ink-secondary hover:text-ink-primary'"
             @click="switchCategory(tab.id)">
             {{ tab.label }}
           </button>
@@ -420,7 +420,7 @@ onUnmounted(() => {
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(80px);" />
 
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-0">
-        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
+        <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12"
           :class="i % 2 === 1 ? 'lg:flex-row-reverse' : ''">
           <!-- Text Content -->
           <div class="anim-text w-full lg:w-1/2">
@@ -497,7 +497,7 @@ onUnmounted(() => {
     </section>
 
     <!-- Final CTA -->
-    <section class="relative py-20 md:py-[120px] bg-white overflow-hidden" style="contain: paint;">
+    <section class="relative py-12 md:py-20 bg-white overflow-hidden" style="contain: paint;">
       <div
         class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(80px);" />

@@ -27,10 +27,10 @@ const cardFeatures = [
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch"
       >
         <!-- 左 -->
         <div ref="leftRef" class="flex flex-col">

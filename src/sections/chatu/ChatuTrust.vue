@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import AppImage from '../../components/AppImage.vue'
 import { getImageUrl } from '../../utils/image'
@@ -13,14 +14,17 @@ useScrollReveal(cardsRef, { y: 30, delay: 0.15 })
 const items = [
   {
     title: '合规备案，符合规范',
+    icon: 'lucide:badge-check',
     desc: '遵循国家网信办、工信部、以及互联网信息服务算法备案系统等管理规定。',
   },
   {
     title: '知识产权清晰、可追溯、可担责',
+    icon: 'lucide:scale',
     desc: '最新关键词过滤算法，最大限度保证生产内容合法合规，图文审查与协议符合国家规范',
   },
   {
     title: '闭源不是 "封闭" 而是 "可控可用"',
+    icon: 'lucide:lock-keyhole',
     desc: '自主研发底层架构，符合国内规范要求，架构稳定，国内使用无限制',
   },
 ]
@@ -58,9 +62,9 @@ const certImages = [
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-8 md:mb-10">
         <h2
           class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
         >
@@ -72,15 +76,15 @@ const certImages = [
       </div>
 
       <!-- 资质证书轮播 -->
-      <div class="relative w-full mb-12 md:mb-16 overflow-hidden">
+      <div class="relative w-full mb-8 md:mb-10 overflow-hidden">
         <!-- 渐变遮罩 -->
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-24 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 md:w-24 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cert-marquee-track">
@@ -143,6 +147,9 @@ const certImages = [
           :key="item.title"
           class="p-6 md:p-8 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#433487]/20 transition-all duration-300"
         >
+          <span class="mb-4 w-10 h-10 rounded-xl bg-[#433487]/10 text-[#433487] flex items-center justify-center">
+            <Icon :icon="item.icon" class="w-5 h-5" aria-hidden="true" />
+          </span>
           <h3 class="text-lg font-semibold text-ink-primary">{{ item.title }}</h3>
           <p class="mt-4 text-sm text-ink-secondary leading-relaxed">{{ item.desc }}</p>
         </div>

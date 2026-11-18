@@ -95,9 +95,9 @@ const advantages = [
     <!-- ========================
          2. PEC — 数据成就 + 活动形式
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-12 md:py-20 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-8 md:mb-10">
           <!-- <div class="logo_imge" >
             <img src="@/assets/pecBaner/logo.webp"
             />
@@ -148,9 +148,9 @@ const advantages = [
     <!-- ========================
          3. PEC — 生态服务 + CTA
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-12 md:py-20 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-8 md:mb-10">
           <h3 class="text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight">{{ t('ecosystem.pec.services.title') }}</h3>
           <p class="mt-3 text-base text-ink-secondary">
             {{ t('ecosystem.pec.services.desc') }}
@@ -196,10 +196,10 @@ const advantages = [
     <!-- ========================
          4. 软积木 · 企业 AI 服务生态圈
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-12 md:py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- 标题区 -->
-        <div ref="aiServiceRef" class="text-center mb-12 md:mb-16">
+        <div ref="aiServiceRef" class="text-center mb-8 md:mb-10">
           <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
             {{ t('ecosystem.aiService.title') }}
           </h2>

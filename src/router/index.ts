@@ -336,7 +336,7 @@ const router = createRouter({
   scrollBehavior(to, _from, savedPosition) {
     if (savedPosition) return savedPosition
     // 支持 /#paid-insights 之类的锚点定位，预留固定头部高度
-    if (to.hash) return { el: to.hash, top: 96, behavior: 'smooth' }
+    if (to.hash) return { el: to.hash, top: 80, behavior: 'smooth' }
     return { top: 0 }
   },
   routes,

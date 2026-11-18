@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import AppImage from '../../components/AppImage.vue'
 
@@ -16,17 +17,17 @@ const scenarios = [
 ]
 
 const audiences = [
-  { title: '内容创作者', desc: '写稿、改稿、头脑风暴，选题库和素材永远在自己手里' },
-  { title: '自由职业者', desc: '客户资料、合同、报价在本地处理，对客户有交代' },
-  { title: '学生与研究者', desc: '论文、文献、数据分析，不上传、不限次数' },
-  { title: '企业团队', desc: '经验沉淀为团队 Skills，多设备统一管理，权限可控' },
+  { title: '内容创作者', icon: 'lucide:pen-line', desc: '写稿、改稿、头脑风暴，选题库和素材永远在自己手里' },
+  { title: '自由职业者', icon: 'lucide:briefcase', desc: '客户资料、合同、报价在本地处理，对客户有交代' },
+  { title: '学生与研究者', icon: 'lucide:graduation-cap', desc: '论文、文献、数据分析，不上传、不限次数' },
+  { title: '企业团队', icon: 'lucide:users', desc: '经验沉淀为团队 Skills，多设备统一管理，权限可控' },
 ]
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-20 md:py-[120px] bg-surface-base">
+  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12 md:mb-16">
+      <div class="text-center mb-8 md:mb-10">
         <h2
           class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
         >
@@ -66,6 +67,9 @@ const audiences = [
             :key="a.title"
             class="p-6 rounded-2xl bg-surface-card border border-line/50 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
+            <span class="mb-4 w-10 h-10 rounded-xl bg-[#E6F5FB] text-[#2DB4E6] flex items-center justify-center">
+              <Icon :icon="a.icon" class="w-5 h-5" aria-hidden="true" />
+            </span>
             <h4 class="text-base font-semibold text-ink-primary">{{ a.title }}</h4>
             <p class="mt-2 text-sm text-ink-secondary leading-relaxed">{{ a.desc }}</p>
           </div>

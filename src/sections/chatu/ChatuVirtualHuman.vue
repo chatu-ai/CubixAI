@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
 
@@ -10,20 +11,20 @@ useScrollReveal(leftRef, { y: 30, delay: 0.15 })
 useScrollReveal(rightRef, { y: 30 })
 
 const features = [
-  '24 小时不间断服务',
-  '智能化交互与生成',
-  '高度适配性与灵活性',
-  '推动行业数字化转型',
+  { text: '24 小时不间断服务', icon: 'lucide:clock' },
+  { text: '智能化交互与生成', icon: 'lucide:sparkles' },
+  { text: '高度适配性与灵活性', icon: 'lucide:sliders-horizontal' },
+  { text: '推动行业数字化转型', icon: 'lucide:trending-up' },
 ]
 
 const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
       >
         <!-- 左：形象占位 + 切换 -->
         <div ref="leftRef">
@@ -66,10 +67,13 @@ const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
           <div class="grid grid-cols-2 gap-3 mt-8">
             <div
               v-for="f in features"
-              :key="f"
-              class="p-4 rounded-xl bg-surface-card border border-line/50"
+              :key="f.text"
+              class="p-4 rounded-xl bg-surface-card border border-line/50 flex items-center gap-3"
             >
-              <span class="text-sm font-medium text-ink-primary">{{ f }}</span>
+              <span class="w-8 h-8 rounded-lg bg-[#433487]/10 text-[#433487] flex items-center justify-center shrink-0">
+                <Icon :icon="f.icon" class="w-4 h-4" aria-hidden="true" />
+              </span>
+              <span class="text-sm font-medium text-ink-primary">{{ f.text }}</span>
             </div>
           </div>
 

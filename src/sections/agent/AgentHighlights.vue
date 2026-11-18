@@ -40,7 +40,7 @@ const items = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-20 md:py-[120px] bg-surface-base">
+  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div

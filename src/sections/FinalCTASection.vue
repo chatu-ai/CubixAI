@@ -11,7 +11,7 @@ useScrollReveal(contentRef, { y: 30 })
 
 <template>
   <section class="relative overflow-hidden bg-surface-base">
-    <div class="relative pt-20 md:pt-[120px] pb-10 md:pb-16">
+    <div class="relative pt-12 md:pt-20 pb-10 md:pb-16">
       <div
         ref="contentRef"
         class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"

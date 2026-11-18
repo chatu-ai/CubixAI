@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 
 const titleRef = ref<HTMLElement | null>(null)
@@ -22,15 +23,15 @@ const categories = [
 ]
 
 const features = [
-  { title: '按岗定"体"', desc: '个性化服务' },
-  { title: '跨模型协作', desc: '发挥各模型能力' },
-  { title: '内容分级管理', desc: '权限分配' },
-  { title: '数据安全隐私', desc: '敏感信息不泄露' },
+  { title: '按岗定"体"', desc: '个性化服务', icon: 'lucide:user-cog' },
+  { title: '跨模型协作', desc: '发挥各模型能力', icon: 'lucide:network' },
+  { title: '内容分级管理', desc: '权限分配', icon: 'lucide:folder-lock' },
+  { title: '数据安全隐私', desc: '敏感信息不泄露', icon: 'lucide:shield-check' },
 ]
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-12">
         <h2
@@ -67,6 +68,9 @@ const features = [
           :key="feat.title"
           class="p-6 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#433487]/20 transition-all duration-300"
         >
+          <span class="mb-4 w-10 h-10 rounded-xl bg-[#433487]/10 text-[#433487] flex items-center justify-center">
+            <Icon :icon="feat.icon" class="w-5 h-5" aria-hidden="true" />
+          </span>
           <h4 class="text-base font-semibold text-ink-primary mb-1">
             {{ feat.title }}
           </h4>

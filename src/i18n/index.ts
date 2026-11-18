@@ -64,6 +64,7 @@ export async function setLocale(locale: SupportedLocale) {
     i18n.global.setLocaleMessage(locale, messages.default)
   }
   i18n.global.locale.value = locale
+  document.documentElement.lang = locale
 }
 
 export default i18n
