@@ -8,7 +8,7 @@ useScrollReveal(bottomRef, { y: 30, delay: 0.15 })
 
 const modes = [
   {
-    icon: 'lucide:mouse-pointer-touch',
+    icon: 'lucide:pointer',
     title: '指尖触屏',
     desc: '自带屏幕，手指一点即可对话',
     images: [

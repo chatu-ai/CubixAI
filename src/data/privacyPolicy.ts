@@ -2,12 +2,12 @@ import type { SupportedLocale } from '@/i18n'
 
 /**
  * 网站隐私政策内容（中/英/日/韩）。
- * 按网站实际情况编写：没有注册和自建表单；统计用百度统计；字体来自 Google Fonts；托管在腾讯云。
+ * 按网站实际情况编写：没有注册和自建表单；统计用百度统计；托管在腾讯云（字体随网站自托管，不经过第三方）。
  * 网站收集的数据或使用的服务变化时，需要同步更新这里和 lastUpdated。
  * 第 3 条固定为 Cookie 说明，正文里「第 3 条 / Section 3」的引用依赖这个顺序。
  */
 
-export const PRIVACY_EMAIL = 'bd@cubixai.com'
+export const PRIVACY_EMAIL = 'support@cubixai.com'
 
 export type PolicyBlock =
   | { type: 'p'; text: string }
@@ -80,7 +80,7 @@ const en: PrivacyPolicyContent = {
             },
             {
               lead: 'Technical data.',
-              text: 'When your browser loads the Website, our hosting and content delivery provider, and Google Fonts, which supplies the Website’s typeface, receive your IP address and standard request information, such as your browser type and the requested address, as needed to deliver the content.',
+              text: 'When your browser loads the Website, our hosting and content delivery provider receives your IP address and standard request information, such as your browser type and the requested address, as needed to deliver the content.',
             },
           ],
         },
@@ -138,7 +138,6 @@ const en: PrivacyPolicyContent = {
           items: [
             { text: 'Baidu (Baidu Analytics), when analytics cookies are enabled;' },
             { text: 'Tencent Cloud, which hosts the Website and delivers its content;' },
-            { text: 'Google (Google Fonts), which serves the Website’s typeface;' },
             { text: 'authorities or other parties where required by law or necessary to protect our rights.' },
           ],
         },
@@ -259,7 +258,7 @@ const zhCN: PrivacyPolicyContent = {
             },
             {
               lead: '技术数据：',
-              text: '您的浏览器加载本网站时，我们的网站托管与内容分发服务商，以及为本网站提供字体的 Google Fonts，会为传输内容接收您的 IP 地址和浏览器类型、请求地址等常规请求信息。',
+              text: '您的浏览器加载本网站时，我们的网站托管与内容分发服务商会为传输内容接收您的 IP 地址和浏览器类型、请求地址等常规请求信息。',
             },
           ],
         },
@@ -317,7 +316,6 @@ const zhCN: PrivacyPolicyContent = {
           items: [
             { text: '百度（百度统计）：在启用统计分析 Cookie 时；' },
             { text: '腾讯云：托管本网站并分发内容；' },
-            { text: 'Google（Google Fonts）：为本网站提供字体；' },
             { text: '法律要求或为保护我们的合法权益所必需时，向有关部门或其他第三方提供。' },
           ],
         },
@@ -426,7 +424,7 @@ const ja: PrivacyPolicyContent = {
             },
             {
               lead: '技術的なデータ：',
-              text: 'お客様のブラウザが本サイトを読み込む際、当社のホスティング・コンテンツ配信事業者、および本サイトのフォントを提供する Google Fonts は、コンテンツを配信するために、お客様の IP アドレスと、ブラウザの種類やリクエスト先のアドレスなどの標準的なリクエスト情報を受け取ります。',
+              text: 'お客様のブラウザが本サイトを読み込む際、当社のホスティング・コンテンツ配信事業者は、コンテンツを配信するために、お客様の IP アドレスと、ブラウザの種類やリクエスト先のアドレスなどの標準的なリクエスト情報を受け取ります。',
             },
           ],
         },
@@ -484,7 +482,6 @@ const ja: PrivacyPolicyContent = {
           items: [
             { text: 'Baidu（Baidu Analytics）：分析用 Cookie が有効な場合' },
             { text: 'Tencent Cloud：本サイトのホスティングとコンテンツ配信' },
-            { text: 'Google（Google Fonts）：本サイトのフォントの配信' },
             { text: '法令に基づく場合、または当社の権利を守るために必要な場合の関係当局その他の第三者' },
           ],
         },
@@ -593,7 +590,7 @@ const ko: PrivacyPolicyContent = {
             },
             {
               lead: '기술적 정보:',
-              text: '브라우저가 본 사이트를 불러올 때, 당사의 호스팅 및 콘텐츠 전송 서비스 제공업체와 본 사이트의 글꼴을 제공하는 Google Fonts는 콘텐츠 전송을 위해 IP 주소와 브라우저 유형, 요청한 주소 등 표준 요청 정보를 받습니다.',
+              text: '브라우저가 본 사이트를 불러올 때, 당사의 호스팅 및 콘텐츠 전송 서비스 제공업체는 콘텐츠 전송을 위해 IP 주소와 브라우저 유형, 요청한 주소 등 표준 요청 정보를 받습니다.',
             },
           ],
         },
@@ -651,7 +648,6 @@ const ko: PrivacyPolicyContent = {
           items: [
             { text: 'Baidu(Baidu Analytics): 분석 쿠키가 허용된 경우' },
             { text: 'Tencent Cloud: 본 사이트 호스팅 및 콘텐츠 전송' },
-            { text: 'Google(Google Fonts): 본 사이트 글꼴 제공' },
             { text: '법령에 따라 요구되거나 당사의 권리를 보호하기 위해 필요한 경우 관계 당국 및 기타 제3자' },
           ],
         },
