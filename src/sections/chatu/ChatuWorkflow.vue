@@ -3,19 +3,16 @@ import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import AppImage from '../../components/AppImage.vue'
 import workflowImg from '@/assets/workflow.webp'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
 
 useScrollReveal(leftRef, { y: 30 })
 useScrollReveal(rightRef, { y: 30, delay: 0.15 })
-
-const points = [
-  '自动化流程编排，减少重复劳动',
-  '多任务并行处理，提升整体效率',
-  '减少人为干预，降低出错概率',
-  '全流程任务跟踪，状态一目了然',
-]
 </script>
 
 <template>
@@ -29,12 +26,12 @@ const points = [
           <h2
             class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight leading-tight"
           >
-            Workflow · 让 AI 自动完成多步骤任务
+            {{ c.workflow.title }}
           </h2>
 
           <ul class="mt-6 space-y-3">
             <li
-              v-for="p in points"
+              v-for="p in c.workflow.points"
               :key="p"
               class="flex items-start gap-3 text-ink-secondary"
             >

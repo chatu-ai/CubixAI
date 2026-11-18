@@ -6,7 +6,7 @@ import StatNumber from './StatNumber.vue'
 const { t, locale } = useI18n()
 
 const isZh = computed(() => locale.value === 'zh-CN')
-const communityValue = computed(() => (isZh.value ? 250 : 2.5))
+const communityValue = computed(() => (isZh.value ? 350 : 3.5))
 const communityDecimals = computed(() => (isZh.value ? 0 : 1))
 </script>
 

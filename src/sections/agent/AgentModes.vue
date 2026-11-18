@@ -1,39 +1,42 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
 import AppImage from '../../components/AppImage.vue'
 
 const bottomRef = ref<HTMLElement | null>(null)
 useScrollReveal(bottomRef, { y: 30, delay: 0.15 })
 
-const modes = [
+const c = useContent(agentStationContent)
+
+// 文案按顺序取自 agentStationContent.modes.items；compact 表示图片需要限高居中（指尖触屏、手机远程）
+const MODE_MEDIA = [
   {
     icon: 'lucide:pointer',
-    title: '指尖触屏',
-    desc: '自带屏幕，手指一点即可对话',
+    compact: true,
     images: [
       new URL('@/assets/sb/手指触控.webp', import.meta.url).href,
     ],
   },
   {
     icon: 'lucide:keyboard',
-    title: '键盘鼠标',
-    desc: '插上键鼠，像电脑一样高效输入',
+    compact: false,
     images: [new URL('@/assets/sb/jp.webp', import.meta.url).href],
   },
   {
     icon: 'lucide:monitor',
-    title: '外接显示器',
-    desc: 'HDMI / DP 接大屏，桌面级办公',
+    compact: false,
     images: [new URL('@/assets/sb/显示屏.webp', import.meta.url).href],
   },
   {
     icon: 'lucide:smartphone',
-    title: '手机远程',
-    desc: '通过企业微信、飞书随时派任务',
+    compact: true,
     images: [new URL('@/assets/sb/sj.webp', import.meta.url).href],
   },
 ]
+
+const modes = computed(() => c.value.modes.items.map((item, i) => ({ ...MODE_MEDIA[i], ...item })))
 </script>
 
 <template>
@@ -43,7 +46,7 @@ const modes = [
         <p
           class="text-center text-lg md:text-xl font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
         >
-          四种打开方式：随时 · 随地 · 随心 · 随用
+          {{ c.modes.title }}
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div
@@ -67,7 +70,7 @@ const modes = [
                     ? 'w-1/2 h-24 md:h-28 rounded-lg bg-white'
                     : 'w-full h-full',
                   mode.images.length > 1 && idx === 1 ? '-ml-6 md:-ml-8' : '',
-                  mode.title === '手机远程' || mode.title === '指尖触屏' ? 'max-h-20 md:max-h-24 mx-auto' : '',
+                  mode.compact ? 'max-h-20 md:max-h-24 mx-auto' : '',
                 ]"
               />
             </div>

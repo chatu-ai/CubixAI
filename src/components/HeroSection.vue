@@ -2,28 +2,31 @@
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppImage from './AppImage.vue'
-import rjmBanana from '@/assets/rjm_banana.webp'
-import rjmBananaEn from '@/assets/rjm_banana_en.webp'
+import HeroArt from './HeroArt.vue'
 import chatuBanana from '@/assets/ChatU_banana.webp'
 
 const { t, locale } = useI18n()
 
-// 第一张横幅的标题和图标文字是画在图里的：中文版用原图，其他语言用英文版图片
+// 第一张横幅是分层动画版（HeroArt）：标题和图标文字画在图里，中文版用中文文字层，其他语言用英文文字层
 const isChinese = computed(() => locale.value === 'zh-CN')
 const slides = computed(() => [
   // 手机上横幅比例比原图窄，左右会被裁掉：第一张的文字在左侧，所以手机上靠左显示，保证标题完整
-  isChinese.value
-    ? { src: rjmBanana, alt: '软积木', position: 'object-left sm:object-center' }
-    : { src: rjmBananaEn, alt: 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption', position: 'object-left sm:object-center' },
-  { src: chatuBanana, alt: 'ChatU', position: 'object-center' },
+  {
+    art: true,
+    src: '',
+    alt: isChinese.value ? '软积木：打通企业 AI 落地最后三公里' : 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption',
+    position: '',
+  },
+  { art: false, src: chatuBanana, alt: 'ChatU', position: 'object-center' },
   // { src: zftBanana, alt: '智方体' },
 ])
 
 const current = ref(0)
 let autoTimer: ReturnType<typeof setInterval> | null = null
 let manualDelayTimer: ReturnType<typeof setTimeout> | null = null
-const AUTOPLAY_DELAY = 3000
-const AUTOPLAY_INTERVAL = 3000
+// 第一张横幅有入场动画，每张停留 5 秒，让动画能完整看到
+const AUTOPLAY_DELAY = 5000
+const AUTOPLAY_INTERVAL = 5000
 
 // Drag/swipe state
 const isDragging = ref(false)
@@ -177,7 +180,14 @@ onUnmounted(() => {
             transform: `translateX(calc(${(i - current) * 100}% + ${dragOffset}px))`
           }"
         >
+          <HeroArt
+            v-if="slide.art"
+            :lang="isChinese ? 'zh' : 'en'"
+            :active="current === i"
+            :alt="slide.alt"
+          />
           <AppImage
+            v-else
             :src="slide.src"
             :alt="slide.alt"
             :class="['w-full h-full object-cover', slide.position]"

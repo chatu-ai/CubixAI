@@ -6,6 +6,10 @@ import BrandButton from '../../components/BrandButton.vue'
 import CaseDetailModal from '../../components/CaseDetailModal.vue'
 import { cases } from '../../data/cases'
 import type { CaseItem } from '../../data/cases'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const content = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const card1Ref = ref<HTMLElement | null>(null)
@@ -25,9 +29,11 @@ function setCardRef(el: HTMLElement | null, idx: number) {
 
 const featuredIds = ['c1', 'c3', 'c5']
 const featuredCases = computed(() => {
-  return featuredIds
+  return (featuredIds
     .map((id) => cases.find((c) => c.id === id))
-    .filter(Boolean) as CaseItem[]
+    .filter(Boolean) as CaseItem[])
+    // 英文版用 content 中的译文覆盖案例文字字段；中文版不覆盖，保持原始数据
+    .map((c) => ({ ...c, ...content.value.cases.overrides[c.id] }))
 })
 
 const selectedCase = ref<CaseItem | null>(null)
@@ -46,7 +52,7 @@ function openCaseModal(caseItem: CaseItem) {
         <h2
           class="section-title"
         >
-          客户案例精选
+          {{ content.cases.title }}
         </h2>
       </div>
 
@@ -89,7 +95,7 @@ function openCaseModal(caseItem: CaseItem) {
                 arrow
                 @click="openCaseModal(c)"
               >
-                查看案例
+                {{ content.cases.viewCase }}
               </BrandButton>
             </div>
           </div>
@@ -98,7 +104,7 @@ function openCaseModal(caseItem: CaseItem) {
 
       <div class="mt-10 text-center">
         <BrandButton variant="ghost" to="/cases" class="hover:!border-[#433487] hover:!text-[#433487]" arrow>
-          查看全部案例
+          {{ content.cases.viewAll }}
         </BrandButton>
       </div>
     </div>

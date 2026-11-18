@@ -23,7 +23,7 @@ const pecStatsRef = ref<HTMLElement | null>(null)
 useScrollReveal(pecStatsRef, { y: 30, delay: 0.1 })
 
 const bigStats = [
-  { value: 2500000, suffix: '+', label: '系列活动累计覆盖人数' },
+  { value: 3500000, suffix: '+', label: '系列活动累计覆盖人数' },
   { value: 260, suffix: '+', label: '全国合作 AI 社群' },
   { value: 200000, suffix: '+', label: '社区覆盖人数' },
 ]

@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
 import AppImage from '../../components/AppImage.vue'
 import hero1 from '@/assets/zft/hero1(2).webp'
 import zft1 from '@/assets/zft/1.webp'
 import zft2 from '@/assets/zft/2.webp'
 import zft3 from '@/assets/zft/3.webp'
+
+const c = useContent(agentStationContent)
+const { locale } = useI18n()
+const isZh = computed(() => locale.value === 'zh-CN')
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
@@ -35,24 +42,8 @@ onUnmounted(() => {
   if (resetTimer) clearTimeout(resetTimer)
 })
 
-const coreSpecs = [
-  { name: '屏幕', value: '7 英寸高清触控屏', highlight: '', suffix: '' },
-  { name: '重量', value: '约 700 克', highlight: '', suffix: '' },
-  { name: '续航', value: '内置电池，待机约 5 小时', highlight: '', suffix: '' },
-  { name: '操作系统', value: 'Windows 11 企业版', highlight: '', suffix: '' },
-  { name: '处理器', value: 'Intel(R) N150', highlight: '', suffix: '' },
-  { name: '内存', value: '16G', highlight: '', suffix: '' },
-  { name: '存储', value: '256G / 512G / 1TB', highlight: '', suffix: '' },
-  { name: '本地模型', value: 'Qwen 等，离线可用', highlight: '', suffix: '' },
-]
-
-const ioSpecs = [
-  { name: 'USB', value: 'USB × 4 + Type-C × 1，键鼠、U 盘、摄像头、打印机即插即用', highlight: '', suffix: '' },
-  { name: '视频输出', value: 'HDMI / DP，外接大屏或投影', highlight: '', suffix: '' },
-  { name: '网络', value: '千兆网口 + Wi-Fi，内网大模型直连', highlight: '', suffix: '' },
-  { name: '尺寸', value: '长 17.5 cm × 宽 2 cm × 高 11 cm', highlight: '', suffix: '' },
-  { name: '认证', value: '3C 认证', highlight: '', suffix: '' },
-]
+const coreSpecs = computed(() => c.value.hardwareSpec.coreSpecs)
+const ioSpecs = computed(() => c.value.hardwareSpec.ioSpecs)
 </script>
 
 <template>
@@ -74,7 +65,7 @@ const ioSpecs = [
                 v-for="(img, i) in galleryImages"
                 :key="i"
                 :src="img"
-                :alt="`角度 ${i + 1}`"
+                :alt="`${c.hardwareSpec.angleAlt} ${i + 1}`"
                 class="w-full h-full shrink-0 object-contain"
               />
             </div>
@@ -91,13 +82,16 @@ const ioSpecs = [
             >
               <AppImage
                 :src="img"
-                :alt="`角度 ${i + 1}`"
+                :alt="`${c.hardwareSpec.angleAlt} ${i + 1}`"
                 class="w-full h-full object-contain"
               />
             </button>
           </div>
-          <p class="mt-4 text-xs md:text-[11px] text-ink-tertiary text-center whitespace-nowrap">
-            7 英寸触屏正面：开机即桌面　｜　一体支架：随手立起　｜　侧面接口：USB、HDMI、散热
+          <p
+            class="mt-4 text-xs md:text-[11px] text-ink-tertiary text-center"
+            :class="{ 'whitespace-nowrap': isZh }"
+          >
+            {{ c.hardwareSpec.caption }}
           </p>
         </div>
 
@@ -106,17 +100,17 @@ const ioSpecs = [
           <h2
             class="section-title"
           >
-            掌上 AI 工作站
+            {{ c.hardwareSpec.title }}
           </h2>
           <p class="mt-3 text-lg text-ink-secondary leading-relaxed">
-            手掌大小，装进包里带走；接上显示器，秒变桌面生产力
+            {{ c.hardwareSpec.subtitle }}
           </p>
 
           <div class="mt-10 mb-8">
             <h3
               class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
             >
-              核心配置
+              {{ c.hardwareSpec.coreTitle }}
             </h3>
             <div class="divide-y divide-line">
               <div
@@ -124,7 +118,7 @@ const ioSpecs = [
                 :key="s.name"
                 class="py-3 flex items-baseline gap-2"
               >
-                <span class="w-20 shrink-0 text-sm text-ink-tertiary">
+                <span class="shrink-0 text-sm text-ink-tertiary" :class="isZh ? 'w-20' : 'w-24'">
                   {{ s.name }}
                 </span>
                 <span class="text-sm text-ink-primary">
@@ -145,7 +139,7 @@ const ioSpecs = [
             <h3
               class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
             >
-              接口与扩展
+              {{ c.hardwareSpec.ioTitle }}
             </h3>
             <div class="divide-y divide-line">
               <div
@@ -153,7 +147,7 @@ const ioSpecs = [
                 :key="s.name"
                 class="py-3 flex items-baseline gap-2"
               >
-                <span class="w-20 shrink-0 text-sm text-ink-tertiary">
+                <span class="shrink-0 text-sm text-ink-tertiary" :class="isZh ? 'w-20' : 'w-24'">
                   {{ s.name }}
                 </span>
                 <span class="text-sm text-ink-primary">

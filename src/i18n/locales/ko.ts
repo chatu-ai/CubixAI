@@ -22,6 +22,11 @@ export default {
     close: '닫기',
     languageLoadError: '언어 리소스를 불러오지 못했습니다. 페이지를 새로고침하거나 나중에 다시 시도해 주세요.',
     privacyPolicy: '개인정보 처리방침',
+    consultModal: {
+      agentAlt: '고객 지원',
+      message: '문의나 요청 사항이 있으면 코드를 스캔해 언제든 연락해 주세요.',
+      qrAlt: '문의하기 QR 코드',
+    },
   },
 
   // ========================

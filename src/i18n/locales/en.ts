@@ -22,6 +22,11 @@ export default {
     close: 'Close',
     languageLoadError: 'Language resources could not be loaded. Please refresh or try again later.',
     privacyPolicy: 'Privacy Policy',
+    consultModal: {
+      agentAlt: 'Customer service',
+      message: 'Questions or requests? Scan the code to reach us anytime.',
+      qrAlt: 'Contact us QR code',
+    },
   },
 
   // ========================

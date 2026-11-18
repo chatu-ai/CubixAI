@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const tagsRef = ref<HTMLElement | null>(null)
@@ -11,23 +15,11 @@ useScrollReveal(titleRef, { y: 30 })
 useScrollReveal(tagsRef, { y: 20, delay: 0.1 })
 useScrollReveal(cardsRef, { y: 30, delay: 0.2 })
 
-const categories = [
-  '行政',
-  '销售',
-  '教育',
-  '科研',
-  '市场营销',
-  '人力资源',
-  '财务',
-  '政务',
-]
+const FEATURE_ICONS = ['lucide:user-cog', 'lucide:network', 'lucide:folder-lock', 'lucide:shield-check']
 
-const features = [
-  { title: '按岗定"体"', desc: '个性化服务', icon: 'lucide:user-cog' },
-  { title: '跨模型协作', desc: '发挥各模型能力', icon: 'lucide:network' },
-  { title: '内容分级管理', desc: '权限分配', icon: 'lucide:folder-lock' },
-  { title: '数据安全隐私', desc: '敏感信息不泄露', icon: 'lucide:shield-check' },
-]
+const features = computed(() =>
+  c.value.ecosystem.features.map((f, i) => ({ ...f, icon: FEATURE_ICONS[i] ?? '' })),
+)
 </script>
 
 <template>
@@ -37,10 +29,10 @@ const features = [
         <h2
           class="section-title"
         >
-          为企业打造专属的智能体平台
+          {{ c.ecosystem.title }}
         </h2>
         <p class="section-subtitle">
-          千余种智能体覆盖 8 大职能与业务场景
+          {{ c.ecosystem.subtitle }}
         </p>
       </div>
 
@@ -50,7 +42,7 @@ const features = [
         class="flex flex-wrap justify-center gap-3 mb-8"
       >
         <span
-          v-for="cat in categories"
+          v-for="cat in c.ecosystem.categories"
           :key="cat"
           class="px-4 py-2 rounded-full text-sm font-medium bg-surface-muted text-ink-secondary border border-line/50 hover:bg-surface-muted/80 transition-colors cursor-default"
         >

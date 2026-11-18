@@ -26,6 +26,11 @@ export default {
     close: '关闭',
     languageLoadError: '语言资源加载失败，请刷新页面或稍后重试。',
     privacyPolicy: '隐私政策',
+    consultModal: {
+      agentAlt: '客服',
+      message: '有任何问题或需求，欢迎随时联系我们',
+      qrAlt: '联系我们二维码',
+    },
   },
 
   // ========================

@@ -2,7 +2,7 @@
 import { nextTick, onMounted, onUnmounted, ref, useId, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const titleId = useId()
 const dialogRef = ref<HTMLElement | null>(null)
 const closeButtonRef = ref<HTMLButtonElement | null>(null)
@@ -137,18 +137,18 @@ onUnmounted(() => {
               <div class="w-28 shrink-0 rounded-xl overflow-hidden">
                 <img
                   src="@/assets/kf.webp"
-                  alt="客服"
+                  :alt="t('common.consultModal.agentAlt')"
                   class="w-full h-40 object-cover"
                 />
               </div>
               <div class="flex-1 flex flex-col gap-2 min-w-0">
-                <p class="text-xs text-ink-secondary text-center leading-snug whitespace-nowrap">
-                  有任何问题或需求，欢迎随时联系我们
+                <p class="text-xs text-ink-secondary text-center leading-snug" :class="locale === 'zh-CN' ? 'whitespace-nowrap' : 'text-balance'">
+                  {{ t('common.consultModal.message') }}
                 </p>
                 <div class="rounded-xl overflow-hidden bg-surface-muted h-40 flex items-center justify-center">
                   <img
                     src="@/assets/lxwm.webp"
-                    alt="联系我们"
+                    :alt="t('common.consultModal.qrAlt')"
                     class="w-full h-full object-contain"
                   />
                 </div>
