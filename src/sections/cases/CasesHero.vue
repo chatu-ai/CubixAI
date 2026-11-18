@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const titleRef = ref<HTMLElement | null>(null)
 
 useScrollReveal(titleRef, { y: 30 })
@@ -30,8 +30,10 @@ useScrollReveal(titleRef, { y: 30 })
       class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
     >
       <div ref="titleRef">
+        <!-- 英文标题较长，不强制单行（否则右侧被裁掉）；中文保持单行 -->
         <h1
-          class="page-title md:whitespace-nowrap"
+          class="page-title"
+          :class="{ 'md:whitespace-nowrap': locale === 'zh-CN' }"
         >
           {{ t('cases.hero.title') }}
         </h1>
