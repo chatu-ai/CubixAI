@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
 import BrandButton from '../../components/BrandButton.vue'
@@ -20,9 +21,15 @@ const IMAGE_SRCS = [
   new URL('@/assets/zkht.webp', import.meta.url).href,
   new URL('@/assets/ChatU/banner3.webp', import.meta.url).href,
 ]
+// 宣传图里有文字：非中文访客显示英文版
+const BANNER3_EN = new URL('@/assets/ChatU/banner3_en.webp', import.meta.url).href
+const { locale } = useI18n()
 
 const images = computed(() =>
-  IMAGE_SRCS.map((src, i) => ({ src, alt: c.value.hero.imageAlts[i] ?? '' })),
+  IMAGE_SRCS.map((src, i) => ({
+    src: i === 2 && locale.value !== 'zh-CN' ? BANNER3_EN : src,
+    alt: c.value.hero.imageAlts[i] ?? '',
+  })),
 )
 
 const currentIndex = ref(0)

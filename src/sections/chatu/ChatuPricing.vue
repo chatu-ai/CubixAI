@@ -1,11 +1,19 @@
 ﻿<script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import cardFront from '@/assets/czk.webp'
+import cardFrontEn from '@/assets/czk_en.webp'
+import cardBack from '@/assets/ChatU/llk2.webp'
+import cardBackEn from '@/assets/ChatU/llk2_en.webp'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import GlassCard from '../../components/GlassCard.vue'
 import { useContent } from '@/i18n/useContent'
 import { chatuContent } from '@/content/chatu'
 
 const c = useContent(chatuContent)
+// 充值卡图片上有文字：非中文访客显示英文版
+const { locale } = useI18n()
+const isZh = computed(() => locale.value === 'zh-CN')
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
@@ -65,12 +73,12 @@ useScrollReveal(rightRef, { y: 30, delay: 0.15 })
             <div class="flex flex-col gap-6 h-full">
               <div class="flex flex-row gap-4 justify-start items-start">
                 <img
-                  src="@/assets/czk.webp"
+                  :src="isZh ? cardFront : cardFrontEn"
                   :alt="c.pricing.cardAlt"
                   class="flex-1 min-w-0 h-auto object-contain rounded-2xl shadow-md"
                 />
                 <img
-                  src="@/assets/ChatU/llk2.webp"
+                  :src="isZh ? cardBack : cardBackEn"
                   :alt="c.pricing.cardAlt"
                   class="flex-1 min-w-0 h-auto object-contain rounded-2xl shadow-md"
                 />
