@@ -435,7 +435,7 @@ onUnmounted(() => {
         {{ t('header.home') }}
       </RouterLink>
       <div class="border-t border-line/50 my-2" />
-      <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
+      <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
         {{ t('header.products') }}
       </div>
       <RouterLink
@@ -464,7 +464,7 @@ onUnmounted(() => {
       </RouterLink>
       <template v-if="SHOW_GLOBAL_LANG_SWITCHER && !isContactPage">
         <div class="border-t border-line/50 my-2" />
-        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
+        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
           {{ t('header.language') }}
         </div>
         <div class="flex gap-2 px-3 py-2">
@@ -482,7 +482,7 @@ onUnmounted(() => {
       </template>
       <template v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage">
         <div class="border-t border-line/50 my-2" />
-        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wider">
+        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
           Contact {{ t('header.language') }}
         </div>
         <div class="flex gap-2 px-3 py-2" data-lang-switcher="contact">

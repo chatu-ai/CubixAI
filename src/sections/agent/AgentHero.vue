@@ -79,7 +79,7 @@ onUnmounted(stopCarousel)
             你可靠的 AI 工作站
           </p>
 
-          <p class="mt-2 text-sm text-ink-tertiary tracking-wider uppercase">
+          <p class="mt-2 text-sm text-ink-tertiary tracking-wide uppercase">
             YOUR RELIABLE AI WORKSTATION
           </p>
 

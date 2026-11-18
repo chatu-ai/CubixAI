@@ -115,7 +115,7 @@ nextTick(() => {
 
               <!-- Title -->
               <h2
-                class="text-2xl md:text-[28px] font-bold text-ink-primary leading-tight"
+                class="text-2xl md:text-[28px] font-semibold text-ink-primary leading-tight"
               >
                 {{ c.client }}
               </h2>
@@ -135,7 +135,7 @@ nextTick(() => {
               <div class="flex flex-wrap gap-6 md:gap-10 mt-6">
                 <div v-for="m in c.metrics" :key="m.label">
                   <div
-                    class="text-2xl md:text-3xl font-bold text-brand tracking-tight"
+                    class="text-2xl md:text-3xl font-semibold text-brand tracking-tight"
                   >
                     {{ m.value }}
                   </div>
@@ -235,7 +235,7 @@ nextTick(() => {
                 </span>
               </div>
               <h3
-                class="text-xl md:text-2xl font-bold text-ink-primary leading-tight"
+                class="text-xl md:text-2xl font-semibold text-ink-primary leading-tight"
               >
                   {{ selectedCase?.client }}
               </h3>
@@ -253,7 +253,7 @@ nextTick(() => {
             <!-- 客户背景 -->
             <div>
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-ink-primary mb-3"
+                class="flex items-center gap-2 text-sm font-semibold text-ink-primary mb-3"
               >
                 <Icon icon="lucide:building" class="w-4 h-4 text-brand" />
                 {{ t('common.customerBackground') }}
@@ -268,7 +268,7 @@ nextTick(() => {
               class="rounded-2xl bg-[#FEF2F2] border border-[#FECACA] p-5 md:p-6"
             >
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-[#991B1B] mb-4"
+                class="flex items-center gap-2 text-sm font-semibold text-[#991B1B] mb-4"
               >
                 <Icon icon="lucide:alert-circle" class="w-4 h-4" />
                 {{ t('common.corePainPoints') }}
@@ -290,7 +290,7 @@ nextTick(() => {
             <!-- 方案细节 -->
             <div>
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+                class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
               >
                 <Icon icon="lucide:check-circle" class="w-4 h-4" />
                 {{ t('common.schemeDetails') }}
@@ -313,7 +313,7 @@ nextTick(() => {
             <!-- 解决了什么问题 -->
             <div v-if="selectedCase?.solved?.length">
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+                class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
               >
                 <Icon icon="lucide:check-circle" class="w-4 h-4" />
                 {{ t('common.solveProblems') }}

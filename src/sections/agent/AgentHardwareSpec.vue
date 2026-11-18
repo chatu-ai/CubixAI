@@ -114,7 +114,7 @@ const ioSpecs = [
 
           <div class="mt-10 mb-8">
             <h3
-              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
+              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
             >
               核心配置
             </h3>
@@ -131,7 +131,7 @@ const ioSpecs = [
                   {{ s.value }}
                   <span
                     v-if="s.highlight"
-                    class="text-lg font-bold text-[#2DB4E6]"
+                    class="text-lg font-semibold text-[#2DB4E6]"
                   >
                     {{ s.highlight }}
                   </span>
@@ -143,7 +143,7 @@ const ioSpecs = [
 
           <div>
             <h3
-              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
+              class="text-sm font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
             >
               接口与扩展
             </h3>
@@ -160,7 +160,7 @@ const ioSpecs = [
                   {{ s.value }}
                   <span
                     v-if="s.highlight"
-                    class="text-lg font-bold text-[#2DB4E6]"
+                    class="text-lg font-semibold text-[#2DB4E6]"
                   >
                     {{ s.highlight }}
                   </span>

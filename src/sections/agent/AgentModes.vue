@@ -41,7 +41,7 @@ const modes = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="bottomRef">
         <p
-          class="text-center text-lg md:text-xl font-semibold text-[#2DB4E6] uppercase tracking-wider mb-4"
+          class="text-center text-lg md:text-xl font-semibold text-[#2DB4E6] uppercase tracking-wide mb-4"
         >
           四种打开方式：随时 · 随地 · 随心 · 随用
         </p>

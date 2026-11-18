@@ -36,7 +36,7 @@ const steps = ['生成大纲', '选择模板', '线上优化']
               class="flex items-center gap-4"
             >
               <div
-                class="w-8 h-8 rounded-full bg-[#433487] text-white flex items-center justify-center text-sm font-bold shrink-0"
+                class="w-8 h-8 rounded-full bg-[#433487] text-white flex items-center justify-center text-sm font-semibold shrink-0"
               >
                 {{ i + 1 }}
               </div>

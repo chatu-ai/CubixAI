@@ -191,8 +191,8 @@ onUnmounted(() => {
           >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div class="max-w-xl">
-                <p class="text-4xl md:text-5xl lg:text-6xZl font-bold text-[#55AD73] drop-shadow-lg tracking-widest">{{ t('home.hero.slide1Title') }}</p>
-                <p class="mt-8 text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] drop-shadow-lg tracking-wider">{{ t('home.hero.slide1Sub') }}</p>
+                <p class="text-4xl md:text-5xl lg:text-6xZl font-semibold text-[#55AD73] drop-shadow-lg tracking-wide">{{ t('home.hero.slide1Title') }}</p>
+                <p class="mt-8 text-3xl md:text-4xl lg:text-5xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide1Sub') }}</p>
                 <p class="mt-8 text-xl md:text-2xl lg:text-3xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide1Desc') }}</p>
               </div>
             </div>
@@ -205,10 +205,10 @@ onUnmounted(() => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <!-- 文字按横幅宽度（cqw）等比缩放，保证任何屏幕宽度下都完整落在横幅内；宽屏下不超过原来的 lg 尺寸 -->
               <div class="max-w-[68cqw] sm:max-w-[min(40cqw,36rem)]">
-                <p class="text-[length:7cqw] sm:text-[length:min(4.2cqw,3.75rem)] leading-none font-bold text-[#433487] drop-shadow-lg tracking-widest">{{ t('home.hero.slide2Title') }}</p>
-                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:4.4cqw] sm:text-[length:min(2.5cqw,2.25rem)] leading-[1.15] font-bold text-[#1A1A1A] drop-shadow-lg tracking-wider">{{ t('home.hero.slide2Sub') }}</p>
-                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:3.2cqw] sm:text-[length:min(1.67cqw,1.5rem)] leading-[1.35] font-semibold text-ink-secondary drop-shadow-lg tracking-wide">{{ t('home.hero.slide2Desc1') }}</p>
-                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:3.2cqw] sm:text-[length:min(1.67cqw,1.5rem)] leading-[1.35] font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide2Desc2') }}</p>
+                <p class="text-[length:7cqw] sm:text-[length:min(4.2cqw,3.75rem)] leading-none font-semibold text-[#433487]">{{ t('home.hero.slide2Title') }}</p>
+                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:4.4cqw] sm:text-[length:min(2.5cqw,2.25rem)] leading-[1.15] font-semibold text-[#1A1A1A]">{{ t('home.hero.slide2Sub') }}</p>
+                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:3.2cqw] sm:text-[length:min(1.67cqw,1.5rem)] leading-[1.35] font-semibold text-ink-secondary">{{ t('home.hero.slide2Desc1') }}</p>
+                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:3.2cqw] sm:text-[length:min(1.67cqw,1.5rem)] leading-[1.35] font-semibold text-[#1A1A1A]">{{ t('home.hero.slide2Desc2') }}</p>
               </div>
             </div>
           </div>
@@ -219,8 +219,8 @@ onUnmounted(() => {
           >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div class="max-w-xl">
-                <p class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A8BC4] drop-shadow-lg tracking-widest">{{ t('home.hero.slide3Title') }}</p>
-                <p class="mt-6 text-2xl md:text-3xl lg:text-4xl font-bold text-[#1A1A1A] drop-shadow-lg tracking-wider">{{ t('home.hero.slide3Sub') }}</p>
+                <p class="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#1A8BC4] drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Title') }}</p>
+                <p class="mt-6 text-2xl md:text-3xl lg:text-4xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Sub') }}</p>
                 <p class="mt-6 text-lg md:text-xl lg:text-2xl font-semibold text-ink-secondary drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Desc1') }}</p>
                 <p class="mt-6 text-lg md:text-xl lg:text-2xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Desc2') }}</p>
               </div>

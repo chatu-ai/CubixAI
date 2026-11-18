@@ -39,12 +39,8 @@
     letter-spacing: -0.02em;
   }
 
-  /* 日文、韩文用各自的本地字体显示，避免用中文字形 */
-  html[lang='ja'] body {
-    font-family: Inter, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', Meiryo, sans-serif;
-  }
+  /* 韩文按词换行（不影响字体） */
   html[lang='ko'] body {
-    font-family: Inter, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     word-break: keep-all;
   }
 }

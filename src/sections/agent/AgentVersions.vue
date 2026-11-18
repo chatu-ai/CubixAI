@@ -70,11 +70,11 @@ const versions = [
           class="relative flex flex-col p-6 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
         >
           <span
-            class="text-xs font-semibold text-[#2DB4E6] uppercase tracking-wider"
+            class="text-xs font-semibold text-[#2DB4E6] uppercase tracking-wide"
           >
             {{ v.name }}
           </span>
-          <div class="mt-3 text-3xl font-bold text-ink-primary">
+          <div class="mt-3 text-3xl font-semibold text-ink-primary">
             {{ v.price }}
           </div>
           <p class="mt-2 text-sm font-medium text-ink-primary">

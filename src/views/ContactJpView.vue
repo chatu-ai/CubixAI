@@ -264,7 +264,7 @@ const partners = [
           >
             <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-brand border-2 border-white md:-translate-x-1.5 z-10 mt-1.5 md:mt-0" />
             <div class="ml-10 md:ml-0 md:w-1/2" :class="i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'">
-              <span class="text-2xl md:text-3xl font-bold text-brand">{{ m.year }}</span>
+              <span class="text-2xl md:text-3xl font-semibold text-brand">{{ m.year }}</span>
               <h3 class="mt-1 text-lg font-semibold text-ink-primary">{{ m.title }}</h3>
               <p class="mt-1 text-sm text-ink-secondary">{{ m.desc }}</p>
             </div>

@@ -45,7 +45,7 @@ const pains4 = [
         >
           <span class="text-[#2DB4E6]">"</span>不会装、不敢装、不会用、不想折腾<span class="text-[#2DB4E6]">"</span>
         </h2>
-        <p class="mt-6 text-2xl md:text-[28px] text-ink-secondary italic">
+        <p class="mt-4 text-xl md:text-2xl text-ink-secondary">
           AI 不该只是极客的玩具
         </p>
       </div>

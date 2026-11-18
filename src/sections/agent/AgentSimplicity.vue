@@ -17,7 +17,7 @@ const steps = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="topRef">
         <p
-          class="text-center text-sm font-semibold text-[#2DB4E6] tracking-wider mb-4"
+          class="text-center text-sm font-semibold text-[#2DB4E6] tracking-wide mb-4"
         >
           会用电脑，就能用 Agent
         </p>
@@ -31,7 +31,7 @@ const steps = [
           <template v-for="(step, i) in steps" :key="step.num">
             <div class="text-center w-full md:w-48">
               <div
-                class="text-[72px] font-bold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-none"
+                class="text-[72px] font-semibold bg-gradient-to-br from-[#2DB4E6] to-[#1A8BC4] bg-clip-text text-transparent leading-none"
               >
                 {{ step.num }}
               </div>

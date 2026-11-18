@@ -47,7 +47,7 @@ useScrollReveal(cardRef, { y: 40, delay: 0.1 })
               class="group flex flex-col md:flex-row md:items-center gap-2 md:gap-5 px-5 md:px-8 py-4 md:py-5 transition-colors duration-200 hover:bg-brand-soft/30 focus-visible:outline-none focus-visible:bg-brand-soft/30"
             >
               <span
-                class="paid-tag self-start shrink-0 inline-flex items-center px-2.5 py-1 rounded-md text-xs md:text-sm font-bold text-white bg-[#F2592A] shadow-sm"
+                class="paid-tag self-start shrink-0 inline-flex items-center px-2.5 py-1 rounded-md text-xs md:text-sm font-semibold text-white bg-[#F2592A] shadow-sm"
               >
                 {{ t('home.paidInsights.pricePrefix', { price: item.price }) }}
               </span>

@@ -163,7 +163,7 @@ const advantages = [
             <!-- <div class="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center mb-6">
               <Icon :icon="svc.icon" class="w-7 h-7 text-white" />
             </div> -->
-            <h4 class="text-2xl font-bold text-ink-primary">{{ svc.title }}</h4>
+            <h4 class="text-2xl font-semibold text-ink-primary">{{ svc.title }}</h4>
             <p class="mt-4 text-base text-ink-secondary leading-relaxed">{{ svc.desc }}</p>
             <div v-if="svc.image" class="mt-6 rounded-2xl overflow-hidden border border-line/30 bg-surface-muted">
               <AppImage :src="svc.image" :alt="svc.title" class="w-full h-auto object-cover" />
@@ -221,7 +221,7 @@ const advantages = [
               <div class="aspect-video rounded-2xl overflow-hidden mb-5">
                 <AppImage :src="item.image" :alt="item.title" class="w-full h-full object-cover" />
               </div>
-              <h4 class="text-lg font-bold text-ink-primary mb-2">{{ item.title }}</h4>
+              <h4 class="text-lg font-semibold text-ink-primary mb-2">{{ item.title }}</h4>
               <p class="text-sm text-ink-secondary leading-relaxed">{{ item.desc }}</p>
             </div>
           </div>
@@ -245,7 +245,7 @@ const advantages = [
               <div class="w-12 h-12 rounded-2xl bg-brand-soft flex items-center justify-center mx-auto mb-4 group-hover:bg-brand group-hover:scale-110 transition-all duration-300">
                 <Icon :icon="item.icon" class="w-6 h-6 text-brand group-hover:text-white transition-colors duration-300" />
               </div>
-              <h4 class="text-lg font-bold text-ink-primary mb-1">{{ item.title }}</h4>
+              <h4 class="text-lg font-semibold text-ink-primary mb-1">{{ item.title }}</h4>
               <p class="text-sm text-ink-secondary leading-relaxed">{{ item.desc }}</p>
             </div>
           </div> -->

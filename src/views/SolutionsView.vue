@@ -439,7 +439,7 @@ onUnmounted(() => {
 
             <!-- Scenes -->
             <div class="mt-8">
-              <h3 class="text-sm font-semibold text-ink-tertiary uppercase tracking-wider mb-3">{{ t('common.applicableScenes') }}</h3>
+              <h3 class="text-sm font-semibold text-ink-tertiary uppercase tracking-wide mb-3">{{ t('common.applicableScenes') }}</h3>
               <div class="flex flex-wrap gap-2">
                 <span v-for="scene in s.scenes" :key="scene"
                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-muted text-sm text-ink-secondary">

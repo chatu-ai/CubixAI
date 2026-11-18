@@ -88,7 +88,7 @@ const backendFeatures = [
               <div
                 class="w-8 h-8 rounded-lg bg-[#433487]/10 flex items-center justify-center shrink-0"
               >
-                <span class="text-xs font-bold text-[#433487]">✓</span>
+                <span class="text-xs font-semibold text-[#433487]">✓</span>
               </div>
               <span class="text-sm font-medium text-ink-primary">{{ feat }}</span>
             </div>

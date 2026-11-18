@@ -133,7 +133,7 @@ const consultWays = [
 
         <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
           <div v-for="s in heroStats" :key="s.label" class="p-5 rounded-2xl bg-white border border-line/50 shadow-sm">
-            <div class="text-2xl md:text-3xl font-bold text-brand">{{ s.value }}</div>
+            <div class="text-2xl md:text-3xl font-semibold text-brand">{{ s.value }}</div>
             <div class="mt-1 text-sm text-ink-secondary">{{ s.label }}</div>
           </div>
         </div>
@@ -204,9 +204,9 @@ const consultWays = [
             <div class="col-span-8 px-6 py-4 text-sm font-semibold text-ink-primary">说明</div>
           </div>
           <div v-for="d in differences" :key="d.index" class="grid grid-cols-1 md:grid-cols-12 bg-white border-b border-line last:border-b-0">
-            <div class="md:col-span-1 px-6 py-5 text-brand font-bold border-r border-line hidden md:flex items-center">{{ d.index }}</div>
+            <div class="md:col-span-1 px-6 py-5 text-brand font-semibold border-r border-line hidden md:flex items-center">{{ d.index }}</div>
             <div class="md:col-span-3 px-6 py-5 text-ink-primary font-semibold border-r border-line flex items-center">
-              <span class="md:hidden text-brand font-bold mr-2">{{ d.index }}.</span>
+              <span class="md:hidden text-brand font-semibold mr-2">{{ d.index }}.</span>
               {{ d.title }}
             </div>
             <div class="md:col-span-8 px-6 py-5 text-ink-secondary flex items-center">{{ d.desc }}</div>

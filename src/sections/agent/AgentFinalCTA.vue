@@ -45,7 +45,7 @@ const items = [
         >
           你可靠的 AI 工作站
         </h2>
-        <p class="mt-4 text-sm text-ink-tertiary tracking-[0.2em] uppercase">
+        <p class="mt-4 text-sm text-ink-tertiary tracking-wide uppercase">
           WORK SMART · STAY SAFE
         </p>
         <p class="mt-4 text-xl text-ink-secondary">
