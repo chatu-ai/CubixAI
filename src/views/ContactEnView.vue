@@ -140,7 +140,7 @@ useScrollReveal(locationsRef, { y: 30, delay: 0.1 })
 const locations = [
   {
     city: 'Beijing · Zhongguancun AI Community',
-    address: "D2-D401, Haidian Dayue Information Technology Park, Haidian District, Beijing",
+    address: 'D2-1, Zhongguancun AI Beiwei Community, Haidian District, Beijing',
     func: 'AI industrial ecosystem cooperation, innovative business incubation, frontier technology exchange',
     image: 'bwsq1.webp',
   },
