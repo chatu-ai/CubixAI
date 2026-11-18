@@ -25,6 +25,7 @@ export default {
     comingSoon: '敬请期待',
     close: '关闭',
     languageLoadError: '语言资源加载失败，请刷新页面或稍后重试。',
+    privacyPolicy: '隐私政策',
   },
 
   // ========================

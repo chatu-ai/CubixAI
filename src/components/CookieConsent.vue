@@ -1,36 +1,28 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, watch } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import type { SupportedLocale } from '@/i18n'
 import {
   type ConsentStatus,
-  loadBaiduAnalytics,
+  consentStatus,
   needsConsentPrompt,
-  readConsent,
-  saveConsent,
-  shouldLoadAnalytics,
+  setConsent,
+  syncAnalytics,
 } from '@/utils/cookieConsent'
 
 const { t, locale } = useI18n()
-const consent = ref<ConsentStatus | null>(readConsent())
 const currentLocale = computed(() => locale.value as SupportedLocale)
 
 // 海外版本（英/日/韩）首次访问弹出 Cookie 确认；中文版不弹
-const visible = computed(() => needsConsentPrompt(currentLocale.value, consent.value))
+const visible = computed(() => needsConsentPrompt(currentLocale.value, consentStatus.value))
 
-// 统计脚本按语言和访客选择决定是否加载，切换语言或点了「接受」后会即时生效
-watch(
-  [currentLocale, consent],
-  ([loc, status]) => {
-    if (shouldLoadAnalytics(loc, status)) loadBaiduAnalytics()
-  },
-  { immediate: true },
-)
+// 统计脚本按语言和访客选择决定是否加载/上报，切换语言或改变选择后即时生效
+watch([currentLocale, consentStatus], ([loc]) => syncAnalytics(loc), { immediate: true })
 
 function choose(status: ConsentStatus) {
-  consent.value = status
-  saveConsent(status)
+  setConsent(status)
 }
 </script>
 
@@ -62,6 +54,12 @@ function choose(status: ConsentStatus) {
             </h2>
             <p id="cookie-consent-message" class="mt-1 text-sm leading-relaxed text-ink-secondary">
               {{ t('cookieConsent.message') }}
+              <RouterLink
+                to="/privacy"
+                class="font-medium text-brand-deep underline underline-offset-2 hover:text-brand"
+              >
+                {{ t('common.privacyPolicy') }}
+              </RouterLink>
             </p>
           </div>
         </div>

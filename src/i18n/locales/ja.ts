@@ -21,6 +21,7 @@ export default {
     comingSoon: 'まもなく公開',
     close: '閉じる',
     languageLoadError: '言語リソースを読み込めませんでした。ページを再読み込みするか、しばらくしてから再試行してください。',
+    privacyPolicy: 'プライバシーポリシー',
   },
 
   // ========================

@@ -21,6 +21,7 @@ export default {
     comingSoon: 'Coming Soon',
     close: 'Close',
     languageLoadError: 'Language resources could not be loaded. Please refresh or try again later.',
+    privacyPolicy: 'Privacy Policy',
   },
 
   // ========================

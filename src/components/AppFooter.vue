@@ -17,7 +17,7 @@ const route = useRoute()
 
 const greenRoutes = ['/', '/solutions', '/cases', '/ai-insight', '/contact']
 const isGreenBg = computed(() => greenRoutes.includes(route.path))
-const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chatu', '/ecosystem', '/ai-insight', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/cases', '/solutions', '/opc-hub', '/training'].includes(route.path))
+const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chatu', '/ecosystem', '/ai-insight', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/cases', '/solutions', '/opc-hub', '/training', '/privacy'].includes(route.path))
 </script>
 
 <template>
@@ -161,6 +161,9 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             />
             <span>京ICP备2023016063号</span>
           </a>
+          <RouterLink to="/privacy" class="text-white/40 hover:text-white/70 hover:underline underline-offset-2">
+            {{ t('common.privacyPolicy') }}
+          </RouterLink>
         </p>
       </div>
     </div>
