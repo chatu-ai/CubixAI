@@ -2,14 +2,16 @@
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
 
 useScrollReveal(leftRef, { y: 30 })
 useScrollReveal(rightRef, { y: 30, delay: 0.15 })
-
-const steps = ['生成大纲', '选择模板', '线上优化']
 </script>
 
 <template>
@@ -23,15 +25,15 @@ const steps = ['生成大纲', '选择模板', '线上优化']
           <h2
             class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight leading-tight"
           >
-            UPPT · 一键生成，重新定义 PPT 创作
+            {{ c.uppt.title }}
           </h2>
           <p class="section-subtitle">
-            从创意到成品，三步完成专业级演示文稿。
+            {{ c.uppt.subtitle }}
           </p>
 
           <div class="mt-8 space-y-4">
             <div
-              v-for="(step, i) in steps"
+              v-for="(step, i) in c.uppt.steps"
               :key="step"
               class="flex items-center gap-4"
             >
@@ -45,9 +47,7 @@ const steps = ['生成大纲', '选择模板', '线上优化']
           </div>
 
           <div class="flex flex-wrap gap-2 mt-8">
-            <Chip variant="muted">创意大纲</Chip>
-            <Chip variant="muted">海量模板</Chip>
-            <Chip variant="muted">一键下载</Chip>
+            <Chip v-for="chip in c.uppt.chips" :key="chip" variant="muted">{{ chip }}</Chip>
           </div>
         </div>
 

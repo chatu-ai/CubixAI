@@ -4,18 +4,16 @@ import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
 import AppImage from '../../components/AppImage.vue'
 import uviewImg from '@/assets/UView.webp'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
 
 useScrollReveal(leftRef, { y: 30, delay: 0.15 })
 useScrollReveal(rightRef, { y: 30 })
-
-const points = [
-  '2D 图转 3D 立体展示',
-  '数据报表智能总结',
-  '固定格式文件自动生成',
-]
 </script>
 
 <template>
@@ -38,12 +36,12 @@ const points = [
           <h2
             class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight leading-tight"
           >
-            UView · 数据内容可视化编辑
+            {{ c.uview.title }}
           </h2>
 
           <ul class="mt-6 space-y-3">
             <li
-              v-for="p in points"
+              v-for="p in c.uview.points"
               :key="p"
               class="flex items-start gap-3 text-ink-secondary"
             >
@@ -53,9 +51,7 @@ const points = [
           </ul>
 
           <div class="flex flex-wrap gap-2 mt-8">
-            <Chip variant="muted">多样化展示</Chip>
-            <Chip variant="muted">动态更新</Chip>
-            <Chip variant="muted">交互性</Chip>
+            <Chip v-for="chip in c.uview.chips" :key="chip" variant="muted">{{ chip }}</Chip>
           </div>
         </div>
       </div>

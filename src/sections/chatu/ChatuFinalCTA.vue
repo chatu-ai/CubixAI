@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import BrandButton from '../../components/BrandButton.vue'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const contentRef = ref<HTMLElement | null>(null)
 useScrollReveal(contentRef, { y: 30 })
@@ -29,31 +33,31 @@ useScrollReveal(contentRef, { y: 30 })
       <h2
         class="text-3xl md:text-4xl lg:text-5xl font-semibold text-ink-primary tracking-tight leading-tight"
       >
-        注册 ChatU · 赠送 10000 体验点数
+        {{ c.finalCta.title }}
       </h2>
       <p
         class="section-subtitle max-w-2xl mx-auto"
       >
-        企业试用申请 / 中控后台体验
+        {{ c.finalCta.subtitle }}
       </p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <BrandButton href="https://m.chatu.pro/" target="_blank" class="!bg-none !bg-[#433487]">立即注册</BrandButton>
+        <BrandButton href="https://m.chatu.pro/" target="_blank" class="!bg-none !bg-[#433487]">{{ c.finalCta.register }}</BrandButton>
         <BrandButton
           variant="ghost"
           class="!border-line !text-ink-primary !bg-transparent hover:!bg-surface-muted hover:!border-[#433487] hover:!text-[#433487]"
           href="https://admin.chatu.pro/"
           target="_blank"
         >
-          申请企业试用
+          {{ c.finalCta.trial }}
         </BrandButton>
       </div>
       <!-- 公众号 -->
       <div class="mt-12 pt-12 border-t border-line/50">
         <h3 class="section-title">
-          关注 ChatU 公众号
+          {{ c.finalCta.wechatTitle }}
         </h3>
         <p class="section-subtitle">
-          关注公众号获取产品最新动态
+          {{ c.finalCta.wechatDesc }}
         </p>
 
         <!-- 二维码 -->
@@ -63,14 +67,14 @@ useScrollReveal(contentRef, { y: 30 })
           >
             <img
               src="@/assets/chatU.webp"
-              alt="ChatU 公众号二维码"
+              :alt="c.finalCta.qrAlt"
               class="w-full h-full object-cover"
             />
           </div>
         </div>
 
         <p class="mt-6 text-sm text-ink-tertiary">
-          微信扫一扫，关注 ChatU 公众号
+          {{ c.finalCta.scanHint }}
         </p>
       </div>
     </div>

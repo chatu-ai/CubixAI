@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import AppImage from '../../components/AppImage.vue'
 import { getImageUrl } from '../../utils/image'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const cardsRef = ref<HTMLElement | null>(null)
@@ -11,54 +15,29 @@ const cardsRef = ref<HTMLElement | null>(null)
 useScrollReveal(titleRef, { y: 30 })
 useScrollReveal(cardsRef, { y: 30, delay: 0.15 })
 
-const items = [
-  {
-    title: '合规备案，符合规范',
-    icon: 'lucide:badge-check',
-    desc: '遵循国家网信办、工信部、以及互联网信息服务算法备案系统等管理规定。',
-  },
-  {
-    title: '知识产权清晰、可追溯、可担责',
-    icon: 'lucide:scale',
-    desc: '最新关键词过滤算法，最大限度保证生产内容合法合规，图文审查与协议符合国家规范',
-  },
-  {
-    title: '闭源不是 "封闭" 而是 "可控可用"',
-    icon: 'lucide:lock-keyhole',
-    desc: '自主研发底层架构，符合国内规范要求，架构稳定，国内使用无限制',
-  },
-]
+const ITEM_ICONS = ['lucide:badge-check', 'lucide:scale', 'lucide:lock-keyhole']
 
-const certImages = [
-  {
-    image: '图片1.webp',
-    name: 'ISO 9001 质量管理体系认证证书',
-  },
-  {
-    image: '图片2.webp',
-    name: 'ChatU CE 符合性认证证书',
-  },
-  {
-    image: '图片3.webp',
-    name: '发明专利公布',
-  },
-  {
-    image: '图片4.webp',
-    name: 'ChatU 企业大模型生成合成调度整合算法备案',
-  },
-  {
-    image: 'CubixAI大模型调度系统证书_01.webp',
-    name: 'CubixAI 大模型调度系统软著证书',
-  },
-  {
-    image: '企业智能销售后台管理系统证书_01.webp',
-    name: '企业智能销售后台管理系统软著证书',
-  },
-].map((cert) => ({
-  ...cert,
-  src: getImageUrl(`zz/${cert.image}`),
-  preview: getImageUrl(`zz/previews/${cert.image}`),
+const items = computed(() =>
+  c.value.trust.items.map((item, i) => ({ ...item, icon: ITEM_ICONS[i] ?? '' })),
+)
+
+// 证书图片文件名（name 来自 c.trust.certs，按顺序对应）
+const CERT_FILES = [
+  '图片1.webp',
+  '图片2.webp',
+  '图片3.webp',
+  '图片4.webp',
+  'CubixAI大模型调度系统证书_01.webp',
+  '企业智能销售后台管理系统证书_01.webp',
+].map((image) => ({
+  image,
+  src: getImageUrl(`zz/${image}`),
+  preview: getImageUrl(`zz/previews/${image}`),
 }))
+
+const certImages = computed(() =>
+  CERT_FILES.map((cert, i) => ({ ...cert, name: c.value.trust.certs[i] ?? '' })),
+)
 </script>
 
 <template>
@@ -68,10 +47,10 @@ const certImages = [
         <h2
           class="section-title"
         >
-          权威合规资质・安全可信保障
+          {{ c.trust.title }}
         </h2>
         <p class="mt-4 text-sm text-ink-secondary">
-          大模型生成合成调度整合算法备案号：网信算备110108947947801240011号
+          {{ c.trust.filing }}
         </p>
       </div>
 
