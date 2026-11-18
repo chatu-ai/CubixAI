@@ -2,7 +2,7 @@ export default {
   common: {
     siteName: 'CubixAI',
     siteTagline: 'AI 네이티브 기업으로서 ChatU 소프트웨어 플랫폼과 AgentStation 하드웨어 터미널을 통해 기업 인텔리전스화의 전체 체인을 연결합니다.',
-    copyright:  '© 2023–2026 CubixAI (Beijing) Technology Co., Ltd. All rights reserved.',
+    copyright:  '© 2023–2026 CubixAI Technology Co., Ltd. All rights reserved.',
     learnMore: '자세히 보기',
     contactUs: '문의하기',
     viewAll: '전체 보기',

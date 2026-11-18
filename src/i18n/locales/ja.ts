@@ -2,7 +2,7 @@ export default {
   common: {
     siteName: 'CubixAI',
     siteTagline: 'AIネイティブ企業として、ChatUソフトウェアプラットフォームとAgentStationハードウェア端末を通じて、企業のインテリジェンス化の全チェーンをつなぎます。',
-    copyright:  '© 2023–2026 CubixAI (Beijing) Technology Co., Ltd. All rights reserved.',
+    copyright:  '© 2023–2026 CubixAI Technology Co., Ltd. All rights reserved.',
     learnMore: '詳細を見る',
     contactUs: 'お問い合わせ',
     viewAll: 'すべて表示',
