@@ -23,6 +23,16 @@ export default {
     languageLoadError: '언어 리소스를 불러오지 못했습니다. 페이지를 새로고침하거나 나중에 다시 시도해 주세요.',
   },
 
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: '쿠키 사용 안내',
+    message: '당사는 설정을 기억하기 위해 쿠키 및 유사 기술을 사용하며, 동의하신 경우에만 Baidu Analytics로 방문 통계를 분석합니다. 필수가 아닌 쿠키의 허용 여부를 선택해 주세요.',
+    accept: '모두 허용',
+    reject: '필수 외 거부',
+  },
+
   header: {
     home: '홈',
     products: '제품',

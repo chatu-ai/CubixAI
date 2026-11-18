@@ -23,6 +23,16 @@ export default {
     languageLoadError: '言語リソースを読み込めませんでした。ページを再読み込みするか、しばらくしてから再試行してください。',
   },
 
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'Cookie の使用について',
+    message: '当サイトでは、設定を保存するために Cookie および類似の技術を使用し、同意いただいた場合に限り Baidu Analytics でアクセス解析を行います。必須以外の Cookie を許可するか拒否するかを選択してください。',
+    accept: 'すべて許可',
+    reject: '必須以外を拒否',
+  },
+
   header: {
     home: 'ホーム',
     products: '製品',

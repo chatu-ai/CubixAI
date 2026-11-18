@@ -23,6 +23,16 @@ export default {
     languageLoadError: 'Language resources could not be loaded. Please refresh or try again later.',
   },
 
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'We value your privacy',
+    message: 'We use cookies and similar technologies to remember your preferences and, with your consent, to analyze site traffic via Baidu Analytics. You can accept or reject non-essential cookies.',
+    accept: 'Accept All',
+    reject: 'Reject Non-essential',
+  },
+
   header: {
     home: 'Home',
     products: 'Products',

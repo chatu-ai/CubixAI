@@ -146,7 +146,9 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
       >
         <p class="text-sm text-white/40 flex items-center gap-2 flex-wrap">
           <span>{{ t('common.copyright') }}</span>
+          <!-- ICP 备案号只在中文版显示 -->
           <a
+            v-if="isChinese"
             href="https://beian.miit.gov.cn/"
             target="_blank"
             rel="noopener noreferrer"
