@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { SupportedLocale } from '@/i18n'
 import { PRIVACY_EMAIL, privacyPolicy } from '@/data/privacyPolicy'
@@ -13,15 +13,6 @@ import {
 const { locale } = useI18n()
 const currentLocale = computed(() => locale.value as SupportedLocale)
 const policy = computed(() => privacyPolicy[currentLocale.value] ?? privacyPolicy.en)
-
-// 页面标题跟随当前语言（路由里的 meta.title 是中文默认值）
-watch(
-  policy,
-  (p) => {
-    document.title = currentLocale.value === 'zh-CN' ? `${p.title} | 软积木 CubixAI` : `${p.title} | CubixAI`
-  },
-  { immediate: true },
-)
 
 const analyticsOn = computed(() => shouldLoadAnalytics(currentLocale.value, consentStatus.value))
 const justSaved = ref(false)
