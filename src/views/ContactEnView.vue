@@ -55,7 +55,7 @@ useScrollReveal(timelineRef, { y: 30, delay: 0.1 })
 
 const milestones = [
   { year: '2023.03', title: 'ChatU Launched', desc: 'Enterprise AI operating system officially released' },
-  { year: '2023.06', title: 'Company Founded', desc: 'CubixAI (Beijing) Technology Co., Ltd. officially established' },
+  { year: '2023.06', title: 'Company Founded', desc: 'CubixAI Technology Co., Ltd. officially established' },
   { year: '2023.08', title: '3,000+ Customers', desc: 'Expanded into Japan, Korea, Europe and the United States' },
   { year: '2025.01', title: 'International Expansion', desc: 'Brought the "Prompt Engineering Conference" international brand to China and launched Asian market operations' },
   { year: '2025.12', title: 'OPC Hub', desc: 'Launched OPC Hub to build the OPC industrial ecosystem' },
