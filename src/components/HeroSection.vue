@@ -100,6 +100,8 @@ function removeWindowPointerUpListener() {
 
 function onPointerDown(e: PointerEvent) {
   if (isDragging.value) return
+  // 按在底部圆点上时不进入拖动：否则容器捕获指针后，圆点按钮收不到 click，无法切换
+  if ((e.target as HTMLElement | null)?.closest('button')) return
   const target = e.currentTarget as HTMLElement
   try {
     target.setPointerCapture(e.pointerId)
