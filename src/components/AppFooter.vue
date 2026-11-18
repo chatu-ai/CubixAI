@@ -21,7 +21,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
 </script>
 
 <template>
-  <footer :class="isGreenBg ? 'bg-[#55AD73] text-white/80' : 'bg-brand-ink text-white/80'">
+  <footer :class="isGreenBg ? 'bg-[#1F6B45] text-white/80' : 'bg-brand-ink text-white/80'">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12">
         <!-- Brand -->
@@ -44,7 +44,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
                 {{ t('common.siteName') }}
               </span>
             </div>
-          </template><p class="text-sm text-white/60 leading-relaxed">
+          </template><p class="text-sm text-white/75 leading-relaxed">
             {{ t('common.siteTagline') }}
           </p>
         </div>
@@ -56,7 +56,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/products/chatu"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.chatu') }}
               </RouterLink>
@@ -64,7 +64,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <!-- <RouterLink
                 to="/products/agentstation"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.agentStation') }}
               </RouterLink> -->
@@ -72,7 +72,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/opc-hub"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.opcHub') }}
               </RouterLink>
@@ -80,7 +80,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/training"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.training') }}
               </RouterLink>
@@ -94,7 +94,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/contact"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.aboutUs') }}
               </RouterLink>
@@ -102,7 +102,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/cases"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.customerCases') }}
               </RouterLink>
@@ -110,7 +110,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/contact"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.contactUs') }}
               </RouterLink>
@@ -124,7 +124,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/solutions"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.solutions') }}
               </RouterLink>
@@ -132,7 +132,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             <li>
               <RouterLink
                 to="/ecosystem"
-                class="text-sm text-white/60 hover:text-white transition-colors"
+                class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.ecosystem') }}
               </RouterLink>
@@ -144,7 +144,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
       <div
         class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
       >
-        <p class="text-sm text-white/40 flex items-center gap-2 flex-wrap">
+        <p class="text-sm text-white/60 flex items-center gap-2 flex-wrap">
           <span>{{ t('common.copyright') }}</span>
           <!-- ICP 备案号只在中文版显示 -->
           <a
@@ -152,7 +152,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             href="https://beian.miit.gov.cn/"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center gap-1 text-white/40"
+            class="flex items-center gap-1 text-white/60"
           >
             <img
               :src="beiIcon"
@@ -161,7 +161,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             />
             <span>京ICP备2023016063号</span>
           </a>
-          <RouterLink to="/privacy" class="text-white/40 hover:text-white/70 hover:underline underline-offset-2">
+          <RouterLink to="/privacy" class="text-white/60 hover:text-white hover:underline underline-offset-2">
             {{ t('common.privacyPolicy') }}
           </RouterLink>
         </p>

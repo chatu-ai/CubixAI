@@ -11,7 +11,7 @@ useScrollReveal(titleRef, { y: 30 })
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-12 md:pt-20 pb-16 md:pb-24"
+    class="relative overflow-hidden bg-surface-base pt-10 md:pt-14 pb-10 md:pb-16"
   >
     <!-- 右上绿色光晕 -->
     <div

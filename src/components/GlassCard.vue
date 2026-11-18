@@ -11,15 +11,15 @@ withDefaults(defineProps<Props>(), {
 
 const paddingMap = {
   sm: 'p-4',
-  md: 'p-6',
-  lg: 'p-8',
+  md: 'p-5',
+  lg: 'p-6 md:p-7',
 }
 </script>
 
 <template>
   <div
-    class="relative bg-surface-card/80 backdrop-blur-xl rounded-2xl shadow-card border border-line/50 overflow-hidden"
-    :class="[paddingMap[padding], hover && 'transition-all duration-300 hover:shadow-lg hover:-translate-y-1']"
+    class="relative bg-surface-card rounded-2xl shadow-card border border-line overflow-hidden"
+    :class="[paddingMap[padding], hover && 'transition-all duration-200 hover:border-brand/40 hover:shadow-card-hover hover:-translate-y-0.5']"
   >
     <slot />
   </div>

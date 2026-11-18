@@ -42,7 +42,7 @@ onUnmounted(stopCarousel)
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-12 md:pt-20 pb-16 md:pb-24"
+    class="relative overflow-hidden bg-surface-base pt-10 md:pt-14 pb-10 md:pb-16"
   >
     <!-- 右上绿色光晕 -->
     <div
@@ -59,7 +59,7 @@ onUnmounted(stopCarousel)
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-center"
       >
         <!-- 左侧 -->
         <div ref="leftRef">

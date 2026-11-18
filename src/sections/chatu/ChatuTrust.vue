@@ -58,9 +58,9 @@ const certImages = [
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-8 md:mb-10">
         <h2
           class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
         >
@@ -72,15 +72,15 @@ const certImages = [
       </div>
 
       <!-- 资质证书轮播 -->
-      <div class="relative w-full mb-12 md:mb-16 overflow-hidden">
+      <div class="relative w-full mb-8 md:mb-10 overflow-hidden">
         <!-- 渐变遮罩 -->
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-24 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 md:w-24 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cert-marquee-track">

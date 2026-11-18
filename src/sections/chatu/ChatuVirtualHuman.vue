@@ -20,10 +20,10 @@ const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
       >
         <!-- 左：形象占位 + 切换 -->
         <div ref="leftRef">

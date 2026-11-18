@@ -20,7 +20,7 @@ const emit = defineEmits<{
     class="z-40 transition-all duration-300"
     :class="
       sticky
-        ? 'sticky top-16 md:top-20 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3'
+        ? 'sticky top-14 md:top-16 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3'
         : 'relative py-3 bg-surface-base'
     "
   >
@@ -33,7 +33,7 @@ const emit = defineEmits<{
           :class="
             activeIndex === i
               ? 'bg-brand text-white shadow-sm'
-              : 'bg-[#F3F5F2] text-ink-secondary hover:text-ink-primary'
+              : 'bg-[#F1F4F2] text-ink-secondary hover:text-ink-primary'
           "
           @click="emit('select', i)"
         >

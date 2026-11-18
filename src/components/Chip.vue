@@ -10,7 +10,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <span
-    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase"
+    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
     :class="[
       variant === 'brand'
         ? 'bg-brand-soft text-brand-deep'

@@ -37,7 +37,7 @@ const items = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden py-20 md:py-[120px] bg-white">
+  <section class="relative overflow-hidden py-12 md:py-20 bg-white">
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="contentRef" class="text-center mb-12">
         <h2

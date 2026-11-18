@@ -77,14 +77,14 @@ nextTick(() => {
     <CasesHero />
 
     <!-- Tab -->
-    <div class="sticky top-16 md:top-20 z-40 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3">
+    <div class="sticky top-14 md:top-16 z-40 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-center gap-2 overflow-x-auto" style="scrollbar-width: none;">
           <button
             v-for="item in categories"
             :key="item.id"
             class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all shrink-0"
-            :class="activeCat === item.id ? 'bg-brand text-white shadow-sm' : 'bg-[#F3F5F2] text-ink-secondary hover:text-ink-primary'"
+            :class="activeCat === item.id ? 'bg-brand text-white shadow-sm' : 'bg-[#F1F4F2] text-ink-secondary hover:text-ink-primary'"
             @click="switchCategory(item.id)"
           >
             {{ item.label }}
@@ -369,11 +369,11 @@ nextTick(() => {
       <div class="relative w-full mb-16 md:mb-20">
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cases-marquee-track">
@@ -408,11 +408,11 @@ nextTick(() => {
       <div class="relative w-full">
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cases-marquee-track-reverse">

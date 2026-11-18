@@ -11,7 +11,7 @@ const communityDecimals = computed(() => (isZh.value ? 0 : 1))
 </script>
 
 <template>
-  <section class="py-24 md:py-36 bg-surface-base border-y border-line/50">
+  <section class="py-10 md:py-14 bg-surface-base border-y border-line/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6">
         <StatNumber :value="3000" :suffix="t('home.stats.customerSuffix')" :label="t('home.stats.customers')" />

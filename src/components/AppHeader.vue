@@ -188,14 +188,14 @@ onUnmounted(() => {
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- 左中右三栏：左右两栏等宽伸缩，保证导航在任何页面都居中 -->
-      <div class="flex items-center justify-between h-16 md:h-20">
+      <div class="flex items-center justify-between h-14 md:h-16">
         <!-- Logo -->
         <div class="flex-1 basis-0 min-w-0 flex items-center">
           <RouterLink to="/" class="flex items-center gap-2.5">
             <img
               :src="logoSrc"
               :alt="logoAlt"
-              class="h-[84px] w-[84px] md:h-[108px] md:w-[108px] rounded-2xl object-contain"
+              class="h-9 md:h-11 w-auto object-contain"
             />
           </RouterLink>
         </div>

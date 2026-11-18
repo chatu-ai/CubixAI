@@ -11,7 +11,7 @@ import { Icon } from '@iconify/vue'
       style="background: radial-gradient(circle, rgba(85,173,115,0.04) 0%, transparent 70%); filter: blur(80px);" />
 
     <!-- Hero -->
-    <section class="relative pt-32 md:pt-40 pb-10 md:pb-14">
+    <section class="relative pt-14 md:pt-20 pb-8 md:pb-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl md:text-4xl lg:text-[44px] font-semibold text-ink-primary tracking-tight">
           AI 洞察 · 预见未来

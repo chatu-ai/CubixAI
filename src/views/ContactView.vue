@@ -186,7 +186,7 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
     <!-- ========================
          1. Hero
          ======================== -->
-    <section class="relative overflow-hidden bg-surface-base pt-32 md:pt-40 pb-16 md:pb-24">
+    <section class="relative overflow-hidden bg-surface-base pt-14 md:pt-20 pb-10 md:pb-16">
       <div
         class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(60px);"
@@ -204,9 +204,9 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
     <!-- ========================
          2. 核心理念
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-12 md:py-20 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-8 md:mb-10">
           <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">{{ t('about.mission.title') }}</h2>
         </div>
         <div ref="missionRef" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
@@ -232,9 +232,9 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
     <!-- ========================
          3. 发展历程
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-12 md:py-20 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-8 md:mb-10">
           <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">{{ t('about.timeline.title') }}</h2>
         </div>
         <div ref="timelineRef" class="relative">
@@ -260,9 +260,9 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
     <!-- ========================
          4. 全球背书
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-12 md:py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref="globalRef" class="text-center mb-12 md:mb-16">
+        <div ref="globalRef" class="text-center mb-8 md:mb-10">
           <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
             {{ t('about.global.title') }}
           </h2>
@@ -348,10 +348,10 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
     <!-- ========================
          5. 企业荣誉
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-12 md:py-20 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref="honorsRef">
-          <div class="text-center mb-12 md:mb-16">
+          <div class="text-center mb-8 md:mb-10">
             <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
               {{ t('about.honors.title') }}
             </h2>
@@ -369,11 +369,11 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
             <!-- 渐变遮罩 -->
             <div
               class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to right, #FAFAF7, transparent);"
+              style="background: linear-gradient(to right, #F8FAF9, transparent);"
             />
             <div
               class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to left, #FAFAF7, transparent);"
+              style="background: linear-gradient(to left, #F8FAF9, transparent);"
             />
 
             <!-- 第一行 -->
@@ -456,9 +456,9 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
     <!-- ========================
          7. 全球办公
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-12 md:py-20 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-8 md:mb-10">
           <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
             {{ t('about.locations.title') }}
           </h2>
@@ -493,7 +493,7 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
       />
 
       <!-- 标题区 -->
-      <div class="relative pt-20 md:pt-[120px] pb-10 md:pb-16">
+      <div class="relative pt-12 md:pt-20 pb-10 md:pb-16">
         <div ref="ctaRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 class="text-3xl md:text-4xl lg:text-[56px] font-semibold text-ink-primary tracking-tight leading-tight">
             {{ t('about.contact.title') }}
@@ -505,7 +505,7 @@ useScrollReveal(matrixRef, { y: 40, delay: 0.1 })
       </div>
 
       <!-- 联系矩阵 -->
-      <div class="relative pb-20 md:pb-[120px]">
+      <div class="relative pb-12 md:pb-20">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref="matrixRef" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- 第一列：业务二维码 -->

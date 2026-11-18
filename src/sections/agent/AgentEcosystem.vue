@@ -21,7 +21,7 @@ useScrollReveal(contentRef, { y: 30, delay: 0.2 })
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-12 md:py-20 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- 左文案+图片 与 右竖排三卡 -->
       <div ref="contentRef" class="flex flex-col md:flex-row items-stretch gap-6">
