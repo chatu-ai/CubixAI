@@ -42,3 +42,24 @@ it('preserves saved preferences and browser-language detection', async () => {
   localStorage.setItem('locale', 'invalid')
   expect(getInitialLocale()).toBe('ja')
 })
+
+it('picks the first supported language from the browser preference list', async () => {
+  const { getInitialLocale } = await import('./index')
+  vi.spyOn(navigator, 'language', 'get').mockReturnValue('fr-FR')
+  vi.spyOn(navigator, 'languages', 'get').mockReturnValue(['fr-FR', 'ko-KR', 'en-US'])
+  expect(getInitialLocale()).toBe('ko')
+})
+
+it('falls back to English for unsupported browser languages', async () => {
+  const { getInitialLocale } = await import('./index')
+  vi.spyOn(navigator, 'language', 'get').mockReturnValue('de-DE')
+  vi.spyOn(navigator, 'languages', 'get').mockReturnValue(['de-DE', 'fr'])
+  expect(getInitialLocale()).toBe('en')
+})
+
+it('falls back to Chinese when the browser reports no language', async () => {
+  const { getInitialLocale } = await import('./index')
+  vi.spyOn(navigator, 'language', 'get').mockReturnValue('')
+  vi.spyOn(navigator, 'languages', 'get').mockReturnValue([])
+  expect(getInitialLocale()).toBe('zh-CN')
+})

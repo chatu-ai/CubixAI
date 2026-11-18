@@ -4,10 +4,17 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import i18n, { localeMap, localeLabels, setLocale } from '../i18n'
+import logoZh from '@/assets/logo.webp'
+import logoEn from '@/assets/logo-en.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
+
+// 中文用「软积木」logo，其他语言用英文 CubixAI logo，随当前语言自动切换
+const isChinese = computed(() => locale.value === 'zh-CN')
+const logoSrc = computed(() => (isChinese.value ? logoZh : logoEn))
+const logoAlt = computed(() => (isChinese.value ? '软积木' : 'CubixAI'))
 
 const showProductMenu = ref(false)
 const showLangMenu = ref(false)
@@ -186,8 +193,8 @@ onUnmounted(() => {
         <div class="flex-1 basis-0 min-w-0 flex items-center">
           <RouterLink to="/" class="flex items-center gap-2.5">
             <img
-              src="@/assets/logo.webp"
-              alt="软积木"
+              :src="logoSrc"
+              :alt="logoAlt"
               class="h-[84px] w-[84px] md:h-[108px] md:w-[108px] rounded-2xl object-contain"
             />
           </RouterLink>

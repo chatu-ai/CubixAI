@@ -4,8 +4,15 @@ import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
 import beiIcon from '@/assets/icon/bei.webp'
+import logo2Zh from '@/assets/logo2.webp'
+import logo2En from '@/assets/logo2-en.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+// 中文用「软积木」logo，其他语言用英文 CubixAI logo（白字版，适配深色页脚）
+const isChinese = computed(() => locale.value === 'zh-CN')
+const footerLogoSrc = computed(() => (isChinese.value ? logo2Zh : logo2En))
+const footerLogoAlt = computed(() => (isChinese.value ? '软积木' : 'CubixAI'))
 const route = useRoute()
 
 const greenRoutes = ['/', '/solutions', '/cases', '/ai-insight', '/contact']
@@ -21,8 +28,8 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
         <div class="md:col-span-1">
           <template v-if="showLogo2">
             <img
-              src="@/assets/logo2.webp"
-              alt="软积木"
+              :src="footerLogoSrc"
+              :alt="footerLogoAlt"
               class="h-12 w-auto mb-4"
             />
           </template>
