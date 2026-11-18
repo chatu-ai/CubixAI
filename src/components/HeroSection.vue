@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppImage from './AppImage.vue'
 import rjmBanana from '@/assets/rjm_banana.webp'
+import rjmBananaEn from '@/assets/rjm_banana_en.webp'
 import chatuBanana from '@/assets/ChatU_banana.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
-const slides = [
-  { src: rjmBanana, alt: '软积木' },
+// 第一张横幅的标题和图标文字是画在图里的：中文版用原图，其他语言用英文版图片
+const isChinese = computed(() => locale.value === 'zh-CN')
+const slides = computed(() => [
+  isChinese.value
+    ? { src: rjmBanana, alt: '软积木' }
+    : { src: rjmBananaEn, alt: 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption' },
   { src: chatuBanana, alt: 'ChatU' },
   // { src: zftBanana, alt: '智方体' },
-]
+])
 
 const current = ref(0)
 let autoTimer: ReturnType<typeof setInterval> | null = null
@@ -33,7 +38,7 @@ let windowPointerUpHandler: ((e: PointerEvent) => void) | null = null
 function startAutoplay() {
   if (autoTimer) clearInterval(autoTimer)
   autoTimer = setInterval(() => {
-    current.value = (current.value + 1) % slides.length
+    current.value = (current.value + 1) % slides.value.length
   }, AUTOPLAY_INTERVAL)
 }
 
@@ -73,9 +78,9 @@ function handlePointerEnd() {
   isDragging.value = false
   currentPointerId.value = null
   if (dragDelta.value < -DRAG_THRESHOLD) {
-    current.value = (current.value + 1) % slides.length
+    current.value = (current.value + 1) % slides.value.length
   } else if (dragDelta.value > DRAG_THRESHOLD) {
-    current.value = (current.value - 1 + slides.length) % slides.length
+    current.value = (current.value - 1 + slides.value.length) % slides.value.length
   }
   dragDelta.value = 0
   dragOffset.value = 0
