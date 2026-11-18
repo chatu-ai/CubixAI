@@ -8,6 +8,9 @@ import type { SupportedLocale } from '@/i18n'
  */
 
 export const PRIVACY_EMAIL = 'support@cubixai.com'
+/** 中文版写北京地址，海外版（英/日/韩）写新加坡地址 */
+const BEIJING_ADDRESS = '北京市海淀区海淀大悦信息科技园 D2-D401'
+const SINGAPORE_ADDRESS = "139 PASIR RIS GROVE, #05-43, D'NEST, SINGAPORE"
 
 export type PolicyBlock =
   | { type: 'p'; text: string }
@@ -59,7 +62,7 @@ const en: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: `The Website is operated by CubixAI Technology Co., Ltd. If you have any questions about this policy or your personal information, contact us at ${PRIVACY_EMAIL}.`,
+          text: `The Website is operated by CubixAI Technology Co., Ltd., ${SINGAPORE_ADDRESS}. If you have any questions about this policy or your personal information, contact us at ${PRIVACY_EMAIL}.`,
         },
       ],
     },
@@ -153,7 +156,7 @@ const en: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: 'CubixAI is based in China, and Baidu Analytics processes data in mainland China. If you visit the Website from outside China, your information may be transferred to and processed in China and in other countries where our providers operate, whose data protection laws may differ from those where you live. Where required, we take steps to protect your information in line with this policy and applicable law.',
+          text: 'CubixAI operates in China, and Baidu Analytics processes data in mainland China. If you visit the Website from outside China, your information may be transferred to and processed in China and in other countries where our providers operate, whose data protection laws may differ from those where you live. Where required, we take steps to protect your information in line with this policy and applicable law.',
         },
       ],
     },
@@ -237,7 +240,7 @@ const zhCN: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: `本网站由软积木（北京）科技有限公司运营。如您对本政策或您的个人信息有任何疑问，请发送邮件至 ${PRIVACY_EMAIL} 与我们联系。`,
+          text: `本网站由软积木（北京）科技有限公司运营，地址：${BEIJING_ADDRESS}。如您对本政策或您的个人信息有任何疑问，请发送邮件至 ${PRIVACY_EMAIL} 与我们联系。`,
         },
       ],
     },
@@ -403,7 +406,7 @@ const ja: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: `本サイトは CubixAI Technology Co., Ltd. が運営しています。本ポリシーまたはお客様の個人情報に関するご質問は、${PRIVACY_EMAIL} までご連絡ください。`,
+          text: `本サイトは CubixAI Technology Co., Ltd.（所在地：${SINGAPORE_ADDRESS}）が運営しています。本ポリシーまたはお客様の個人情報に関するご質問は、${PRIVACY_EMAIL} までご連絡ください。`,
         },
       ],
     },
@@ -494,7 +497,7 @@ const ja: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: 'CubixAI は中国に拠点を置いており、Baidu Analytics は中国本土でデータを処理します。中国国外から本サイトをご利用の場合、お客様の情報は中国および当社の委託先が事業を行うその他の国に移転され、処理されることがあります。これらの国のデータ保護法は、お客様がお住まいの国と異なる場合があります。必要に応じて、本ポリシーおよび適用法令に沿ってお客様の情報を保護するための措置を講じます。',
+          text: 'CubixAI は中国で事業を行っており、Baidu Analytics は中国本土でデータを処理します。中国国外から本サイトをご利用の場合、お客様の情報は中国および当社の委託先が事業を行うその他の国に移転され、処理されることがあります。これらの国のデータ保護法は、お客様がお住まいの国と異なる場合があります。必要に応じて、本ポリシーおよび適用法令に沿ってお客様の情報を保護するための措置を講じます。',
         },
       ],
     },
@@ -569,7 +572,7 @@ const ko: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: `본 사이트는 CubixAI Technology Co., Ltd.가 운영합니다. 본 방침 또는 개인정보에 관한 문의는 ${PRIVACY_EMAIL}로 연락해 주세요.`,
+          text: `본 사이트는 CubixAI Technology Co., Ltd.(주소: ${SINGAPORE_ADDRESS})가 운영합니다. 본 방침 또는 개인정보에 관한 문의는 ${PRIVACY_EMAIL}으로 연락해 주세요.`,
         },
       ],
     },
@@ -660,7 +663,7 @@ const ko: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: 'CubixAI는 중국에 기반을 두고 있으며, Baidu Analytics는 중국 본토에서 데이터를 처리합니다. 중국 외 지역에서 본 사이트를 방문하는 경우 이용자의 정보가 중국 및 당사 서비스 제공업체가 운영되는 기타 국가로 이전되어 처리될 수 있으며, 해당 국가의 개인정보 보호법은 이용자가 거주하는 국가의 법과 다를 수 있습니다. 필요한 경우 당사는 본 방침과 관련 법령에 따라 이용자의 정보를 보호하기 위한 조치를 취합니다.',
+          text: 'CubixAI는 중국에서 사업을 운영하고 있으며, Baidu Analytics는 중국 본토에서 데이터를 처리합니다. 중국 외 지역에서 본 사이트를 방문하는 경우 이용자의 정보가 중국 및 당사 서비스 제공업체가 운영되는 기타 국가로 이전되어 처리될 수 있으며, 해당 국가의 개인정보 보호법은 이용자가 거주하는 국가의 법과 다를 수 있습니다. 필요한 경우 당사는 본 방침과 관련 법령에 따라 이용자의 정보를 보호하기 위한 조치를 취합니다.',
         },
       ],
     },
@@ -684,7 +687,7 @@ const ko: PrivacyPolicyContent = {
       blocks: [
         {
           type: 'p',
-          text: `거주 지역에 따라 이용자는 자신의 개인정보에 대한 열람, 정정, 삭제, 특정 처리에 대한 이의 제기 또는 제한, 개인정보 이동을 요구할 권리와, 언제든지 동의를 철회할 권리(철회 전에 이루어진 처리의 적법성에는 영향을 주지 않음)를 가질 수 있습니다. 이러한 권리를 행사하려면 ${PRIVACY_EMAIL}로 연락해 주세요. 또한 거주 지역의 개인정보 보호 감독기관에 민원을 제기할 권리가 있습니다.`,
+          text: `거주 지역에 따라 이용자는 자신의 개인정보에 대한 열람, 정정, 삭제, 특정 처리에 대한 이의 제기 또는 제한, 개인정보 이동을 요구할 권리와, 언제든지 동의를 철회할 권리(철회 전에 이루어진 처리의 적법성에는 영향을 주지 않음)를 가질 수 있습니다. 이러한 권리를 행사하려면 ${PRIVACY_EMAIL}으로 연락해 주세요. 또한 거주 지역의 개인정보 보호 감독기관에 민원을 제기할 권리가 있습니다.`,
         },
         { type: 'p', text: '쿠키 선택은 제3조의 쿠키 설정에서 언제든지 변경할 수 있으며, 쿠키와 브라우저 저장소는 브라우저 설정에서 삭제할 수 있습니다.' },
       ],
