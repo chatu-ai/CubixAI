@@ -2,7 +2,7 @@ export default {
   common: {
     siteName: 'CubixAI',
     siteTagline: 'AI 네이티브 기업으로서 ChatU 소프트웨어 플랫폼과 AgentStation 하드웨어 터미널을 통해 기업 인텔리전스화의 전체 체인을 연결합니다.',
-    copyright:  '© 2023–2026 CubixAI (Beijing) Technology Co., Ltd. All rights reserved.',
+    copyright:  '© 2023–2026 CubixAI Technology Co., Ltd. All rights reserved.',
     learnMore: '자세히 보기',
     contactUs: '문의하기',
     viewAll: '전체 보기',
@@ -21,6 +21,17 @@ export default {
     comingSoon: '곧 출시 예정',
     close: '닫기',
     languageLoadError: '언어 리소스를 불러오지 못했습니다. 페이지를 새로고침하거나 나중에 다시 시도해 주세요.',
+    privacyPolicy: '개인정보 처리방침',
+  },
+
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: '쿠키 사용 안내',
+    message: '당사는 설정을 기억하기 위해 쿠키 및 유사 기술을 사용하며, 동의하신 경우에만 Baidu Analytics로 방문 통계를 분석합니다. 필수가 아닌 쿠키의 허용 여부를 선택해 주세요.',
+    accept: '모두 허용',
+    reject: '필수 외 거부',
   },
 
   header: {

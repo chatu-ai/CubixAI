@@ -144,7 +144,7 @@ useScrollReveal(locationsRef, { y: 30, delay: 0.1 })
 const locations = [
   {
     city: '北京 · 中关村AI北纬社区',
-    address: '北京市海淀区海淀大悦信息科技园 D2-D401',
+    address: '北京市海淀区中关村 AI 北纬社区D2-1',
     func: 'AI 产业生态合作、创新业务孵化、前沿技术交流',
     image: 'bwsq1.webp',
   },

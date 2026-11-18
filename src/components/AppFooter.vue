@@ -4,13 +4,20 @@ import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
 import beiIcon from '@/assets/icon/bei.webp'
+import logo2Zh from '@/assets/logo2.webp'
+import logo2En from '@/assets/logo2-en.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+// 中文用「软积木」logo，其他语言用英文 CubixAI logo（白字版，适配深色页脚）
+const isChinese = computed(() => locale.value === 'zh-CN')
+const footerLogoSrc = computed(() => (isChinese.value ? logo2Zh : logo2En))
+const footerLogoAlt = computed(() => (isChinese.value ? '软积木' : 'CubixAI'))
 const route = useRoute()
 
 const greenRoutes = ['/', '/solutions', '/cases', '/ai-insight', '/contact']
 const isGreenBg = computed(() => greenRoutes.includes(route.path))
-const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chatu', '/ecosystem', '/ai-insight', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/cases', '/solutions', '/opc-hub', '/training'].includes(route.path))
+const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chatu', '/ecosystem', '/ai-insight', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/cases', '/solutions', '/opc-hub', '/training', '/privacy'].includes(route.path))
 </script>
 
 <template>
@@ -21,8 +28,8 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
         <div class="md:col-span-1">
           <template v-if="showLogo2">
             <img
-              src="@/assets/logo2.webp"
-              alt="软积木"
+              :src="footerLogoSrc"
+              :alt="footerLogoAlt"
               class="h-12 w-auto mb-4"
             />
           </template>
@@ -139,7 +146,9 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
       >
         <p class="text-sm text-white/40 flex items-center gap-2 flex-wrap">
           <span>{{ t('common.copyright') }}</span>
+          <!-- ICP 备案号只在中文版显示 -->
           <a
+            v-if="isChinese"
             href="https://beian.miit.gov.cn/"
             target="_blank"
             rel="noopener noreferrer"
@@ -152,6 +161,9 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             />
             <span>京ICP备2023016063号</span>
           </a>
+          <RouterLink to="/privacy" class="text-white/40 hover:text-white/70 hover:underline underline-offset-2">
+            {{ t('common.privacyPolicy') }}
+          </RouterLink>
         </p>
       </div>
     </div>

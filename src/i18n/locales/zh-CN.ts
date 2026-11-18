@@ -25,6 +25,17 @@ export default {
     comingSoon: '敬请期待',
     close: '关闭',
     languageLoadError: '语言资源加载失败，请刷新页面或稍后重试。',
+    privacyPolicy: '隐私政策',
+  },
+
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'Cookie 使用说明',
+    message: '我们使用 Cookie 及类似技术记住您的偏好设置，并在您同意后通过百度统计分析网站访问情况。您可以选择接受或拒绝非必要 Cookie。',
+    accept: '全部接受',
+    reject: '拒绝非必要 Cookie',
   },
 
   // ========================

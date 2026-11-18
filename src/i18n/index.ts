@@ -17,20 +17,30 @@ export const localeLabels: Record<SupportedLocale, string> = {
   'ko': '한국어',
 }
 
+function matchLocale(lang: string): SupportedLocale | null {
+  const l = lang.toLowerCase()
+  if (l.startsWith('zh')) return 'zh-CN'
+  if (l.startsWith('ja')) return 'ja'
+  if (l.startsWith('ko')) return 'ko'
+  if (l.startsWith('en')) return 'en'
+  return null
+}
+
 export function getInitialLocale(): SupportedLocale {
   // 1. Check localStorage
   const stored = localStorage.getItem('locale')
   if (stored && ['zh-CN', 'en', 'ja', 'ko'].includes(stored)) {
     return stored as SupportedLocale
   }
-  // 2. Check browser language
-  const navLang = navigator.language
-  if (navLang.startsWith('zh')) return 'zh-CN'
-  if (navLang.startsWith('ja')) return 'ja'
-  if (navLang.startsWith('ko')) return 'ko'
-  if (navLang.startsWith('en')) return 'en'
-  // 3. Default to Chinese
-  return 'zh-CN'
+  // 2. Check browser languages in the visitor's order of preference
+  const preferred = [navigator.language, ...(navigator.languages ?? [])].filter(Boolean)
+  for (const lang of preferred) {
+    const matched = matchLocale(lang)
+    if (matched) return matched
+  }
+  // 3. Other languages (French, German, ...) fall back to English;
+  //    no language information at all falls back to Chinese
+  return preferred.length > 0 ? 'en' : 'zh-CN'
 }
 
 const initialMessages: Record<string, typeof zhCN> = { 'zh-CN': zhCN }

@@ -2,7 +2,7 @@ export default {
   common: {
     siteName: 'CubixAI',
     siteTagline: 'AIネイティブ企業として、ChatUソフトウェアプラットフォームとAgentStationハードウェア端末を通じて、企業のインテリジェンス化の全チェーンをつなぎます。',
-    copyright:  '© 2023–2026 CubixAI (Beijing) Technology Co., Ltd. All rights reserved.',
+    copyright:  '© 2023–2026 CubixAI Technology Co., Ltd. All rights reserved.',
     learnMore: '詳細を見る',
     contactUs: 'お問い合わせ',
     viewAll: 'すべて表示',
@@ -21,6 +21,17 @@ export default {
     comingSoon: 'まもなく公開',
     close: '閉じる',
     languageLoadError: '言語リソースを読み込めませんでした。ページを再読み込みするか、しばらくしてから再試行してください。',
+    privacyPolicy: 'プライバシーポリシー',
+  },
+
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'Cookie の使用について',
+    message: '当サイトでは、設定を保存するために Cookie および類似の技術を使用し、同意いただいた場合に限り Baidu Analytics でアクセス解析を行います。必須以外の Cookie を許可するか拒否するかを選択してください。',
+    accept: 'すべて許可',
+    reject: '必須以外を拒否',
   },
 
   header: {

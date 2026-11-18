@@ -2,7 +2,7 @@ export default {
   common: {
     siteName: 'CubixAI',
     siteTagline: 'An AI-native company, connecting the full chain of enterprise intelligence through the ChatU software platform and AgentStation hardware terminal.',
-    copyright: '© 2023–2026 CubixAI (Beijing) Technology Co., Ltd. All rights reserved.',
+    copyright: '© 2023–2026 CubixAI Technology Co., Ltd. All rights reserved.',
     learnMore: 'Learn More',
     contactUs: 'Contact Us',
     viewAll: 'View All',
@@ -21,6 +21,17 @@ export default {
     comingSoon: 'Coming Soon',
     close: 'Close',
     languageLoadError: 'Language resources could not be loaded. Please refresh or try again later.',
+    privacyPolicy: 'Privacy Policy',
+  },
+
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'We value your privacy',
+    message: 'We use cookies and similar technologies to remember your preferences and, with your consent, to analyze site traffic via Baidu Analytics. You can accept or reject non-essential cookies.',
+    accept: 'Accept All',
+    reject: 'Reject Non-essential',
   },
 
   header: {
@@ -214,7 +225,7 @@ export default {
       title: 'Our Journey',
       items: [
         { year: '2023.03', title: 'ChatU Launch', desc: 'Enterprise AI Operating System' },
-        { year: '2023.06', title: 'Company Founded', desc: 'CubixAI (Beijing) Technology Co., Ltd. officially established' },
+        { year: '2023.06', title: 'Company Founded', desc: 'CubixAI Technology Co., Ltd. officially established' },
         { year: '2023.08', title: '3,000+ Clients', desc: 'Expanding into Japan, Korea, Europe, and US markets' },
         { year: '2025.01', title: 'International Expansion', desc: 'PEC China introduces "Prompt Engineering Conference" international brand, launches Asian market operations' },
         { year: '2025.12', title: 'OPC Hub', desc: 'OPC Hub launched, building the OPC industry ecosystem' },

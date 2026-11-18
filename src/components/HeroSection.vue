@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppImage from './AppImage.vue'
 import rjmBanana from '@/assets/rjm_banana.webp'
+import rjmBananaEn from '@/assets/rjm_banana_en.webp'
 import chatuBanana from '@/assets/ChatU_banana.webp'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
-const slides = [
-  { src: rjmBanana, alt: '软积木' },
-  { src: chatuBanana, alt: 'ChatU' },
+// 第一张横幅的标题和图标文字是画在图里的：中文版用原图，其他语言用英文版图片
+const isChinese = computed(() => locale.value === 'zh-CN')
+const slides = computed(() => [
+  // 手机上横幅比例比原图窄，左右会被裁掉：第一张的文字在左侧，所以手机上靠左显示，保证标题完整
+  isChinese.value
+    ? { src: rjmBanana, alt: '软积木', position: 'object-left sm:object-center' }
+    : { src: rjmBananaEn, alt: 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption', position: 'object-left sm:object-center' },
+  { src: chatuBanana, alt: 'ChatU', position: 'object-center' },
   // { src: zftBanana, alt: '智方体' },
-]
+])
 
 const current = ref(0)
 let autoTimer: ReturnType<typeof setInterval> | null = null
@@ -33,7 +39,7 @@ let windowPointerUpHandler: ((e: PointerEvent) => void) | null = null
 function startAutoplay() {
   if (autoTimer) clearInterval(autoTimer)
   autoTimer = setInterval(() => {
-    current.value = (current.value + 1) % slides.length
+    current.value = (current.value + 1) % slides.value.length
   }, AUTOPLAY_INTERVAL)
 }
 
@@ -73,9 +79,9 @@ function handlePointerEnd() {
   isDragging.value = false
   currentPointerId.value = null
   if (dragDelta.value < -DRAG_THRESHOLD) {
-    current.value = (current.value + 1) % slides.length
+    current.value = (current.value + 1) % slides.value.length
   } else if (dragDelta.value > DRAG_THRESHOLD) {
-    current.value = (current.value - 1 + slides.length) % slides.length
+    current.value = (current.value - 1 + slides.value.length) % slides.value.length
   }
   dragDelta.value = 0
   dragOffset.value = 0
@@ -94,6 +100,8 @@ function removeWindowPointerUpListener() {
 
 function onPointerDown(e: PointerEvent) {
   if (isDragging.value) return
+  // 按在底部圆点上时不进入拖动：否则容器捕获指针后，圆点按钮收不到 click，无法切换
+  if ((e.target as HTMLElement | null)?.closest('button')) return
   const target = e.currentTarget as HTMLElement
   try {
     target.setPointerCapture(e.pointerId)
@@ -151,7 +159,7 @@ onUnmounted(() => {
 <template>
   <section class="relative w-full overflow-hidden bg-surface-base">
     <div
-      class="relative w-full h-[220px] sm:aspect-[3392/1120] sm:h-auto overflow-hidden cursor-grab active:cursor-grabbing select-none touch-pan-y"
+      class="relative w-full aspect-[7/4] sm:aspect-[3392/1120] overflow-hidden [container-type:inline-size] cursor-grab active:cursor-grabbing select-none touch-pan-y"
       @pointerdown="onPointerDown"
       @pointermove="onPointerMove"
       @pointerup="onPointerUp"
@@ -172,7 +180,7 @@ onUnmounted(() => {
           <AppImage
             :src="slide.src"
             :alt="slide.alt"
-            class="w-full h-full object-cover"
+            :class="['w-full h-full object-cover', slide.position]"
             :priority="i === 0"
             draggable="false"
           />
@@ -195,11 +203,12 @@ onUnmounted(() => {
             class="absolute inset-0 flex items-center"
           >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div class="max-w-xl">
-                <p class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#433487] drop-shadow-lg tracking-widest">{{ t('home.hero.slide2Title') }}</p>
-                <p class="mt-6 text-2xl md:text-3xl lg:text-4xl font-bold text-[#1A1A1A] drop-shadow-lg tracking-wider">{{ t('home.hero.slide2Sub') }}</p>
-                <p class="mt-6 text-lg md:text-xl lg:text-2xl font-semibold text-ink-secondary drop-shadow-lg tracking-wide">{{ t('home.hero.slide2Desc1') }}</p>
-                <p class="mt-6 text-lg md:text-xl lg:text-2xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide2Desc2') }}</p>
+              <!-- 文字按横幅宽度（cqw）等比缩放，保证任何屏幕宽度下都完整落在横幅内；宽屏下不超过原来的 lg 尺寸 -->
+              <div class="max-w-[68cqw] sm:max-w-[min(40cqw,36rem)]">
+                <p class="text-[length:7cqw] sm:text-[length:min(4.2cqw,3.75rem)] leading-none font-bold text-[#433487] drop-shadow-lg tracking-widest">{{ t('home.hero.slide2Title') }}</p>
+                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:4.4cqw] sm:text-[length:min(2.5cqw,2.25rem)] leading-[1.15] font-bold text-[#1A1A1A] drop-shadow-lg tracking-wider">{{ t('home.hero.slide2Sub') }}</p>
+                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:3.2cqw] sm:text-[length:min(1.67cqw,1.5rem)] leading-[1.35] font-semibold text-ink-secondary drop-shadow-lg tracking-wide">{{ t('home.hero.slide2Desc1') }}</p>
+                <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:3.2cqw] sm:text-[length:min(1.67cqw,1.5rem)] leading-[1.35] font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide2Desc2') }}</p>
               </div>
             </div>
           </div>

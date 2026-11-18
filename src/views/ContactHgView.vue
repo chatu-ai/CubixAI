@@ -139,7 +139,7 @@ useScrollReveal(locationsRef, { y: 30, delay: 0.1 })
 const locations = [
   {
     city: '북경 · 중관촌AI 북위 커뮤니티',
-    address: '북경시 해전구 해전대열 정보테크노파크 D2-D401',
+    address: '북경시 해전구 중관촌AI 북위 커뮤니티 D2-1',
     func: 'AI 산업 생태 협력, 혁신 사업 인큐베이션, 첨단 기술 교류',
     image: 'bwsq1.webp',
   },

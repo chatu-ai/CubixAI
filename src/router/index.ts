@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
-
-declare const _hmt: any[]
+import { trackPageview } from '../utils/cookieConsent'
 
 // 扩展 vue-router 的 RouteMeta 类型，支持 SEO 字段
 declare module 'vue-router' {
@@ -298,6 +297,20 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/privacy',
+    name: 'Privacy',
+    component: () => import('../views/PrivacyView.vue'),
+    meta: {
+      title: '隐私政策 | 软积木 CubixAI',
+      description: '软积木 CubixAI 网站隐私政策：我们收集哪些信息、如何使用 Cookie，以及您享有的权利和选择。',
+      schema: {
+        '@type': 'WebPage',
+        name: '隐私政策',
+        url: `${SITE_ORIGIN}/privacy`,
+      },
+    },
+  },
+  {
     path: '/training',
     name: 'Training',
     component: () => import('../views/TrainingView.vue'),
@@ -426,10 +439,8 @@ function updateSeo(to: RouteLocationNormalized) {
 router.afterEach((to) => {
   updateSeo(to)
 
-  // 百度统计：SPA 路由切换后手动上报页面路径
-  if (typeof _hmt !== 'undefined') {
-    _hmt.push(['_trackPageview', to.fullPath])
-  }
+  // 百度统计：SPA 路由切换后手动上报页面路径（访客未同意或已撤回同意时不上报）
+  trackPageview(to.fullPath)
 })
 
 export default router
