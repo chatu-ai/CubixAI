@@ -26,10 +26,10 @@ const platformList = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左：文字 -->
         <div ref="leftRef">
@@ -38,7 +38,7 @@ const platformList = [
           >
             无缝接入，沉淀企业 AI 资产
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary leading-relaxed">
+          <p class="section-subtitle">
             ChatU 开放丰富的集成能力，一键接入企业现有系统与工作流，让
             AI 能力真正融入日常业务场景。
           </p>

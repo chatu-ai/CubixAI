@@ -25,15 +25,15 @@ const audiences = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
+  <section ref="sectionRef" class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-8 md:mb-10">
+      <div class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           应用场景
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           重复工作交给 AI，你只做判断
         </p>
       </div>
@@ -57,8 +57,8 @@ const audiences = [
       </div>
 
       <!-- 适用人群 -->
-      <div class="mt-16 md:mt-20">
-        <h3 class="text-center text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight mb-8">
+      <div class="mt-12 md:mt-20">
+        <h3 class="text-center text-xl md:text-2xl font-semibold text-ink-primary tracking-tight mb-8">
           谁在用智方体
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -171,12 +171,21 @@ function onDocumentClick(event: MouseEvent) {
   }
 }
 
+// 页面滚动后页头背景更实、加一层淡阴影，和内容区分开
+const scrolled = ref(false)
+function onScroll() {
+  scrolled.value = window.scrollY > 8
+}
+
 onMounted(() => {
   document.addEventListener('click', onDocumentClick)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
+  window.removeEventListener('scroll', onScroll)
   if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
   if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
 })
@@ -184,7 +193,10 @@ onUnmounted(() => {
 
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 bg-surface-base/80 backdrop-blur-xl border-b border-line/50"
+    class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b transition-[background-color,box-shadow,border-color] duration-300"
+    :class="scrolled
+      ? 'bg-surface-card/90 border-line shadow-[0_1px_12px_rgba(15,31,23,0.06)]'
+      : 'bg-surface-base/80 border-line/50'"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- 左中右三栏：左右两栏等宽伸缩，保证导航在任何页面都居中 -->

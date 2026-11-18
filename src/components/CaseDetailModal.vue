@@ -77,7 +77,7 @@ watch(
       @click="onBackdropClick"
     >
       <div
-        class="case-detail-modal-content bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        class="case-detail-modal-content bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
       >
         <!-- Header -->
         <div

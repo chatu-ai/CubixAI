@@ -238,18 +238,18 @@ const cases = [
   <div class="min-h-screen bg-white font-sans text-[#1A1A1A]">
 
     <!-- ==================== Hero Section ==================== -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-white via-[#FFF5F5] to-white pt-10 md:pt-14 pb-10 md:pb-16 fade-in-section">
+    <section class="relative overflow-hidden bg-gradient-to-br from-white via-[#FFF5F5] to-white pt-8 md:pt-12 pb-8 md:pb-12 fade-in-section">
       <!-- 右上红色光晕 -->
       <div class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(240, 64, 69, 0.18) 0%, transparent 70%); filter: blur(60px);" />
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
 
           <!-- 左侧 -->
           <div ref="leftRef">
             <!-- <Chip class="!bg-[#F04045]/10 !text-[#F04045]">PLATFORM · OPC HUB</Chip> -->
 
-            <h1 class="mt-6 text-[48px] md:text-[64px] lg:text-[72px] font-semibold text-[#1A1A1A] leading-[1.08] tracking-[-0.03em]">
+            <h1 class="mt-5 page-title">
               OPC Hub<br />
               <span class="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#1A1A1A]">
                 面向 OPC 时代的 AI 创业<br />
@@ -315,9 +315,9 @@ const cases = [
     </section>
 
     <!-- ==================== Section: 三大服务方向 ==================== -->
-    <section class="py-12 md:py-20 bg-white fade-in-section">
+    <section class="py-10 md:py-16 bg-white fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-stretch">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 items-stretch">
           <!-- 左侧：图片 -->
           <div class="flex items-center justify-center">
             <div class="w-full rounded-2xl overflow-hidden border border-[#E5E5E5] shadow-sm">
@@ -332,7 +332,7 @@ const cases = [
           <!-- 右侧：三个卡片 -->
           <div class="flex flex-col gap-4">
             <!-- 面向园区 -->
-            <div class="flex-1 p-6 md:p-8 rounded-2xl bg-[#F5F5F7] border border-[#E5E5E5] hover:shadow-lg transition-all duration-300">
+            <div class="flex-1 p-6 md:p-7 rounded-2xl bg-[#F5F5F7] border border-[#E5E5E5] hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-[#F04045]/10 flex items-center justify-center">
                   <Icon icon="lucide:user" class="w-5 h-5 text-[#F04045]" />
@@ -348,7 +348,7 @@ const cases = [
             </div>
 
             <!-- 面向企业 -->
-            <div class="flex-1 p-6 md:p-8 rounded-2xl bg-[#F5F5F7] border border-[#E5E5E5] hover:shadow-lg transition-all duration-300">
+            <div class="flex-1 p-6 md:p-7 rounded-2xl bg-[#F5F5F7] border border-[#E5E5E5] hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-[#F04045]/10 flex items-center justify-center">
                   <Icon icon="lucide:building-2" class="w-5 h-5 text-[#F04045]" />
@@ -364,7 +364,7 @@ const cases = [
             </div>
 
             <!-- 面向学校 -->
-            <div class="flex-1 p-6 md:p-8 rounded-2xl bg-[#F5F5F7] border border-[#E5E5E5] hover:shadow-lg transition-all duration-300">
+            <div class="flex-1 p-6 md:p-7 rounded-2xl bg-[#F5F5F7] border border-[#E5E5E5] hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-[#F04045]/10 flex items-center justify-center">
                   <Icon icon="lucide:graduation-cap" class="w-5 h-5 text-[#F04045]" />
@@ -384,14 +384,14 @@ const cases = [
     </section>
 
     <!-- Dark Platform Section -->
-    <section class="py-12 md:py-20 bg-white text-[#1A1A1A] fade-in-section">
+    <section class="py-10 md:py-16 bg-white text-[#1A1A1A] fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">
+        <h2 class="section-title text-center mb-2">
           OPC Hub——面向 OPC 时代的 AI 创业生态基础设施平台
         </h2>
         <p class="text-center text-[#666666] mb-10"></p>
 
-        <div class="text-center mb-12">
+        <div class="text-center mb-8">
           <p class="text-4xl md:text-5xl font-bold text-[#F04045] flex items-center justify-center">
             <span class="inline-flex items-baseline">
               <span
@@ -454,7 +454,7 @@ const cases = [
         </div>
 
         <!-- Core capabilities -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           <div class="p-6 rounded-xl bg-[#F5F5F7] border border-[#E5E5E5]">
             <h4 class="text-lg font-bold mb-2">模型矩阵</h4>
             <p class="text-sm text-[#666666]">智能选择和调度最合适的 AI 模型。</p>
@@ -472,10 +472,10 @@ const cases = [
     </section>
 
     <!-- ==================== Section 6: Rent Model ==================== -->
-    <section class="py-12 md:py-20 bg-[#F5F5F7] fade-in-section">
+    <section class="py-10 md:py-16 bg-[#F5F5F7] fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center mb-12">
+        <div class="text-center mb-8">
           <div class="flex flex-wrap justify-center gap-3 text-sm text-[#666666]">
             <span class="px-3 py-1 rounded-full bg-white border border-[#E5E5E5]">垂直化招商</span>
             <span class="px-3 py-1 rounded-full bg-white border border-[#E5E5E5]">数字化运营</span>
@@ -485,7 +485,7 @@ const cases = [
         </div>
 
         <!-- Conditions -->
-        <h3 class="text-2xl md:text-3xl font-bold text-center mb-2">OPC Hub 能不能落到我们 园区 / 企业 / 高校 ？</h3>
+        <h3 class="section-title text-center mb-2">OPC Hub 能不能落到我们 园区 / 企业 / 高校 ？</h3>
         <p class="text-center text-[#666666] mb-8">想做 OPC，你要具备这些条件</p>
 
         <div v-for="group in conditionGroups" :key="group.category" class="mb-16 last:mb-0">
@@ -525,19 +525,19 @@ const cases = [
     </section>
 
     <!-- ==================== Section 7: Six Services ==================== -->
-    <section class="py-12 md:py-20 bg-white fade-in-section">
+    <section class="py-10 md:py-16 bg-white fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">
+        <h2 class="section-title text-center mb-2">
           软积木 OPC 产业生态整体解决方案
         </h2>
         <p class="text-center font-bold text-[#1A1A1A] mb-2">
           构建一个 AI 时代的新型产业形态
         </p>
-        <p class="text-center text-sm text-[#666666] mb-12">
+        <p class="text-center text-sm text-[#666666] mb-8">
           <!-- 支撑方：软积木，提供完善的 AI 体系化能力 -->
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <div
             v-for="(s, i) in services"
             :key="s.title"
@@ -584,7 +584,7 @@ const cases = [
           </div>
         </div>
 
-        <div class="p-8 rounded-xl bg-[#F5F5F7] text-center">
+        <div class="p-6 rounded-xl bg-[#F5F5F7] text-center">
           <p class="text-[#666666] leading-relaxed">
             通过生态合作机制，链接技术、场景、资本与社区资源，推动 OPC 从个体探索走向规模化协同，真正让 AI 成为每一位创业者的 "生产力底座"
           </p>
@@ -593,15 +593,15 @@ const cases = [
     </section>
 
     <!-- ==================== Section 8: Cases ==================== -->
-    <section class="py-12 md:py-20 bg-[#F5F5F7] fade-in-section">
+    <section class="py-10 md:py-16 bg-[#F5F5F7] fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">产业生态支撑落地案例</h2>
+        <h2 class="section-title text-center mb-8">产业生态支撑落地案例</h2>
         <div class="space-y-8">
           <div
             v-for="c in cases"
             :key="c.tag"
-            class="p-8 rounded-xl bg-white border border-[#E5E5E5]"
-            :class="c.images ? 'grid grid-cols-1 lg:grid-cols-2 gap-8 items-center' : ''"
+            class="p-6 rounded-xl bg-white border border-[#E5E5E5]"
+            :class="c.images ? 'grid grid-cols-1 lg:grid-cols-2 gap-6 items-center' : ''"
           >
             <!-- 左侧文字 -->
             <div>
@@ -634,7 +634,7 @@ const cases = [
           </div>
         </div>
 
-        <div class="mt-16 p-8 rounded-xl bg-white border border-[#E5E5E5] text-center">
+        <div class="mt-12 p-6 rounded-xl bg-white border border-[#E5E5E5] text-center">
           <p class="text-[#666666] leading-relaxed mb-4">
             软积木致力于为 OPC 生态持续提供稳定、可落地的 AI 产品能力，从多模型、多模态到低门槛部署，系统性支撑 OPC 快速启动与持续成长
           </p>
@@ -644,18 +644,18 @@ const cases = [
     </section>
 
     <!-- ==================== Section 9: Security ==================== -->
-    <section class="py-12 md:py-20 bg-white fade-in-section">
+    <section class="py-10 md:py-16 bg-white fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+        <h2 class="section-title text-center mb-4">
           <!-- 合规与安全：基石 -->
            自主产权｜合规备案｜安全可控
         </h2>
-        <p class="text-center text-[#666666] mb-12">
+        <p class="text-center text-[#666666] mb-8">
           <!-- 软积木遵循国家监管，合规备案（拥有自有知识产权） -->
         </p>
 
         <!-- Patents -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div
             v-for="p in patents"
             :key="p.no"
@@ -691,12 +691,12 @@ const cases = [
     </section>
 
     <!-- ==================== Section 5: Platform Value ==================== -->
-    <section class="py-12 md:py-20 bg-white fade-in-section">
+    <section class="py-10 md:py-16 bg-white fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+        <h2 class="section-title text-center mb-4">
           OPC + AI 产业支撑平台 让 OPC 智能落地更具象
         </h2>
-        <p class="text-center text-[#666666] max-w-3xl mx-auto mb-12">
+        <p class="text-center text-[#666666] max-w-3xl mx-auto mb-8">
           OPCHub 提供多引擎、多模态的 AI 能力底座，大幅降低 AI 接入以及使用门槛。
         </p>
 
@@ -718,10 +718,10 @@ const cases = [
     </section>
 
     <!-- ==================== Section 10: AI Ecosystem ==================== -->
-    <section class="py-12 md:py-20 bg-[#F5F5F7] fade-in-section">
+    <section class="py-10 md:py-16 bg-[#F5F5F7] fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">AI 服务生态</h2>
-        <p class="text-center text-[#666666] max-w-3xl mx-auto mb-12">
+        <h2 class="section-title text-center mb-4">AI 服务生态</h2>
+        <p class="text-center text-[#666666] max-w-3xl mx-auto mb-8">
           包含：活动、咨询、培训、课程、书籍等全面的 AI 生态支持，以OPC 创业为核心的深度服务生态圈。
 
         </p>
@@ -819,16 +819,16 @@ const cases = [
     </section>
 
     <!-- ==================== Section 11: Ending ==================== -->
-    <section class="py-12 md:py-20 bg-white text-[#1A1A1A] fade-in-section">
+    <section class="py-10 md:py-16 bg-white text-[#1A1A1A] fade-in-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">
+        <h2 class="section-title text-center mb-6">
           AI 浪潮奔涌，软积木让 OPC 持续领先
         </h2>
-        <p class="text-center text-[#666666] max-w-3xl mx-auto mb-12 text-lg">
+        <p class="text-center text-[#666666] max-w-3xl mx-auto mb-8 text-lg">
           我们要做的不是一次性建设的园区，而是一个能与 AI 同频进化、持续成长的产业园区
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div class="p-6 rounded-xl bg-[#F5F5F7] border border-[#E5E5E5]">
             <!-- <span class="text-[#F04045] font-bold text-sm">01</span> -->
             <h4 class="font-bold mt-2 mb-2">OPC 体系持续成长</h4>
@@ -851,7 +851,7 @@ const cases = [
           </div>
         </div>
 
-        <p class="text-center text-2xl md:text-3xl font-bold text-[#F04045] mb-12">
+        <p class="text-center text-2xl md:text-3xl font-bold text-[#F04045] mb-8">
           OPC Hub——面向 OPC 时代的 AI 创业生态基础设施平台
         </p>
 

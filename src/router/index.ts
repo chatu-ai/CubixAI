@@ -421,11 +421,17 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  scrollBehavior(to, _from, savedPosition) {
-    if (savedPosition) return savedPosition
-    // 支持 /#paid-insights 之类的锚点定位，预留固定头部高度
-    if (to.hash) return { el: to.hash, top: 80, behavior: 'smooth' }
-    return { top: 0 }
+  scrollBehavior(to, from, savedPosition) {
+    // 换页时等旧页淡出、新页挂载后再滚动（页面切换动画约 150ms），锚点元素才存在
+    const wait = to.path !== from.path ? 180 : 0
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (savedPosition) resolve(savedPosition)
+        // 支持 /#paid-insights 之类的锚点定位，预留固定头部高度
+        else if (to.hash) resolve({ el: to.hash, top: 80, behavior: 'smooth' })
+        else resolve({ top: 0 })
+      }, wait)
+    })
   },
   routes,
 })

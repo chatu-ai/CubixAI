@@ -96,14 +96,14 @@ nextTick(() => {
     <!-- Case Cards -->
     <section class="py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 gap-8">
+        <div class="grid grid-cols-1 gap-6">
           <div
             v-for="c in filteredCases"
             :key="c.id"
-            class="case-card rounded-3xl overflow-hidden bg-white shadow-card border border-line/50 flex flex-col lg:flex-row"
+            class="case-card rounded-2xl overflow-hidden bg-white shadow-card border border-line/50 flex flex-col lg:flex-row"
           >
             <!-- Left: Text (60%) -->
-            <div class="w-full lg:w-[60%] p-6 md:p-10 flex flex-col justify-center">
+            <div class="w-full lg:w-[60%] p-6 md:p-8 flex flex-col justify-center">
               <!-- Category Label -->
               <div class="mb-3">
                 <span
@@ -217,7 +217,7 @@ nextTick(() => {
         @click.self=""
       >
         <div
-          class="case-modal-content bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
+          class="case-modal-content bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
         >
           <!-- Header -->
           <div
@@ -356,10 +356,10 @@ nextTick(() => {
     <section class="py-16 md:py-24 bg-surface-base overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-20 md:mb-28">
-          <h2 class="text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight">
+          <h2 class="section-title">
             {{ t('cases.clients.title') }}
           </h2>
-          <p class="mt-3 text-base text-ink-secondary">
+          <p class="section-subtitle">
             {{ t('cases.clients.desc') }}
           </p>
         </div>

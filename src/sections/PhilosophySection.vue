@@ -22,11 +22,11 @@ const cases = computed(() => tm('home.philosophy.cases') as SolutionCase[])
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           {{ t('home.philosophy.title') }}
         </h2>
@@ -40,7 +40,7 @@ const cases = computed(() => tm('home.philosophy.cases') as SolutionCase[])
           class="h-full"
         >
           <div
-            class="h-full flex flex-col p-6 md:p-8 rounded-3xl bg-white border border-line/50 shadow-card hover:shadow-lg hover:-translate-y-1 hover:border-brand/20 transition-all duration-300"
+            class="h-full flex flex-col p-6 md:p-7 rounded-2xl bg-white border border-line/50 shadow-card hover:shadow-lg hover:-translate-y-1 hover:border-brand/20 transition-all duration-300"
           >
             <!-- Icon + Name -->
             <div class="flex items-center gap-4">
@@ -49,7 +49,7 @@ const cases = computed(() => tm('home.philosophy.cases') as SolutionCase[])
               >
                 <Icon :icon="item.icon" class="w-6 h-6 text-brand" />
               </div>
-              <h3 class="text-xl md:text-2xl font-semibold text-ink-primary">
+              <h3 class="text-xl md:text-xl font-semibold text-ink-primary">
                 {{ item.name }}
               </h3>
             </div>

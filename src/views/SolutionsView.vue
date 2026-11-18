@@ -360,16 +360,16 @@ onUnmounted(() => {
 <template>
   <div ref="containerRef" class="relative overflow-x-hidden">
     <!-- Hero -->
-    <section id="solutions-hero" class="relative overflow-hidden bg-surface-base pt-14 md:pt-20 pb-8 md:pb-10"
+    <section id="solutions-hero" class="relative overflow-hidden bg-surface-base pt-10 md:pt-16 pb-6 md:pb-8"
       style="contain: paint;">
       <div
         class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(60px);" />
       <div ref="heroRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-[64px] font-semibold text-ink-primary leading-tight tracking-tight">
+        <h1 class="page-title">
           {{ t('solutions.hero.title') }}
         </h1>
-        <p class="mt-6 text-xl md:text-2xl text-ink-secondary">
+        <p class="page-subtitle">
           {{ t('solutions.hero.desc') }}
         </p>
       </div>
@@ -420,12 +420,12 @@ onUnmounted(() => {
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(80px);" />
 
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-0">
-        <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12"
+        <div class="flex flex-col lg:flex-row items-center gap-6 lg:gap-10"
           :class="i % 2 === 1 ? 'lg:flex-row-reverse' : ''">
           <!-- Text Content -->
           <div class="anim-text w-full lg:w-1/2">
 
-            <h2 class="text-4xl md:text-5xl lg:text-[56px] font-semibold text-ink-primary tracking-tight leading-tight">
+            <h2 class="display-title">
               {{ s.title }}
             </h2>
 
@@ -474,7 +474,7 @@ onUnmounted(() => {
           <!-- Image / Mockup -->
           <div class="anim-img w-full lg:w-1/2 flex items-center justify-center overflow-hidden">
             <div
-              class="w-full max-w-lg aspect-[16/10] rounded-3xl flex items-center justify-center relative overflow-hidden"
+              class="w-full max-w-lg aspect-[16/10] rounded-2xl flex items-center justify-center relative overflow-hidden"
               :class="i % 2 === 0 ? 'bg-surface-muted' : 'bg-white'">
               <template v-if="s.url">
                 <AppImage :src="s.url" :alt="s.title" class="w-full h-full object-cover" />
@@ -482,7 +482,7 @@ onUnmounted(() => {
               <template v-else>
                 <div class="absolute inset-0 opacity-30"
                   style="background: radial-gradient(circle at 30% 30%, rgba(85, 173, 115, 0.15), transparent 60%);" />
-                <div class="relative text-center p-8">
+                <div class="relative text-center p-6">
                   <div class="w-20 h-20 rounded-2xl bg-brand-gradient flex items-center justify-center mx-auto mb-4">
                     <Icon :icon="s.icon" class="w-10 h-10 text-white" />
                   </div>
@@ -497,7 +497,7 @@ onUnmounted(() => {
     </section>
 
     <!-- Final CTA -->
-    <section class="relative py-12 md:py-20 bg-white overflow-hidden" style="contain: paint;">
+    <section class="relative py-10 md:py-16 bg-white overflow-hidden" style="contain: paint;">
       <div
         class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(80px);" />
@@ -505,7 +505,7 @@ onUnmounted(() => {
         <h2 class="text-xl md:text-2xl lg:text-3xl font-semibold text-ink-primary tracking-tight leading-tight">
           {{ t('solutions.finalCta.title') }}
         </h2>
-        <p class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-2xl mx-auto">
+        <p class="section-subtitle max-w-2xl mx-auto">
           {{ t('solutions.finalCta.desc') }}
         </p>
         <div class="mt-10 flex flex-wrap items-center justify-center gap-4">

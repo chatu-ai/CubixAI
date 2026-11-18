@@ -23,6 +23,6 @@ const { displayValue } = useCountUp(el, props.value, { decimals: props.decimals 
       <span class="bg-brand-gradient bg-clip-text text-transparent">{{ displayValue.toLocaleString('en-US', { minimumFractionDigits: props.decimals ?? 0, maximumFractionDigits: props.decimals ?? 0 }) }}</span>
       <span v-if="suffix" class="bg-brand-gradient bg-clip-text text-transparent">{{ suffix }}</span>
     </div>
-    <div class="mt-3 text-base text-ink-secondary">{{ label }}</div>
+    <div class="section-subtitle">{{ label }}</div>
   </div>
 </template>

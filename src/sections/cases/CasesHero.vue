@@ -11,7 +11,7 @@ useScrollReveal(titleRef, { y: 30 })
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-10 md:pt-14 pb-10 md:pb-16"
+    class="relative overflow-hidden bg-surface-base pt-8 md:pt-12 pb-8 md:pb-12"
   >
     <!-- 右上绿色光晕 -->
     <div
@@ -31,11 +31,11 @@ useScrollReveal(titleRef, { y: 30 })
     >
       <div ref="titleRef">
         <h1
-          class="text-2xl md:text-4xl lg:text-5xl font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em] whitespace-nowrap"
+          class="page-title md:whitespace-nowrap"
         >
           {{ t('cases.hero.title') }}
         </h1>
-        <p class="mt-6 text-lg md:text-xl text-ink-secondary">
+        <p class="page-subtitle">
           {{ t('cases.hero.desc') }}
         </p>
       </div>

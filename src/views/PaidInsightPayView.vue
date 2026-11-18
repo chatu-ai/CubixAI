@@ -63,7 +63,7 @@ function confirmPaid() {
       <!-- 资讯不存在 -->
       <div
         v-if="!insight"
-        class="mt-8 p-10 md:p-14 rounded-3xl bg-white border border-line/50 shadow-card text-center"
+        class="mt-8 p-8 md:p-14 rounded-2xl bg-white border border-line/50 shadow-card text-center"
       >
         <Icon icon="lucide:file-x" class="w-10 h-10 mx-auto text-ink-tertiary" aria-hidden="true" />
         <p class="mt-4 text-lg font-medium text-ink-primary">{{ t('paidInsight.notFound') }}</p>
@@ -74,7 +74,7 @@ function confirmPaid() {
 
       <template v-else>
         <!-- 资讯头部 -->
-        <article class="mt-6 p-6 md:p-10 rounded-3xl bg-white border border-line/50 shadow-card">
+        <article class="mt-6 p-6 md:p-8 rounded-2xl bg-white border border-line/50 shadow-card">
           <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border border-brand/25 text-brand bg-brand-soft/60">
             {{ PAID_INSIGHT_CATEGORY }}
           </span>
@@ -105,7 +105,7 @@ function confirmPaid() {
         </article>
 
         <!-- 付费区 -->
-        <section class="mt-6 p-6 md:p-10 rounded-3xl bg-white border border-line/50 shadow-card">
+        <section class="mt-6 p-6 md:p-8 rounded-2xl bg-white border border-line/50 shadow-card">
           <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
               <h2 class="text-xl md:text-2xl font-semibold text-ink-primary">{{ t('paidInsight.payTitle') }}</h2>
@@ -138,7 +138,7 @@ function confirmPaid() {
             </div>
           </div>
 
-          <div class="mt-8 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-start">
+          <div class="mt-8 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-6 items-start">
             <!-- 二维码 / 已支付态 -->
             <div
               v-if="paid"

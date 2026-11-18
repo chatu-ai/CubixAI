@@ -23,10 +23,10 @@ const backendFeatures = [
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-12 md:py-20 bg-surface-base">
+  <section ref="sectionRef" class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Tabs -->
-      <div class="flex items-center justify-center gap-2 mb-12">
+      <div class="flex items-center justify-center gap-2 mb-8">
         <button
           class="px-5 py-2.5 rounded-full text-sm font-medium transition-all"
           :class="
@@ -63,7 +63,7 @@ const backendFeatures = [
 
         <!-- Features -->
         <div>
-          <h3 class="text-2xl font-semibold text-ink-primary mb-2">
+          <h3 class="text-xl font-semibold text-ink-primary mb-2">
             {{
               activeTab === 'frontend'
                 ? '应用者视角 · 快速上手'

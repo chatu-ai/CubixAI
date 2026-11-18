@@ -33,9 +33,9 @@ function splitEmail(text: string) {
 
 <template>
   <div class="bg-surface-base">
-    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
       <header class="pb-8 border-b border-line">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-ink-primary">{{ policy.title }}</h1>
+        <h1 class="page-title">{{ policy.title }}</h1>
         <p class="mt-3 text-sm text-ink-tertiary">{{ policy.lastUpdated }}</p>
         <p class="mt-6 text-base leading-relaxed text-ink-secondary">{{ policy.intro }}</p>
       </header>

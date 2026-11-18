@@ -56,10 +56,10 @@ const ioSpecs = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start"
       >
         <!-- 左：多角度图 -->
         <div ref="leftRef" class="relative">
@@ -104,7 +104,7 @@ const ioSpecs = [
         <!-- 右：规格表 -->
         <div ref="rightRef">
           <h2
-            class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+            class="section-title"
           >
             掌上 AI 工作站
           </h2>

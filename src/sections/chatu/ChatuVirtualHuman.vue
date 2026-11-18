@@ -21,10 +21,10 @@ const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左：形象占位 + 切换 -->
         <div ref="leftRef">
@@ -60,7 +60,7 @@ const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
           >
             虚拟数字人 · AI 世界的交互媒介
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary leading-relaxed">
+          <p class="section-subtitle">
             通过智能化交互与生成能力，优化生产要素组合。
           </p>
 

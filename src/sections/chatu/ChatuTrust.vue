@@ -62,11 +62,11 @@ const certImages = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           权威合规资质・安全可信保障
         </h2>
@@ -76,7 +76,7 @@ const certImages = [
       </div>
 
       <!-- 资质证书轮播 -->
-      <div class="relative w-full mb-8 md:mb-10 overflow-hidden">
+      <div class="relative w-full mb-6 md:mb-8 overflow-hidden">
         <!-- 渐变遮罩 -->
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-24 z-10"
@@ -145,7 +145,7 @@ const certImages = [
         <div
           v-for="item in items"
           :key="item.title"
-          class="p-6 md:p-8 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#433487]/20 transition-all duration-300"
+          class="p-6 md:p-7 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#433487]/20 transition-all duration-300"
         >
           <span class="mb-4 w-10 h-10 rounded-xl bg-[#433487]/10 text-[#433487] flex items-center justify-center">
             <Icon :icon="item.icon" class="w-5 h-5" aria-hidden="true" />

@@ -76,15 +76,15 @@ const versions = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-8 md:mb-10">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           5 大版本矩阵
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           覆盖企业、教育、集团、创业、物联网全场景
         </p>
       </div>

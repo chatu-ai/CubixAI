@@ -31,15 +31,15 @@ const features = [
 </script>
 
 <template>
-  <section class="py-12 md:py-20 bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12">
+      <div ref="titleRef" class="text-center mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
           为企业打造专属的智能体平台
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
+        <p class="section-subtitle">
           千余种智能体覆盖 8 大职能与业务场景
         </p>
       </div>
@@ -47,7 +47,7 @@ const features = [
       <!-- 8 大分类标签 -->
       <div
         ref="tagsRef"
-        class="flex flex-wrap justify-center gap-3 mb-12"
+        class="flex flex-wrap justify-center gap-3 mb-8"
       >
         <span
           v-for="cat in categories"
