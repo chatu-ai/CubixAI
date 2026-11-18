@@ -3,7 +3,7 @@ import { beforeEach, expect, it, vi } from 'vitest'
 beforeEach(() => {
   vi.resetModules()
   localStorage.clear()
-  document.head.querySelectorAll('script[src*="hm.baidu.com"]').forEach((el) => el.remove())
+  vi.restoreAllMocks()
 })
 
 it('prompts only overseas visitors who have not chosen yet', async () => {
@@ -36,7 +36,14 @@ it('persists the choice and ignores unknown stored values', async () => {
 
 it('injects the analytics script only once', async () => {
   const { loadBaiduAnalytics } = await import('./cookieConsent')
+  // Capture the script instead of attaching it, so the test environment never tries to fetch it
+  const appended: Node[] = []
+  vi.spyOn(document.head, 'appendChild').mockImplementation((node) => {
+    appended.push(node)
+    return node
+  })
   loadBaiduAnalytics()
   loadBaiduAnalytics()
-  expect(document.head.querySelectorAll('script[src*="hm.baidu.com"]').length).toBe(1)
+  const scripts = appended.filter((n) => (n as HTMLScriptElement).src?.includes('hm.baidu.com'))
+  expect(scripts.length).toBe(1)
 })
