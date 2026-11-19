@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Icon } from '@iconify/vue'
 import HeroArt from './HeroArt.vue'
 import HeroChatuArt from './HeroChatuArt.vue'
 
@@ -148,6 +149,18 @@ const go = (index: number) => {
   current.value = index
   scheduleAutoplayAfterInteraction()
 }
+// 手动切换：左右箭头按钮、键盘左右方向键（焦点在横幅内时），切换后自动轮播暂停一会儿
+const prev = () => go((current.value - 1 + slides.value.length) % slides.value.length)
+const next = () => go((current.value + 1) % slides.value.length)
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault()
+    prev()
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault()
+    next()
+  }
+}
 
 onMounted(() => {
   startAutoplay()
@@ -163,7 +176,11 @@ onUnmounted(() => {
 <template>
   <section class="relative w-full overflow-hidden bg-surface-base">
     <div
-      class="relative w-full aspect-[7/4] sm:aspect-[3392/1120] overflow-hidden [container-type:inline-size] cursor-grab active:cursor-grabbing select-none touch-pan-y"
+      class="group relative w-full aspect-[7/4] sm:aspect-[3392/1120] overflow-hidden [container-type:inline-size] cursor-grab active:cursor-grabbing select-none touch-pan-y"
+      role="region"
+      aria-roledescription="carousel"
+      :aria-label="t('home.hero.carousel')"
+      @keydown="onKeydown"
       @pointerdown="onPointerDown"
       @pointermove="onPointerMove"
       @pointerup="onPointerUp"
@@ -234,21 +251,65 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Indicators -->
-      <div class="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 md:gap-3">
+      <!-- 两侧大箭头（大屏）：鼠标移到横幅上时出现，触屏设备上一直显示；放在横幅左右边缘，不压住文字 -->
+      <button
+        v-for="dir in (['prev', 'next'] as const)"
+        :key="dir"
+        type="button"
+        class="hero-arrow absolute top-1/2 -translate-y-1/2 z-20 hidden lg:flex items-center justify-center w-9 h-9 xl:w-10 xl:h-10 2xl:w-11 2xl:h-11 rounded-full bg-white/80 backdrop-blur-md text-ink-primary shadow-[0_4px_16px_rgba(15,31,23,0.12)] ring-1 ring-black/5 transition-all duration-300 [@media(hover:hover)]:hover:bg-white [@media(hover:hover)]:hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-deep"
+        :class="dir === 'prev' ? 'left-2 xl:left-3 2xl:left-5' : 'right-2 xl:right-3 2xl:right-5'"
+        :aria-label="t(`home.hero.${dir}`)"
+        @click="dir === 'prev' ? prev() : next()"
+      >
+        <Icon :icon="dir === 'prev' ? 'lucide:chevron-left' : 'lucide:chevron-right'" class="w-5 h-5 2xl:w-6 2xl:h-6" />
+      </button>
+
+      <!-- 底部控制条：上一张 / 指示点 / 下一张，所有屏幕都显示 -->
+      <div
+        class="absolute bottom-1.5 sm:bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-0.5 sm:gap-1 rounded-full bg-white/75 backdrop-blur-md p-0.5 sm:p-1 shadow-[0_2px_10px_rgba(15,31,23,0.10)] ring-1 ring-black/5"
+      >
         <button
-          v-for="(_, i) in slides"
-          :key="i"
-          class="transition-all duration-300 rounded-full"
-          :class="
-            i === current
-              ? 'w-6 md:w-8 h-2 md:h-2.5 bg-white'
-              : 'w-2 md:w-2.5 h-2 md:h-2.5 bg-white/50 hover:bg-white/70'
-          "
-          @click="go(i)"
-          :aria-label="`切换到第 ${i + 1} 张`"
-        />
+          type="button"
+          class="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full text-ink-secondary transition-colors [@media(hover:hover)]:hover:bg-black/5 [@media(hover:hover)]:hover:text-ink-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-deep"
+          :aria-label="t('home.hero.prev')"
+          @click="prev"
+        >
+          <Icon icon="lucide:chevron-left" class="w-4 h-4" />
+        </button>
+        <div class="flex items-center gap-1.5 px-1">
+          <button
+            v-for="(_, i) in slides"
+            :key="i"
+            type="button"
+            class="h-1.5 sm:h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-deep focus-visible:ring-offset-1"
+            :class="i === current ? 'w-5 sm:w-6 bg-brand-deep' : 'w-1.5 sm:w-2 bg-ink-primary/20 [@media(hover:hover)]:hover:bg-ink-primary/40'"
+            :aria-label="t('home.hero.goTo', { n: i + 1 })"
+            :aria-current="i === current ? 'true' : undefined"
+            @click="go(i)"
+          />
+        </div>
+        <button
+          type="button"
+          class="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full text-ink-secondary transition-colors [@media(hover:hover)]:hover:bg-black/5 [@media(hover:hover)]:hover:text-ink-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-deep"
+          :aria-label="t('home.hero.next')"
+          @click="next"
+        >
+          <Icon icon="lucide:chevron-right" class="w-4 h-4" />
+        </button>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+/* 有鼠标的设备上，两侧箭头平时隐藏，鼠标移到横幅上或键盘聚焦时出现；触屏设备上一直显示 */
+@media (hover: hover) {
+  .hero-arrow {
+    opacity: 0;
+  }
+  .group:hover .hero-arrow,
+  .hero-arrow:focus-visible {
+    opacity: 1;
+  }
+}
+</style>
