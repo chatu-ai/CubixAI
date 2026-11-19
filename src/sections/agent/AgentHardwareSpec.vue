@@ -9,6 +9,8 @@ import hero1 from '@/assets/zft/hero1(2).webp'
 import zft1 from '@/assets/zft/1.webp'
 import zft2 from '@/assets/zft/2.webp'
 import zft3 from '@/assets/zft/3.webp'
+import zft1En from '@/assets/zft/1_en.webp'
+import zft3En from '@/assets/zft/3_en.webp'
 
 const c = useContent(agentStationContent)
 const { locale } = useI18n()
@@ -20,8 +22,9 @@ const rightRef = ref<HTMLElement | null>(null)
 useScrollReveal(leftRef, { y: 30, delay: 0.15 })
 useScrollReveal(rightRef, { y: 30 })
 
-const galleryImages = [hero1, zft1, zft2, zft3]
-const thumbImages = [zft1, zft2, zft3]
+// 接口示意图上有中文标注：非中文访客显示英文版
+const galleryImages = computed(() => (isZh.value ? [hero1, zft1, zft2, zft3] : [hero1, zft1En, zft2, zft3En]))
+const thumbImages = computed(() => (isZh.value ? [zft1, zft2, zft3] : [zft1En, zft2, zft3En]))
 const currentIndex = ref(0)
 
 const DEFAULT_INDEX = 0

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import { useContent } from '@/i18n/useContent'
@@ -20,10 +21,17 @@ const SCENARIO_IMAGES = [
   new URL('../../assets/zft/cj6.webp', import.meta.url).href,
 ]
 
+// 第 6 张场景图上有文字：非中文访客显示英文版
+const SCENARIO6_EN = new URL('../../assets/zft/cj6_en.webp', import.meta.url).href
+const { locale } = useI18n()
+
 const AUDIENCE_ICONS = ['lucide:pen-line', 'lucide:briefcase', 'lucide:graduation-cap', 'lucide:users']
 
 const scenarios = computed(() =>
-  c.value.scenarios.items.map((s, i) => ({ image: SCENARIO_IMAGES[i], ...s })),
+  c.value.scenarios.items.map((s, i) => ({
+    image: i === 5 && locale.value !== 'zh-CN' ? SCENARIO6_EN : SCENARIO_IMAGES[i],
+    ...s,
+  })),
 )
 
 const audiences = computed(() =>

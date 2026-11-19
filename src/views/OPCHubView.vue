@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { Icon } from '@iconify/vue'
+import { useI18n } from 'vue-i18n'
 import { useContent } from '@/i18n/useContent'
 import { opcHubContent } from '@/content/opcHub'
 import { useScrollReveal } from '../composables/useScrollReveal'
@@ -14,8 +15,11 @@ import EnterpriseModal from '../components/EnterpriseModal.vue'
 import AppImage from '../components/AppImage.vue'
 
 const c = useContent(opcHubContent)
+const { locale } = useI18n()
 
-const opc1Img = getImageUrl('opc1.webp')
+// 生态示意图上有文字：非中文访客显示英文版
+const opc1ImgZh = getImageUrl('opc1.webp')
+const opc1ImgEn = getImageUrl('opc1_en.webp')
 
 const leftRef = ref(null)
 const rightRef = ref(null)
@@ -306,7 +310,7 @@ const cases = computed(() =>
           <div class="flex items-center justify-center">
             <div class="w-full rounded-2xl overflow-hidden border border-[#E5E5E5] shadow-sm">
               <AppImage
-                :src="opc1Img"
+                :src="locale === 'zh-CN' ? opc1ImgZh : opc1ImgEn"
                 :alt="c.audiences.sceneAlt"
                 class="w-full h-auto object-contain"
               />

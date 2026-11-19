@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import AppImage from './AppImage.vue'
 import HeroArt from './HeroArt.vue'
-import chatuBanana from '@/assets/ChatU_banana.webp'
+import HeroChatuArt from './HeroChatuArt.vue'
 
 const { t, locale } = useI18n()
 
@@ -13,11 +12,13 @@ const slides = computed(() => [
   // 手机上横幅比例比原图窄，左右会被裁掉：第一张的文字在左侧，所以手机上靠左显示，保证标题完整
   {
     art: true,
+    chatu: false,
     src: '',
     alt: isChinese.value ? '软积木：打通企业 AI 落地最后三公里' : 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption',
     position: '',
   },
-  { art: false, src: chatuBanana, alt: 'ChatU', position: 'object-center' },
+  // 第二张 ChatU 横幅：标志外圈光环旋转（HeroChatuArt），文字为页面上叠加的多语言文字
+  { art: false, chatu: true, src: '', alt: 'ChatU', position: '' },
   // { src: zftBanana, alt: '智方体' },
 ])
 
@@ -186,14 +187,7 @@ onUnmounted(() => {
             :active="current === i"
             :alt="slide.alt"
           />
-          <AppImage
-            v-else
-            :src="slide.src"
-            :alt="slide.alt"
-            :class="['w-full h-full object-cover', slide.position]"
-            :priority="i === 0"
-            draggable="false"
-          />
+          <HeroChatuArt v-else-if="slide.chatu" :alt="slide.alt" />
           <!-- Slide 1 (rjm_banana) text -->
           <!-- <div
             v-if="i === 0"

@@ -1,11 +1,4 @@
 import type { LocalizedContent } from '@/i18n/useContent'
-import type { CaseItem } from '@/data/cases'
-
-/** 客户案例卡片 / 弹窗中可被覆盖的文字字段（按案例 id） */
-type CaseOverrides = Record<
-  string,
-  Partial<Pick<CaseItem, 'title' | 'client' | 'tag' | 'result' | 'background' | 'pain' | 'solution' | 'solved' | 'effect'>>
->
 
 // ChatU 产品页（/products/chatu）正文：zh 为中文原文，en 为英文译文
 const zh = {
@@ -212,8 +205,7 @@ const zh = {
     title: '客户案例精选',
     viewCase: '查看案例',
     viewAll: '查看全部案例',
-    // 中文直接使用 src/data/cases.ts 中的原始数据，不做覆盖
-    overrides: {} as CaseOverrides,
+    // 案例文字本身见 src/content/cases.ts（中文为 src/data/cases.ts 原始数据）
   },
   pricing: {
     title: '更灵活 · 更安全 · 更便捷',
@@ -473,89 +465,6 @@ const en: typeof zh = {
     title: 'Featured Case Studies',
     viewCase: 'View Case',
     viewAll: 'View All Cases',
-    overrides: {
-      c5: {
-        title: 'Intelligent Office Upgrade for a Major State-Owned Enterprise',
-        client: 'China Mobile System Integration Co., Ltd.',
-        tag: 'SOE Office',
-        result: 'Met its cost-reduction and efficiency goals, with major gains in bid writing, document production and daily office work',
-        background:
-          'China Mobile System Integration faced the challenge of improving efficiency and reducing operating costs in its daily operations. Writing bids, producing documents and handling routine office work by hand was slow, labor-intensive and error-prone, and could not keep pace with the company\'s rapid growth.',
-        pain: [
-          'Efficient bid writing: needed to quickly produce high-quality bids tailored to client requirements, cutting the time and effort of manual writing.',
-          'Smart document production: large volumes of repetitive, fixed-format documents took a long time to produce, and a consistent style was hard to maintain.',
-          'Streamlined office work: wanted to automate routine tasks such as task assignment and tracking, easing the load on staff and improving overall office efficiency.',
-        ],
-        solution: [
-          'Adopted the ChatU platform (Standard / On-Premises Edition) and its AI agent operating system capabilities.',
-          'Used ChatU\'s intelligent text generation to train dedicated AI agents on the historical bid library and industry knowledge base, automatically generating first drafts of bids and proposals.',
-          'Configured ChatU workflows to automate document production, version comparison and task assignment.',
-          'Integrated ChatU seamlessly with the internal OA system (supporting DingTalk, Feishu (Lark) and WeCom) for automatic document archiving, task tracking and reminders.',
-          'Gave technical engineers a ChatU knowledge base Q&A assistant for quick access to product specifications and technical standards.',
-        ],
-        solved: [
-          'Bid writing cut from days to hours, with fewer manual errors and a higher win rate.',
-          'Unified document formats and styles, with standardized documents generated automatically.',
-          'Routine office work automated, freeing up staff time.',
-        ],
-        effect:
-          'Successfully reduced costs and increased efficiency in daily operations. Bid writing, document production and routine office work all became significantly more efficient, strongly supporting the company\'s sustainable growth.',
-      },
-      c1: {
-        title: 'Cognitive-Enhanced Mental Health AI Agent System',
-        client: 'Tsinghua University',
-        tag: 'Mental Health',
-        result: 'Built a mental health AI agent for individual clients, making counseling services more efficient',
-        background:
-          'Tsinghua University developed AIRelief, a cognitive-enhanced mental health AI agent system for counseling organizations, individuals and non-professional counselors, and needed an AI assistant that fits naturally into their workflows.',
-        pain: [
-          'There are too few counselors, so clients face long waits.',
-          'Session notes and assessments take a great deal of time.',
-          'Non-professional counselors lack practical guidance and standardized tools.',
-        ],
-        solution: [
-          'Adopted the ChatU AI platform to build a cognitive-enhanced mental health AI agent.',
-          'Used ChatU\'s virtual digital human technology to provide 24/7 emotional listening with voice and text interaction.',
-          'Configured ChatU AI agents for automatic psychological scale scoring, tiered risk alerts and session summaries.',
-          'Used ChatU workflows to help counselors with client intake, assessment reminders and draft intervention recommendations.',
-          'Gave new counselors ChatU knowledge base Q&A with standard scripts and intervention strategy references.',
-        ],
-        solved: [
-          'Eased the counselor shortage with round-the-clock AI support.',
-          'Automated paperwork so counselors can focus on core interventions.',
-          'Improved the quality of service from non-professional counselors.',
-        ],
-        effect:
-          'Successfully built an AI assistant system that fits counselors\' workflows, giving counseling organizations and semi-professional and non-professional counselors efficient support.',
-      },
-      c3: {
-        title: 'End-to-End Enablement for an AI Tech Blogger',
-        client: 'Punk Zhou (AI tech trend watcher / independent creator)',
-        tag: 'Content Creation',
-        result: 'Boosted influence and reach across the board',
-        background:
-          'As a tech content creator, Punk Zhou needs to produce high-quality content quickly while running multiple platforms and engaging with followers.',
-        pain: [
-          'Content creation could not keep pace with trending topics.',
-          'Cross-platform distribution was time-consuming and labor-intensive.',
-          'A high volume of follower interactions meant slow replies.',
-        ],
-        solution: [
-          'Adopted the ChatU AI platform across the whole workflow of creation, optimization, operations and engagement.',
-          'Used ChatU\'s intelligent text generation to write in-depth analyses of trending tech topics.',
-          'Used ChatU\'s multi-platform integrations (WeChat, Weibo, Douyin, etc.) to automatically adapt content into short posts, headlines and cards for each platform.',
-          'Set up ChatU AI agents to reply to follower comments automatically and analyze topic trends.',
-          'Used ChatU\'s UPPT to quickly create livestream outlines and presentations.',
-        ],
-        solved: [
-          'Cut content production time from hours to minutes.',
-          'Enabled one-click adaptation and distribution across platforms, reducing operational workload.',
-          '24/7 follower engagement for stronger audience loyalty.',
-        ],
-        effect:
-          'Delivered efficient, innovative enablement across creation, optimization, operations and engagement, boosting overall influence and reach.',
-      },
-    },
   },
   pricing: {
     title: 'Flexible · Secure · Convenient',

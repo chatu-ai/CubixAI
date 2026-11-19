@@ -4,12 +4,14 @@ import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
 import BrandButton from '../../components/BrandButton.vue'
 import CaseDetailModal from '../../components/CaseDetailModal.vue'
-import { cases } from '../../data/cases'
 import type { CaseItem } from '../../data/cases'
 import { useContent } from '@/i18n/useContent'
 import { chatuContent } from '@/content/chatu'
+import { useLocalizedCases } from '@/content/cases'
 
 const content = useContent(chatuContent)
+// 案例文字跟随语言：中文为原始数据，其他语言为英文（与 /cases 页共用 src/content/cases.ts）
+const cases = useLocalizedCases()
 
 const titleRef = ref<HTMLElement | null>(null)
 const card1Ref = ref<HTMLElement | null>(null)
@@ -29,18 +31,20 @@ function setCardRef(el: HTMLElement | null, idx: number) {
 
 const featuredIds = ['c1', 'c3', 'c5']
 const featuredCases = computed(() => {
-  return (featuredIds
-    .map((id) => cases.find((c) => c.id === id))
-    .filter(Boolean) as CaseItem[])
-    // 英文版用 content 中的译文覆盖案例文字字段；中文版不覆盖，保持原始数据
-    .map((c) => ({ ...c, ...content.value.cases.overrides[c.id] }))
+  return featuredIds
+    .map((id) => cases.value.find((c) => c.id === id))
+    .filter(Boolean) as CaseItem[]
 })
 
-const selectedCase = ref<CaseItem | null>(null)
+const selectedId = ref<string | null>(null)
+// 按 id 取当前语言的案例，切换语言时弹窗内容同步更新
+const selectedCase = computed<CaseItem | null>(
+  () => cases.value.find((c) => c.id === selectedId.value) ?? null
+)
 const isModalOpen = ref(false)
 
 function openCaseModal(caseItem: CaseItem) {
-  selectedCase.value = caseItem
+  selectedId.value = caseItem.id
   isModalOpen.value = true
 }
 </script>
