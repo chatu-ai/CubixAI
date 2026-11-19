@@ -504,7 +504,7 @@ const partners = [
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-6 md:mb-8">
           <h2 class="section-title">
-            Global Offices · Local Services
+            Global Offices&nbsp;· Local Services
           </h2>
         </div>
         <div ref="locationsRef" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

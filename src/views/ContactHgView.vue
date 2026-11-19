@@ -43,7 +43,7 @@ const missions = [
   {
     image: new URL('@/assets/gywm/3.webp', import.meta.url).href,
     title: '가치관 Values',
-    desc: '고객 최우선 · 혁신 주도 · 글로벌 시각 · 상생 협력 · 진실한 책임감',
+    desc: '고객 최우선\u00A0· 혁신 주도\u00A0· 글로벌 시각\u00A0· 상생 협력\u00A0· 진실한 책임감',
   },
 ]
 

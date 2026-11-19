@@ -152,8 +152,8 @@ onUnmounted(() => cancelAnimationFrame(rafId))
     </div>
 
     <!-- 立方体投影：立方体浮起时变淡、略收小 -->
-    <div class="shadow absolute" :style="box(SHADOW)" aria-hidden="true">
-      <img :src="shadowUrl" alt="" class="shadow-img w-full h-full" draggable="false" />
+    <div class="cube-shadow absolute" :style="box(SHADOW)" aria-hidden="true">
+      <img :src="shadowUrl" alt="" class="cube-shadow-img w-full h-full" draggable="false" />
     </div>
 
     <!-- 立方体：入场上浮、持续悬浮、扫光 -->
@@ -296,14 +296,14 @@ onUnmounted(() => cancelAnimationFrame(rafId))
 }
 
 /* ---------- 投影随悬浮同步变化 ---------- */
-.is-playing .shadow {
+.is-playing .cube-shadow {
   animation: hero-fade-in 1.2s ease-out 0.15s both;
 }
-.shadow-img {
+.cube-shadow-img {
   transform-origin: 50% 92%;
   transform: translate3d(calc(var(--mx) * -6px), calc(var(--my) * -4px), 0);
 }
-.is-playing .shadow-img {
+.is-playing .cube-shadow-img {
   animation: hero-shadow 6s ease-in-out 1.4s infinite;
 }
 @keyframes hero-fade-in {

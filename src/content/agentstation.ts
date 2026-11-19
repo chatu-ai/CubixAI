@@ -236,7 +236,7 @@ const zh = {
       },
       {
         title: '多城社群网络',
-        desc: '线上交流经验，线下面对面分享；PEC 大会 · 350 万+ 社群',
+        desc: '线上交流经验，线下面对面分享；PEC 大会\u00A0· 350 万+ 社群',
       },
       {
         title: '客服与售后',
@@ -493,7 +493,7 @@ const en: typeof zh = {
       },
       {
         title: 'Multi-City Community',
-        desc: 'Swap experience online and meet face to face offline; PEC Conference · 3.5M+ community members',
+        desc: 'Swap experience online and meet face to face offline; PEC Conference\u00A0· 3.5M+ community members',
       },
       {
         title: 'Support & After-Sales',
