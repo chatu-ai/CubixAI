@@ -15,8 +15,13 @@ function render() {
   return container
 }
 
+// section > 横幅容器（绑定 pointer 事件）> 幻灯片轨道 > 每张幻灯片
+function slides(container: HTMLElement) {
+  return [...container.querySelector('section > div > div')!.children] as HTMLElement[]
+}
+
 function slideTransforms(container: HTMLElement) {
-  return [...container.querySelectorAll<HTMLElement>('[style*="translateX"]')].map((el) => el.style.transform)
+  return slides(container).map((el) => el.style.transform)
 }
 
 function pointer(type: string, target: Element) {
@@ -30,16 +35,17 @@ afterEach(() => {
   vi.useRealTimers()
 })
 
-describe('hero carousel indicators', () => {
-  it('switches slides when a dot is clicked without capturing the pointer', async () => {
+describe('首页横幅底部圆点', () => {
+  it('点击圆点切换到对应横幅，且按下圆点时不捕获指针', async () => {
     vi.useFakeTimers()
     const capture = vi.spyOn(HTMLElement.prototype, 'setPointerCapture').mockImplementation(() => {})
     const container = render()
     const dots = [...container.querySelectorAll<HTMLButtonElement>('section button[aria-label]')]
     expect(dots).toHaveLength(2)
-    expect(slideTransforms(container)[0]).toBe('translateX(calc(0% + 0px))')
+    expect(slideTransforms(container)).toEqual(['translateX(calc(0% + 0px))', 'translateX(calc(100% + 0px))'])
 
-    // Pointer capture on the banner would retarget the click away from the dot in real browsers.
+    // 真实浏览器里，容器捕获指针后 click 会派发给容器而不是圆点按钮（happy-dom 不模拟这一点），
+    // 所以这里直接断言按下圆点时没有调用 setPointerCapture。
     pointer('pointerdown', dots[1]!)
     pointer('pointerup', dots[1]!)
     dots[1]!.click()
@@ -49,12 +55,11 @@ describe('hero carousel indicators', () => {
     expect(slideTransforms(container)).toEqual(['translateX(calc(-100% + 0px))', 'translateX(calc(0% + 0px))'])
   })
 
-  it('still captures the pointer for dragging when pressing on a slide', () => {
+  it('在横幅上按下仍会捕获指针，保证拖动切换可用', () => {
     const capture = vi.spyOn(HTMLElement.prototype, 'setPointerCapture').mockImplementation(() => {})
     const container = render()
-    const slide = container.querySelector('[style*="translateX"]')!
 
-    pointer('pointerdown', slide)
+    pointer('pointerdown', slides(container)[0]!)
 
     expect(capture).toHaveBeenCalledWith(1)
   })

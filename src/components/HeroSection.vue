@@ -103,9 +103,6 @@ function removeWindowPointerUpListener() {
 }
 
 function onPointerDown(e: PointerEvent) {
-  // Let the indicator buttons handle their own clicks: capturing the pointer on the
-  // container would retarget the click to the container and go(i) would never run.
-  if (e.target instanceof Element && e.target.closest('button')) return
   if (isDragging.value) return
   // 按在底部圆点上时不进入拖动：否则容器捕获指针后，圆点按钮收不到 click，无法切换
   if ((e.target as HTMLElement | null)?.closest('button')) return
