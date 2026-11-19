@@ -23,9 +23,14 @@ export default {
     languageLoadError: '言語リソースを読み込めませんでした。ページを再読み込みするか、しばらくしてから再試行してください。',
     privacyPolicy: 'プライバシーポリシー',
     consultModal: {
+      title: 'お問い合わせ',
       agentAlt: 'カスタマーサポート',
-      message: 'ご質問やご要望は、コードを読み取っていつでもお問い合わせください。',
+      message: 'ご質問やご要望は、メールでお気軽にお問い合わせください。',
       qrAlt: 'お問い合わせ用QRコード',
+      scanHint: 'WeChatでスキャンして担当者に相談',
+      emailLabel: 'ビジネス用メール',
+      copy: 'コピー',
+      copied: 'コピーしました',
     },
   },
 

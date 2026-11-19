@@ -23,9 +23,14 @@ export default {
     languageLoadError: '언어 리소스를 불러오지 못했습니다. 페이지를 새로고침하거나 나중에 다시 시도해 주세요.',
     privacyPolicy: '개인정보 처리방침',
     consultModal: {
+      title: '문의하기',
       agentAlt: '고객 지원',
-      message: '문의나 요청 사항이 있으면 코드를 스캔해 언제든 연락해 주세요.',
+      message: '문의나 요청 사항이 있으면 이메일로 편하게 연락해 주세요.',
       qrAlt: '문의하기 QR 코드',
+      scanHint: 'WeChat으로 스캔해 상담원과 연결',
+      emailLabel: '비즈니스 이메일',
+      copy: '복사',
+      copied: '복사됨',
     },
   },
 
