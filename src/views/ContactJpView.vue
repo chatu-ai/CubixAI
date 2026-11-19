@@ -590,10 +590,10 @@ const partners = [
                 <div class="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center">
                   <Icon icon="lucide:mail" class="w-7 h-7 text-white" />
                 </div>
-                <span class="text-xs text-ink-secondary">bd@cubixai.com</span>
+                <span class="text-xs text-ink-secondary">BD@CubixAI.com</span>
               </div>
               <a
-                href="mailto:bd@cubixai.com"
+                href="mailto:BD@CubixAI.com"
                 class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-[#55AD73] text-white hover:bg-[#2E8B57] transition-colors"
               >
                 メールを送信
