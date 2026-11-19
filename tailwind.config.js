@@ -14,35 +14,39 @@ export default {
           ink: '#0F1F17',
         },
         surface: {
-          base: '#FAFAF7',
+          base: '#F8FAF9',
           card: '#FFFFFF',
-          muted: '#F3F5F2',
+          muted: '#F1F4F2',
         },
         ink: {
           primary: '#0F1F17',
           secondary: '#5C6B63',
-          tertiary: '#8A958F',
+          tertiary: '#6E7A73',
         },
         line: '#E5EBE7',
         gold: '#C9A961',
       },
       fontFamily: {
+        // 全站、所有语言共用一套字体：拉丁字母用 Inter，中日韩文字按系统依次回退
         sans: [
           'Inter',
           '"HarmonyOS Sans SC"',
           '"PingFang SC"',
           '"Microsoft YaHei"',
+          '"Noto Sans SC"',
+          '"Source Han Sans SC"',
           'sans-serif',
         ],
       },
       boxShadow: {
-        card: '0 1px 2px rgba(15,31,23,0.04), 0 8px 24px rgba(15,31,23,0.06)',
+        card: '0 1px 2px rgba(15,31,23,0.04), 0 2px 8px rgba(15,31,23,0.04)',
+        'card-hover': '0 2px 4px rgba(15,31,23,0.04), 0 12px 28px rgba(15,31,23,0.08)',
       },
       borderRadius: {
         '4xl': '2rem',
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(135deg, #55AD73 0%, #2E8B57 100%)',
+        'brand-gradient': 'linear-gradient(135deg, #2E8B57 0%, #23794A 100%)',
       },
     },
   },

@@ -2,41 +2,43 @@
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
 
 useScrollReveal(leftRef, { y: 30 })
 useScrollReveal(rightRef, { y: 30, delay: 0.15 })
-
-const steps = ['生成大纲', '选择模板', '线上优化']
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左：文字 -->
         <div ref="leftRef">
           <h2
             class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight leading-tight"
           >
-            UPPT · 一键生成，重新定义 PPT 创作
+            {{ c.uppt.title }}
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary leading-relaxed">
-            从创意到成品，三步完成专业级演示文稿。
+          <p class="section-subtitle">
+            {{ c.uppt.subtitle }}
           </p>
 
           <div class="mt-8 space-y-4">
             <div
-              v-for="(step, i) in steps"
+              v-for="(step, i) in c.uppt.steps"
               :key="step"
               class="flex items-center gap-4"
             >
               <div
-                class="w-8 h-8 rounded-full bg-[#433487] text-white flex items-center justify-center text-sm font-bold shrink-0"
+                class="w-8 h-8 rounded-full bg-[#433487] text-white flex items-center justify-center text-sm font-semibold shrink-0"
               >
                 {{ i + 1 }}
               </div>
@@ -45,9 +47,7 @@ const steps = ['生成大纲', '选择模板', '线上优化']
           </div>
 
           <div class="flex flex-wrap gap-2 mt-8">
-            <Chip variant="muted">创意大纲</Chip>
-            <Chip variant="muted">海量模板</Chip>
-            <Chip variant="muted">一键下载</Chip>
+            <Chip v-for="chip in c.uppt.chips" :key="chip" variant="muted">{{ chip }}</Chip>
           </div>
         </div>
 

@@ -20,12 +20,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const classes = computed(() => {
   const base =
-    'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full'
+    'group inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full'
   const sizing =
-    props.size === 'sm' ? 'h-9 px-4 text-sm' : 'h-12 px-6 text-base'
+    props.size === 'sm' ? 'h-9 px-4 text-sm' : 'h-11 px-5 text-[15px]'
   const theme =
     props.variant === 'primary'
-      ? 'bg-brand-gradient text-white shadow-card hover:shadow-lg hover:opacity-90'
+      ? 'bg-brand-gradient text-white shadow-sm hover:shadow-card-hover hover:brightness-105'
       : 'border border-line bg-surface-card text-ink-primary hover:border-brand hover:text-brand'
   return [base, sizing, theme].join(' ')
 })
@@ -34,14 +34,14 @@ const classes = computed(() => {
 <template>
   <RouterLink v-if="to" :to="to" :class="classes">
     <slot />
-    <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4" />
+    <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
   </RouterLink>
   <a v-else-if="href" :href="href" :target="target" :class="classes">
     <slot />
-    <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4" />
+    <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
   </a>
   <button v-else :class="classes" v-bind="$attrs">
     <slot />
-    <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4" />
+    <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
   </button>
 </template>

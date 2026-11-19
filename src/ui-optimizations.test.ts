@@ -149,12 +149,20 @@ describe('enterprise modal accessibility', () => {
     expect(document.getElementById(dialog.getAttribute('aria-labelledby')!)?.textContent).toBe('联系我们')
     expect(document.activeElement).toBe(closeButton)
     expect(document.body.style.overflow).toBe('hidden')
-    for (const shiftKey of [true, false]) {
-      const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey, bubbles: true, cancelable: true })
-      closeButton.dispatchEvent(event)
-      expect(event.defaultPrevented).toBe(true)
-      expect(document.activeElement).toBe(closeButton)
-    }
+    // 焦点在弹窗内循环：从第一个元素 Shift+Tab 到最后一个，从最后一个 Tab 回到第一个
+    const focusables = dialog.querySelectorAll<HTMLElement>('button, a[href]')
+    const last = focusables[focusables.length - 1]!
+    expect(focusables.length).toBeGreaterThan(1)
+    const back = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true, cancelable: true })
+    closeButton.dispatchEvent(back)
+    expect(back.defaultPrevented).toBe(true)
+    expect(document.activeElement).toBe(last)
+    const forward = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true })
+    last.dispatchEvent(forward)
+    expect(forward.defaultPrevented).toBe(true)
+    expect(document.activeElement).toBe(closeButton)
+    // 底部的商务邮箱
+    expect(dialog.querySelector('a[href="mailto:BD@CubixAI.com"]')?.textContent?.trim()).toBe('BD@CubixAI.com')
     trigger.focus()
     expect(document.activeElement).toBe(closeButton)
     closeButton.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))

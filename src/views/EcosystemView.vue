@@ -23,7 +23,7 @@ const pecStatsRef = ref<HTMLElement | null>(null)
 useScrollReveal(pecStatsRef, { y: 30, delay: 0.1 })
 
 const bigStats = [
-  { value: 2500000, suffix: '+', label: '系列活动累计覆盖人数' },
+  { value: 3500000, suffix: '+', label: '系列活动累计覆盖人数' },
   { value: 260, suffix: '+', label: '全国合作 AI 社群' },
   { value: 200000, suffix: '+', label: '社区覆盖人数' },
 ]
@@ -95,43 +95,43 @@ const advantages = [
     <!-- ========================
          2. PEC — 数据成就 + 活动形式
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-6 md:mb-8">
           <!-- <div class="logo_imge" >
             <img src="@/assets/pecBaner/logo.webp"
             />
           </div> -->
           <!-- <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-brand-soft text-brand mb-4">PEC 生态</span> -->
-          <!-- <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight" style="margin: 20px auto">
+          <!-- <h2 class="section-title" style="margin: 20px auto">
             PEC · 提示工程大会
           </h2> -->
           <!-- <div class="aimge" >
             <img src="@/assets/pecBaner/a.webp"
             />
           </div>
-          <p class="mt-4 text-lg text-ink-secondary">
+          <p class="section-subtitle">
             全球提示工程领域的标志性交流平台 · 软积木担任亚洲地区官方运营主体
           </p> -->
         </div>
 
         <!-- 数据成就 -->
         <div ref="pecStatsRef" class="space-y-10 md:space-y-12 mb-20">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10">
             <StatNumber v-for="s in bigStats" :key="s.label" :value="s.value" :suffix="s.suffix" :label="s.label" />
           </div>
         </div>
 
         <!-- 活动形式 -->
-        <div class="text-center mb-12">
-          <h3 class="text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight">{{ t('ecosystem.pec.formats.title') }}</h3>
-          <p class="mt-3 text-base text-ink-secondary">
+        <div class="text-center mb-8">
+          <h3 class="section-title">{{ t('ecosystem.pec.formats.title') }}</h3>
+          <p class="section-subtitle">
             {{ t('ecosystem.pec.formats.desc') }}
           </p>
         </div>
         <div ref="pecFormatsRef" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div v-for="f in formats" :key="f.title"
-            class="group p-6 md:p-8 rounded-3xl bg-surface-base border border-line/50 hover:shadow-card hover:border-brand/20 transition-all duration-300">
+            class="group p-6 md:p-7 rounded-2xl bg-surface-base border border-line/50 hover:shadow-card hover:border-brand/20 transition-all duration-300">
             <div class="aspect-video rounded-xl overflow-hidden mb-5">
               <AppImage :src="f.image" :alt="f.title" class="w-full h-full object-cover" />
             </div>
@@ -148,22 +148,22 @@ const advantages = [
     <!-- ========================
          3. PEC — 生态服务 + CTA
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h3 class="text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight">{{ t('ecosystem.pec.services.title') }}</h3>
-          <p class="mt-3 text-base text-ink-secondary">
+        <div class="text-center mb-6 md:mb-8">
+          <h3 class="section-title">{{ t('ecosystem.pec.services.title') }}</h3>
+          <p class="section-subtitle">
             {{ t('ecosystem.pec.services.desc') }}
           </p>
         </div>
 
         <div ref="pecServicesRef" class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div v-for="svc in services" :key="svc.title"
-            class="p-8 rounded-3xl bg-white border border-line/50 hover:shadow-card hover:border-brand/20 transition-all duration-300 flex flex-col">
+            class="p-6 rounded-2xl bg-white border border-line/50 hover:shadow-card hover:border-brand/20 transition-all duration-300 flex flex-col">
             <!-- <div class="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center mb-6">
               <Icon :icon="svc.icon" class="w-7 h-7 text-white" />
             </div> -->
-            <h4 class="text-2xl font-bold text-ink-primary">{{ svc.title }}</h4>
+            <h4 class="text-2xl font-semibold text-ink-primary">{{ svc.title }}</h4>
             <p class="mt-4 text-base text-ink-secondary leading-relaxed">{{ svc.desc }}</p>
             <div v-if="svc.image" class="mt-6 rounded-2xl overflow-hidden border border-line/30 bg-surface-muted">
               <AppImage :src="svc.image" :alt="svc.title" class="w-full h-auto object-cover" />
@@ -176,7 +176,7 @@ const advantages = [
           <div class="w-[160px] h-[160px] rounded-2xl bg-white border-2 border-brand/20 shadow-card overflow-hidden">
             <img src="../assets/PEC.webp" alt="PEC 公众号二维码" class="w-full h-full object-cover" />
           </div>
-          <h3 class="mt-5 text-xl md:text-2xl font-semibold text-ink-primary tracking-tight">
+          <h3 class="mt-5 text-xl md:text-xl font-semibold text-ink-primary tracking-tight">
             {{ t('ecosystem.pec.follow.title') }}
           </h3>
           <p class="mt-2 text-sm text-ink-secondary max-w-xs">
@@ -196,32 +196,32 @@ const advantages = [
     <!-- ========================
          4. 软积木 · 企业 AI 服务生态圈
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- 标题区 -->
-        <div ref="aiServiceRef" class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <div ref="aiServiceRef" class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
             {{ t('ecosystem.aiService.title') }}
           </h2>
-          <p class="mt-5 text-base md:text-lg text-ink-secondary max-w-3xl mx-auto leading-relaxed">
+          <p class="section-subtitle max-w-3xl mx-auto">
             {{ t('ecosystem.aiService.desc1') }}
           </p>
-          <p class="mt-5 text-base md:text-lg text-ink-secondary max-w-3xl mx-auto leading-relaxed">
+          <p class="section-subtitle max-w-3xl mx-auto">
             {{ t('ecosystem.aiService.desc2') }}
           </p>
         </div>
 
         <!-- 核心优势 -->
         <div ref="advantagesRef" class="mb-20 md:mb-24">
-          <div class="text-center mb-10 md:mb-12">
+          <div class="text-center mb-10 md:mb-10">
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div v-for="item in advantages" :key="item.title"
-              class="group p-8 rounded-3xl bg-surface-base border border-line/50 hover:shadow-card hover:border-brand/20 hover:-translate-y-1 transition-all duration-300">
+              class="group p-6 rounded-2xl bg-surface-base border border-line/50 hover:shadow-card hover:border-brand/20 hover:-translate-y-1 transition-all duration-300">
               <div class="aspect-video rounded-2xl overflow-hidden mb-5">
                 <AppImage :src="item.image" :alt="item.title" class="w-full h-full object-cover" />
               </div>
-              <h4 class="text-lg font-bold text-ink-primary mb-2">{{ item.title }}</h4>
+              <h4 class="text-lg font-semibold text-ink-primary mb-2">{{ item.title }}</h4>
               <p class="text-sm text-ink-secondary leading-relaxed">{{ item.desc }}</p>
             </div>
           </div>
@@ -229,9 +229,9 @@ const advantages = [
 
         <!-- 服务矩阵 -->
         <div ref="matrixRef">
-          <div class="text-center mb-10 md:mb-12">
-            <h3 class="text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight">{{ t('ecosystem.aiService.matrix.title') }}</h3>
-            <p class="mt-3 text-base text-ink-secondary">{{ t('ecosystem.aiService.matrix.desc') }}</p>
+          <div class="text-center mb-10 md:mb-10">
+            <h3 class="section-title">{{ t('ecosystem.aiService.matrix.title') }}</h3>
+            <p class="section-subtitle">{{ t('ecosystem.aiService.matrix.desc') }}</p>
             <div class="mt-6 max-w-6xl mx-auto rounded-2xl overflow-hidden">
               <AppImage :src="getImageUrl('st/yq.webp')" alt="服务矩阵" class="w-full h-auto object-contain" />
             </div>
@@ -240,12 +240,12 @@ const advantages = [
             <div
               v-for="item in serviceMatrix"
               :key="item.title"
-              class="group p-6 rounded-3xl bg-surface-base border border-line/50 hover:shadow-card hover:border-brand/20 hover:-translate-y-1 transition-all duration-300 text-center"
+              class="group p-6 rounded-2xl bg-surface-base border border-line/50 hover:shadow-card hover:border-brand/20 hover:-translate-y-1 transition-all duration-300 text-center"
             >
               <div class="w-12 h-12 rounded-2xl bg-brand-soft flex items-center justify-center mx-auto mb-4 group-hover:bg-brand group-hover:scale-110 transition-all duration-300">
                 <Icon :icon="item.icon" class="w-6 h-6 text-brand group-hover:text-white transition-colors duration-300" />
               </div>
-              <h4 class="text-lg font-bold text-ink-primary mb-1">{{ item.title }}</h4>
+              <h4 class="text-lg font-semibold text-ink-primary mb-1">{{ item.title }}</h4>
               <p class="text-sm text-ink-secondary leading-relaxed">{{ item.desc }}</p>
             </div>
           </div> -->

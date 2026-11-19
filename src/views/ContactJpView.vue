@@ -138,7 +138,7 @@ useScrollReveal(locationsRef, { y: 30, delay: 0.1 })
 const locations = [
   {
     city: '北京・中関村AI北緯コミュニティ',
-    address: '北京市海淀区海淀大悦情報テクノパーク D2-D401',
+    address: '北京市海淀区中関村AI北緯コミュニティ D2-1',
     func: 'AI産業エコシステム連携・新規事業インキュベーション・先端技術交流会',
     image: 'bwsq1.webp',
   },
@@ -203,16 +203,16 @@ const partners = [
     <!-- ========================
          1. Hero
          ======================== -->
-    <section class="relative overflow-hidden bg-surface-base pt-32 md:pt-40 pb-16 md:pb-24">
+    <section class="relative overflow-hidden bg-surface-base pt-10 md:pt-16 pb-8 md:pb-12">
       <div
         class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(60px);"
       />
       <div ref="heroRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-[64px] font-semibold text-ink-primary leading-tight tracking-tight">
+        <h1 class="page-title">
           ネイティブ汎用人工知能企業
         </h1>
-        <p class="mt-6 text-xl md:text-2xl text-ink-secondary">
+        <p class="page-subtitle">
           企業向けAI活用を推進するために誕生、企業AI導入の最後の課題を解決
         </p>
       </div>
@@ -221,16 +221,16 @@ const partners = [
     <!-- ========================
          2. コア理念
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">コア理念</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">コア理念</h2>
         </div>
         <div ref="missionRef" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           <div
             v-for="item in missions"
             :key="item.title"
-            class="flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            class="flex flex-col p-6 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="aspect-video rounded-xl overflow-hidden mb-5">
               <img
@@ -249,10 +249,10 @@ const partners = [
     <!-- ========================
          3. 沿革
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">沿革</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">沿革</h2>
         </div>
         <div ref="timelineRef" class="relative">
           <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-ink-primary/10 md:-translate-x-px" />
@@ -264,7 +264,7 @@ const partners = [
           >
             <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-brand border-2 border-white md:-translate-x-1.5 z-10 mt-1.5 md:mt-0" />
             <div class="ml-10 md:ml-0 md:w-1/2" :class="i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'">
-              <span class="text-2xl md:text-3xl font-bold text-brand">{{ m.year }}</span>
+              <span class="text-2xl md:text-3xl font-semibold text-brand">{{ m.year }}</span>
               <h3 class="mt-1 text-lg font-semibold text-ink-primary">{{ m.title }}</h3>
               <p class="mt-1 text-sm text-ink-secondary">{{ m.desc }}</p>
             </div>
@@ -277,13 +277,13 @@ const partners = [
     <!-- ========================
          4. グローバル実績
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref="globalRef" class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <div ref="globalRef" class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
             世界へ進出｜国際トップテクノカンファレンスに招待登壇
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary">
+          <p class="section-subtitle">
             欧州・米国・韓国・日本・シンガポールなど各国市場で事業展開
           </p>
         </div>
@@ -365,14 +365,14 @@ const partners = [
     <!-- ========================
          5. 企業受賞実績
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref="honorsRef">
-          <div class="text-center mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+          <div class="text-center mb-6 md:mb-8">
+            <h2 class="section-title">
               企業受賞実績
             </h2>
-            <p class="mt-4 text-lg text-ink-secondary">
+            <p class="section-subtitle">
               権威ある認定｜継続的なイノベーション
             </p>
           </div>
@@ -386,11 +386,11 @@ const partners = [
             <!-- グラデーションマスク -->
             <div
               class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to right, #FAFAF7, transparent);"
+              style="background: linear-gradient(to right, #F8FAF9, transparent);"
             />
             <div
               class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to left, #FAFAF7, transparent);"
+              style="background: linear-gradient(to left, #F8FAF9, transparent);"
             />
 
             <!-- 1行目 -->
@@ -468,15 +468,15 @@ const partners = [
     <!-- ========================
          6. パートナー企業
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base overflow-hidden">
+    <section class="py-10 md:py-16 bg-surface-base overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-16 md:mb-24">
-        <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <h2 class="section-title">
            パートナー企業
         </h2>
       </div>
 
-      <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-14 md:gap-x-20 md:gap-y-16">
+      <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-10 md:gap-x-16 md:gap-y-12">
         <div
           v-for="p in partners"
           :key="p.name"
@@ -496,10 +496,10 @@ const partners = [
     <!-- ========================
          7. グローバル拠点｜地域密着型サービス
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
             グローバル拠点｜地域密着型サービス
           </h2>
         </div>
@@ -507,10 +507,13 @@ const partners = [
           <div
             v-for="loc in locations"
             :key="loc.city"
-            class="flex flex-col p-6 md:p-8 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            class="flex flex-col p-6 md:p-7 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="flex-1">
-              <h3 class="text-xl font-semibold text-ink-primary">{{ loc.city }}</h3>
+              <h3 class="text-xl font-semibold text-ink-primary flex items-start gap-2">
+                <Icon icon="lucide:map-pin" class="w-5 h-5 mt-1 text-brand shrink-0" aria-hidden="true" />
+                {{ loc.city }}
+              </h3>
               <p class="mt-4 text-sm text-ink-secondary leading-relaxed">{{ loc.address }}</p>
               <p class="mt-1 text-xs text-ink-tertiary">{{ loc.func }}</p>
             </div>
@@ -533,24 +536,24 @@ const partners = [
       />
 
       <!-- タイトルエリア -->
-      <div class="relative pt-20 md:pt-[120px] pb-10 md:pb-16">
+      <div class="relative pt-10 md:pt-16 pb-10 md:pb-16">
         <div ref="ctaRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl md:text-4xl lg:text-[56px] font-semibold text-ink-primary tracking-tight leading-tight whitespace-nowrap">
+          <h2 class="display-title md:whitespace-nowrap">
             複数の手段でいつでもお問い合わせ
           </h2>
-          <p class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-2xl mx-auto">
+          <p class="section-subtitle max-w-2xl mx-auto">
             製品トライアル・業務提携・技術相談など、すべてこちらで受け付けております
           </p>
         </div>
       </div>
 
       <!-- 問い合わせ窓口一覧 -->
-      <div class="relative pb-20 md:pb-[120px]">
+      <div class="relative pb-10 md:pb-16">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref="matrixRef" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- 1列目：営業QRコード -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">お問い合わせ</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex items-center justify-center">
@@ -567,7 +570,7 @@ const partners = [
 
             <!-- 2列目：公式WeChatアカウント -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">フォローする</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex items-center justify-center">
@@ -580,17 +583,17 @@ const partners = [
 
             <!-- 3列目：業務メール -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">業務提携のご相談</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex flex-col items-center justify-center gap-2">
                 <div class="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center">
                   <Icon icon="lucide:mail" class="w-7 h-7 text-white" />
                 </div>
-                <span class="text-xs text-ink-secondary">bd@cubixai.com</span>
+                <span class="text-xs text-ink-secondary">BD@CubixAI.com</span>
               </div>
               <a
-                href="mailto:bd@cubixai.com"
+                href="mailto:BD@CubixAI.com"
                 class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-[#55AD73] text-white hover:bg-[#2E8B57] transition-colors"
               >
                 メールを送信

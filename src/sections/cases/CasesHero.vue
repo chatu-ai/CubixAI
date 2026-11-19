@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const titleRef = ref<HTMLElement | null>(null)
 
 useScrollReveal(titleRef, { y: 30 })
@@ -11,7 +11,7 @@ useScrollReveal(titleRef, { y: 30 })
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-12 md:pt-20 pb-16 md:pb-24"
+    class="relative overflow-hidden bg-surface-base pt-8 md:pt-12 pb-8 md:pb-12"
   >
     <!-- 右上绿色光晕 -->
     <div
@@ -30,12 +30,14 @@ useScrollReveal(titleRef, { y: 30 })
       class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
     >
       <div ref="titleRef">
+        <!-- 英文标题较长，不强制单行（否则右侧被裁掉）；中文保持单行 -->
         <h1
-          class="text-2xl md:text-4xl lg:text-5xl font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em] whitespace-nowrap"
+          class="page-title"
+          :class="{ 'md:whitespace-nowrap': locale === 'zh-CN' }"
         >
           {{ t('cases.hero.title') }}
         </h1>
-        <p class="mt-6 text-lg md:text-xl text-ink-secondary">
+        <p class="page-subtitle">
           {{ t('cases.hero.desc') }}
         </p>
       </div>

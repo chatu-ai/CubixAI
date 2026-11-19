@@ -55,7 +55,7 @@ useScrollReveal(timelineRef, { y: 30, delay: 0.1 })
 
 const milestones = [
   { year: '2023.03', title: 'ChatU Launched', desc: 'Enterprise AI operating system officially released' },
-  { year: '2023.06', title: 'Company Founded', desc: 'CubixAI (Beijing) Technology Co., Ltd. officially established' },
+  { year: '2023.06', title: 'Company Founded', desc: 'CubixAI Technology Co., Ltd. officially established' },
   { year: '2023.08', title: '3,000+ Customers', desc: 'Expanded into Japan, Korea, Europe and the United States' },
   { year: '2025.01', title: 'International Expansion', desc: 'Brought the "Prompt Engineering Conference" international brand to China and launched Asian market operations' },
   { year: '2025.12', title: 'OPC Hub', desc: 'Launched OPC Hub to build the OPC industrial ecosystem' },
@@ -140,7 +140,7 @@ useScrollReveal(locationsRef, { y: 30, delay: 0.1 })
 const locations = [
   {
     city: 'Beijing · Zhongguancun AI Community',
-    address: "D2-D401, Haidian Dayue Information Technology Park, Haidian District, Beijing",
+    address: 'D2-1, Zhongguancun AI Beiwei Community, Haidian District, Beijing',
     func: 'AI industrial ecosystem cooperation, innovative business incubation, frontier technology exchange',
     image: 'bwsq1.webp',
   },
@@ -207,16 +207,16 @@ const partners = [
     <!-- ========================
          1. Hero
          ======================== -->
-    <section class="relative overflow-hidden bg-surface-base pt-32 md:pt-40 pb-16 md:pb-24">
+    <section class="relative overflow-hidden bg-surface-base pt-10 md:pt-16 pb-8 md:pb-12">
       <div
         class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(60px);"
       />
       <div ref="heroRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-[64px] font-semibold text-ink-primary leading-tight tracking-tight">
+        <h1 class="page-title">
           A Native General Artificial Intelligence Company
         </h1>
-        <p class="mt-6 text-xl md:text-2xl text-ink-secondary">
+        <p class="page-subtitle">
           Born to drive enterprise AI adoption, solving the last three kilometers of enterprise AI deployment
         </p>
       </div>
@@ -225,16 +225,16 @@ const partners = [
     <!-- ========================
          2. Core Philosophy
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">Core Philosophy</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">Core Philosophy</h2>
         </div>
         <div ref="missionRef" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           <div
             v-for="item in missions"
             :key="item.title"
-            class="flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            class="flex flex-col p-6 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="aspect-video rounded-xl overflow-hidden mb-5">
               <img
@@ -253,10 +253,10 @@ const partners = [
     <!-- ========================
          3. Development History
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">Development History</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">Development History</h2>
         </div>
         <div ref="timelineRef" class="relative">
           <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-ink-primary/10 md:-translate-x-px" />
@@ -268,7 +268,7 @@ const partners = [
           >
             <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-brand border-2 border-white md:-translate-x-1.5 z-10 mt-1.5 md:mt-0" />
             <div class="ml-10 md:ml-0 md:w-1/2" :class="i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'">
-              <span class="text-2xl md:text-3xl font-bold text-brand">{{ m.year }}</span>
+              <span class="text-2xl md:text-3xl font-semibold text-brand">{{ m.year }}</span>
               <h3 class="mt-1 text-lg font-semibold text-ink-primary">{{ m.title }}</h3>
               <p class="mt-1 text-sm text-ink-secondary">{{ m.desc }}</p>
             </div>
@@ -281,13 +281,13 @@ const partners = [
     <!-- ========================
          4. Global Recognition
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref="globalRef" class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <div ref="globalRef" class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
             Going Global · Invited to Top International Tech Events
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary">
+          <p class="section-subtitle">
             Full presence across Europe, USA, Korea, Japan, Singapore and beyond
           </p>
         </div>
@@ -369,14 +369,14 @@ const partners = [
     <!-- ========================
          5. Enterprise Honors
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref="honorsRef">
-          <div class="text-center mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+          <div class="text-center mb-6 md:mb-8">
+            <h2 class="section-title">
               Enterprise Honors
             </h2>
-            <p class="mt-4 text-lg text-ink-secondary">
+            <p class="section-subtitle">
               Authoritative Certifications · Continuous Innovation
             </p>
           </div>
@@ -390,11 +390,11 @@ const partners = [
             <!-- Gradient masks -->
             <div
               class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to right, #FAFAF7, transparent);"
+              style="background: linear-gradient(to right, #F8FAF9, transparent);"
             />
             <div
               class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to left, #FAFAF7, transparent);"
+              style="background: linear-gradient(to left, #F8FAF9, transparent);"
             />
 
             <!-- Row 1 -->
@@ -472,15 +472,15 @@ const partners = [
     <!-- ========================
          6. Partners
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base overflow-hidden">
+    <section class="py-10 md:py-16 bg-surface-base overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-16 md:mb-24">
-        <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <h2 class="section-title">
             Partner Companies
         </h2>
       </div>
 
-      <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-14 md:gap-x-20 md:gap-y-16">
+      <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-10 md:gap-x-16 md:gap-y-12">
         <div
           v-for="p in partners"
           :key="p.name"
@@ -500,21 +500,24 @@ const partners = [
     <!-- ========================
          7. Global Offices
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
-            Global Offices · Local Services
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
+            Global Offices&nbsp;· Local Services
           </h2>
         </div>
         <div ref="locationsRef" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div
             v-for="loc in locations"
             :key="loc.city"
-            class="flex flex-col p-6 md:p-8 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            class="flex flex-col p-6 md:p-7 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="flex-1">
-              <h3 class="text-xl font-semibold text-ink-primary">{{ loc.city }}</h3>
+              <h3 class="text-xl font-semibold text-ink-primary flex items-start gap-2">
+                <Icon icon="lucide:map-pin" class="w-5 h-5 mt-1 text-brand shrink-0" aria-hidden="true" />
+                {{ loc.city }}
+              </h3>
               <p class="mt-4 text-sm text-ink-secondary leading-relaxed">{{ loc.address }}</p>
               <p class="mt-1 text-xs text-ink-tertiary">{{ loc.func }}</p>
             </div>
@@ -537,24 +540,24 @@ const partners = [
       />
 
       <!-- Title area -->
-      <div class="relative pt-20 md:pt-[120px] pb-10 md:pb-16">
+      <div class="relative pt-10 md:pt-16 pb-10 md:pb-16">
         <div ref="ctaRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl md:text-4xl lg:text-[56px] font-semibold text-ink-primary tracking-tight leading-tight whitespace-nowrap">
+          <h2 class="display-title md:whitespace-nowrap">
             Multiple Ways · Contact Anytime
           </h2>
-          <p class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-2xl mx-auto">
+          <p class="section-subtitle max-w-2xl mx-auto">
             Whether product trials, business cooperation, or technical consulting, find answers here
           </p>
         </div>
       </div>
 
       <!-- Contact matrix -->
-      <div class="relative pb-20 md:pb-[120px]">
+      <div class="relative pb-10 md:pb-16">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref="matrixRef" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Column 1: business QR code -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">Contact Us</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex items-center justify-center">
@@ -571,7 +574,7 @@ const partners = [
 
             <!-- Column 2: WeChat official account -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">Follow Us</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex items-center justify-center">
@@ -584,17 +587,17 @@ const partners = [
 
             <!-- Column 3: business email -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">Business Inquiry</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex flex-col items-center justify-center gap-2">
                 <div class="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center">
                   <Icon icon="lucide:mail" class="w-7 h-7 text-white" />
                 </div>
-                <span class="text-xs text-ink-secondary">bd@cubixai.com</span>
+                <span class="text-xs text-ink-secondary">BD@CubixAI.com</span>
               </div>
               <a
-                href="mailto:bd@cubixai.com"
+                href="mailto:BD@CubixAI.com"
                 class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-[#55AD73] text-white hover:bg-[#2E8B57] transition-colors"
               >
                 Send Email

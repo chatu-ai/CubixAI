@@ -43,7 +43,7 @@ const missions = [
   {
     image: new URL('@/assets/gywm/3.webp', import.meta.url).href,
     title: '가치관 Values',
-    desc: '고객 최우선 · 혁신 주도 · 글로벌 시각 · 상생 협력 · 진실한 책임감',
+    desc: '고객 최우선\u00A0· 혁신 주도\u00A0· 글로벌 시각\u00A0· 상생 협력\u00A0· 진실한 책임감',
   },
 ]
 
@@ -139,7 +139,7 @@ useScrollReveal(locationsRef, { y: 30, delay: 0.1 })
 const locations = [
   {
     city: '북경 · 중관촌AI 북위 커뮤니티',
-    address: '북경시 해전구 해전대열 정보테크노파크 D2-D401',
+    address: '북경시 해전구 중관촌AI 북위 커뮤니티 D2-1',
     func: 'AI 산업 생태 협력, 혁신 사업 인큐베이션, 첨단 기술 교류',
     image: 'bwsq1.webp',
   },
@@ -206,16 +206,16 @@ const partners = [
     <!-- ========================
          1. Hero
          ======================== -->
-    <section class="relative overflow-hidden bg-surface-base pt-32 md:pt-40 pb-16 md:pb-24">
+    <section class="relative overflow-hidden bg-surface-base pt-10 md:pt-16 pb-8 md:pb-12">
       <div
         class="absolute -top-40 -right-40 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"
         style="background: radial-gradient(circle, rgba(85, 173, 115, 0.15) 0%, transparent 70%); filter: blur(60px);"
       />
       <div ref="heroRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-[64px] font-semibold text-ink-primary leading-tight tracking-tight">
+        <h1 class="page-title">
           본원적 범용 인공지능 기업
         </h1>
-        <p class="mt-6 text-xl md:text-2xl text-ink-secondary">
+        <p class="page-subtitle">
           기업 AI 활용 촉진을 위해 탄생, 기업 AI 현장 적용의 마지막 장벽을 해결
         </p>
       </div>
@@ -224,16 +224,16 @@ const partners = [
     <!-- ========================
          2. 핵심 이념
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">핵심 이념</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">핵심 이념</h2>
         </div>
         <div ref="missionRef" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           <div
             v-for="item in missions"
             :key="item.title"
-            class="flex flex-col p-8 rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            class="flex flex-col p-6 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="aspect-video rounded-xl overflow-hidden mb-5">
               <img
@@ -252,10 +252,10 @@ const partners = [
     <!-- ========================
          3. 발전 연혁
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">발전 연혁</h2>
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">발전 연혁</h2>
         </div>
         <div ref="timelineRef" class="relative">
           <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-ink-primary/10 md:-translate-x-px" />
@@ -267,7 +267,7 @@ const partners = [
           >
             <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-brand border-2 border-white md:-translate-x-1.5 z-10 mt-1.5 md:mt-0" />
             <div class="ml-10 md:ml-0 md:w-1/2" :class="i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'">
-              <span class="text-2xl md:text-3xl font-bold text-brand">{{ m.year }}</span>
+              <span class="text-2xl md:text-3xl font-semibold text-brand">{{ m.year }}</span>
               <h3 class="mt-1 text-lg font-semibold text-ink-primary">{{ m.title }}</h3>
               <p class="mt-1 text-sm text-ink-secondary">{{ m.desc }}</p>
             </div>
@@ -280,13 +280,13 @@ const partners = [
     <!-- ========================
          4. 글로벌 인정 실적
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref="globalRef" class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <div ref="globalRef" class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
             세계로 나아가다 · 국제 최고 테크 컨퍼런스 초청 참가
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary">
+          <p class="section-subtitle">
             유럽 · 미국 · 한국 · 일본 · 싱가포르 등 전 시장 전면 진출
           </p>
         </div>
@@ -368,14 +368,14 @@ const partners = [
     <!-- ========================
          5. 기업 수상 내역
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref="honorsRef">
-          <div class="text-center mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+          <div class="text-center mb-6 md:mb-8">
+            <h2 class="section-title">
               기업 수상 내역
             </h2>
-            <p class="mt-4 text-lg text-ink-secondary">
+            <p class="section-subtitle">
               권위 있는 인증 · 끊임없는 혁신
             </p>
           </div>
@@ -389,11 +389,11 @@ const partners = [
             <!-- 그라데이션 마스크 -->
             <div
               class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to right, #FAFAF7, transparent);"
+              style="background: linear-gradient(to right, #F8FAF9, transparent);"
             />
             <div
               class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-              style="background: linear-gradient(to left, #FAFAF7, transparent);"
+              style="background: linear-gradient(to left, #F8FAF9, transparent);"
             />
 
             <!-- 첫 번째 줄 -->
@@ -471,15 +471,15 @@ const partners = [
     <!-- ========================
          6. 파트너 기업
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base overflow-hidden">
+    <section class="py-10 md:py-16 bg-surface-base overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-16 md:mb-24">
-        <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <h2 class="section-title">
             파트너 기업
         </h2>
       </div>
 
-      <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-14 md:gap-x-20 md:gap-y-16">
+      <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-10 md:gap-x-16 md:gap-y-12">
         <div
           v-for="p in partners"
           :key="p.name"
@@ -499,10 +499,10 @@ const partners = [
     <!-- ========================
          7. 글로벌 사무소 · 현지 맞춤 서비스
          ======================== -->
-    <section class="py-20 md:py-[120px] bg-surface-base">
+    <section class="py-10 md:py-16 bg-surface-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="section-title">
             글로벌 사무소 · 현지 맞춤 서비스
           </h2>
         </div>
@@ -510,10 +510,13 @@ const partners = [
           <div
             v-for="loc in locations"
             :key="loc.city"
-            class="flex flex-col p-6 md:p-8 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            class="flex flex-col p-6 md:p-7 rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
           >
             <div class="flex-1">
-              <h3 class="text-xl font-semibold text-ink-primary">{{ loc.city }}</h3>
+              <h3 class="text-xl font-semibold text-ink-primary flex items-start gap-2">
+                <Icon icon="lucide:map-pin" class="w-5 h-5 mt-1 text-brand shrink-0" aria-hidden="true" />
+                {{ loc.city }}
+              </h3>
               <p class="mt-4 text-sm text-ink-secondary leading-relaxed">{{ loc.address }}</p>
               <p class="mt-1 text-xs text-ink-tertiary">{{ loc.func }}</p>
             </div>
@@ -536,24 +539,24 @@ const partners = [
       />
 
       <!-- 제목 영역 -->
-      <div class="relative pt-20 md:pt-[120px] pb-10 md:pb-16">
+      <div class="relative pt-10 md:pt-16 pb-10 md:pb-16">
         <div ref="ctaRef" class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl md:text-4xl lg:text-[56px] font-semibold text-ink-primary tracking-tight leading-tight">
+          <h2 class="display-title">
             다양한 채널로 언제든 문의하세요
           </h2>
-          <p class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-2xl mx-auto">
+          <p class="section-subtitle max-w-2xl mx-auto">
             제품 체험, 업무 제휴, 기술 상담 무엇이든 여기서 해결책을 찾으실 수 있습니다
           </p>
         </div>
       </div>
 
       <!-- 문의 채널 안내 -->
-      <div class="relative pb-20 md:pb-[120px]">
+      <div class="relative pb-10 md:pb-16">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref="matrixRef" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- 첫 번째 열 : 영업용 QR코드 -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">문의하기</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex items-center justify-center">
@@ -570,7 +573,7 @@ const partners = [
 
             <!-- 두 번째 열 : 위챗 공식계정 -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">팔로우하기</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex items-center justify-center">
@@ -583,17 +586,17 @@ const partners = [
 
             <!-- 세 번째 열 : 업무용 메일 -->
             <div
-              class="flex flex-col items-center p-8 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
+              class="flex flex-col items-center p-6 rounded-2xl text-center bg-white border border-[#E5E5E5] shadow-sm"
             >
               <h3 class="text-lg font-semibold text-ink-primary">업무 제휴 상담</h3>
               <div class="mt-6 w-[160px] h-[160px] rounded-xl bg-white overflow-hidden border-2 border-[#E5E5E5] flex flex-col items-center justify-center gap-2">
                 <div class="w-14 h-14 rounded-2xl bg-brand-gradient flex items-center justify-center">
                   <Icon icon="lucide:mail" class="w-7 h-7 text-white" />
                 </div>
-                <span class="text-xs text-ink-secondary">bd@cubixai.com</span>
+                <span class="text-xs text-ink-secondary">BD@CubixAI.com</span>
               </div>
               <a
-                href="mailto:bd@cubixai.com"
+                href="mailto:BD@CubixAI.com"
                 class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-[#55AD73] text-white hover:bg-[#2E8B57] transition-colors"
               >
                 메일 보내기

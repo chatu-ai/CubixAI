@@ -140,7 +140,7 @@ export const cases: CaseItem[] = [
     image: getImageUrl('hzqy/bwsq1.webp'),
     tag: '产业园区',
     category: 'opc',
-    icon: 'lucide:building2',
+    icon: 'lucide:building-2',
     metrics: [
       { label: '核心模式', value: '社区+平台+企业' },
       { label: '关键活动', value: 'AI沙龙/技术交流' },

@@ -2,7 +2,7 @@ export default {
   common: {
     siteName: 'CubixAI',
     siteTagline: 'AIネイティブ企業として、ChatUソフトウェアプラットフォームとAgentStationハードウェア端末を通じて、企業のインテリジェンス化の全チェーンをつなぎます。',
-    copyright:  '© 2023–2026 CubixAI (Beijing) Technology Co., Ltd. All rights reserved.',
+    copyright:  '© 2023–2026 CubixAI Technology Co., Ltd. All rights reserved.',
     learnMore: '詳細を見る',
     contactUs: 'お問い合わせ',
     viewAll: 'すべて表示',
@@ -21,6 +21,27 @@ export default {
     comingSoon: 'まもなく公開',
     close: '閉じる',
     languageLoadError: '言語リソースを読み込めませんでした。ページを再読み込みするか、しばらくしてから再試行してください。',
+    privacyPolicy: 'プライバシーポリシー',
+    consultModal: {
+      title: 'お問い合わせ',
+      agentAlt: 'カスタマーサポート',
+      message: 'ご質問やご要望は、メールでお気軽にお問い合わせください。',
+      qrAlt: 'お問い合わせ用QRコード',
+      scanHint: 'WeChatでスキャンして担当者に相談',
+      emailLabel: 'ビジネス用メール',
+      copy: 'コピー',
+      copied: 'コピーしました',
+    },
+  },
+
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'Cookie の使用について',
+    message: '当サイトでは、設定を保存するために Cookie および類似の技術を使用し、同意いただいた場合に限り Baidu Analytics でアクセス解析を行います。必須以外の Cookie を許可するか拒否するかを選択してください。',
+    accept: 'すべて許可',
+    reject: '必須以外を拒否',
   },
 
   header: {
@@ -177,7 +198,7 @@ export default {
 
   cases: {
     hero: {
-      title: '3,000社以上 · 100業界以上 · 共に実証',
+      title: '3,000社以上\u00A0· 100業界以上\u00A0· 共に実証',
       desc: '政府から個人クリエイターまで — AI導入は全面検証済み',
     },
     tabs: {

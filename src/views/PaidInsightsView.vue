@@ -3,7 +3,7 @@ import PaidInsightsSection from '../sections/PaidInsightsSection.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface-base relative overflow-hidden pt-16 md:pt-20">
+  <div class="min-h-screen bg-surface-base relative overflow-hidden pt-4 md:pt-6">
     <!-- 装饰光晕 -->
     <div
       class="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none"

@@ -12,7 +12,7 @@ useScrollReveal(contentRef, { y: 30 })
 </script>
 
 <template>
-  <section class="relative overflow-hidden py-20 md:py-[120px] bg-white">
+  <section class="relative overflow-hidden py-10 md:py-16 bg-white">
     <!-- 绿色辉光 -->
     <div
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none"

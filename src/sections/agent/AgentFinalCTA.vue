@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, computed, inject } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
 import AppImage from '../../components/AppImage.vue'
 import BrandButton from '../../components/BrandButton.vue'
+import JdStoreButton from './JdStoreButton.vue'
 import jszcImg from '@/assets/jszc.webp'
 import lxhsqImg from '@/assets/lxwm.webp'
 import wjhImg from '@/assets/wjh.webp'
+
+const c = useContent(agentStationContent)
 
 const openModal = inject<() => void>('agentStationOpenModal')
 const BOOKING_URL = 'https://ruanjimu.feishu.cn/share/base/form/shrcnO4m2xMY6ma9mnYSuAkSSKg'
@@ -17,44 +22,31 @@ const cardsRef = ref<HTMLElement | null>(null)
 useScrollReveal(contentRef, { y: 30 })
 useScrollReveal(cardsRef, { y: 30, delay: 0.2 })
 
-const items = [
-  {
-    title: '加入社群',
-    desc: '和 8 城用户交流经验，获取最新玩法',
-    image: lxhsqImg,
-  },
-  {
-    title: '技术支持',
-    desc: '24 小时智能客服，遇到问题扫码即问',
-    image: jszcImg,
-  },
-  {
-    title: '渠道招募',
-    desc: '成为智方体合作伙伴，共享 AI 工作站市场',
-    image: wjhImg,
-  },
-]
+const ITEM_IMAGES = [lxhsqImg, jszcImg, wjhImg]
+
+const items = computed(() => c.value.finalCta.items.map((item, i) => ({ ...item, image: ITEM_IMAGES[i] })))
 </script>
 
 <template>
-  <section class="relative overflow-hidden py-20 md:py-[120px] bg-white">
+  <section class="relative overflow-hidden py-10 md:py-16 bg-white">
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="contentRef" class="text-center mb-12">
+      <div ref="contentRef" class="text-center mb-8">
         <h2
           class="text-4xl md:text-5xl lg:text-[64px] font-semibold text-ink-primary tracking-tight leading-tight"
         >
-          你可靠的 AI 工作站
+          {{ c.finalCta.title }}
         </h2>
-        <p class="mt-4 text-sm text-ink-tertiary tracking-[0.2em] uppercase">
-          WORK SMART · STAY SAFE
+        <p class="mt-4 text-sm text-ink-tertiary tracking-wide uppercase">
+          {{ c.finalCta.eyebrow }}
         </p>
         <p class="mt-4 text-xl text-ink-secondary">
-          不用装、不用配，开箱 2 分钟，一台真正属于你的 AI。
+          {{ c.finalCta.subtitle }}
         </p>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">立即预订 ¥3,999</BrandButton>
+          <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">{{ c.finalCta.bookCta }}</BrandButton>
+          <JdStoreButton :label="c.finalCta.jdCta" :logo-alt="c.finalCta.jdLogoAlt" />
           <BrandButton variant="ghost" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" @click="openModal">
-            商务合作 · 渠道加盟
+            {{ c.finalCta.partnerCta }}
           </BrandButton>
         </div>
       </div>
@@ -73,7 +65,7 @@ const items = [
               :alt="item.title"
               class="w-full h-full object-contain"
             />
-            <span v-else class="text-sm text-ink-tertiary">{{ item.title }}图片占位</span>
+            <span v-else class="text-sm text-ink-tertiary">{{ item.title }}{{ c.finalCta.imagePlaceholder }}</span>
           </div>
 
           <div class="p-6 flex flex-col items-center">

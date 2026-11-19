@@ -7,10 +7,12 @@ import CasesHero from '../sections/cases/CasesHero.vue'
 import CasesCTA from '../sections/cases/CasesCTA.vue'
 import BrandButton from '../components/BrandButton.vue'
 import CaseDetailModal from '../components/CaseDetailModal.vue'
-import { cases } from '../data/cases'
+import { useLocalizedCases } from '../content/cases'
 import type { CaseItem, Category } from '../data/cases'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+// 案例文字跟随语言：中文为原始数据，其他语言为英文
+const cases = useLocalizedCases()
 
 const clientLogosRow1 = [
   'bjyz.webp', 'chjh.webp', 'dyck.webp', 'gzlgxy.webp', 'hjcm.webp',
@@ -35,12 +37,16 @@ const categories = computed<Category[]>(() => [
 ])
 
 const activeCat = ref('all')
-const selectedCase = ref<CaseItem | null>(null)
+const selectedId = ref<string | null>(null)
+// 按 id 取当前语言的案例，切换语言时弹窗内容同步更新
+const selectedCase = computed<CaseItem | null>(
+  () => cases.value.find((c) => c.id === selectedId.value) ?? null
+)
 const isModalOpen = ref(false)
 
 const filteredCases = computed(() => {
-  if (activeCat.value === 'all') return cases
-  return cases.filter((c) => c.category === activeCat.value)
+  if (activeCat.value === 'all') return cases.value
+  return cases.value.filter((c) => c.category === activeCat.value)
 })
 
 function switchCategory(id: string) {
@@ -48,7 +54,7 @@ function switchCategory(id: string) {
 }
 
 function openModal(c: CaseItem) {
-  selectedCase.value = c
+  selectedId.value = c.id
   isModalOpen.value = true
 }
 
@@ -77,14 +83,18 @@ nextTick(() => {
     <CasesHero />
 
     <!-- Tab -->
-    <div class="sticky top-16 md:top-20 z-40 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3">
+    <div class="sticky top-14 md:top-16 z-40 bg-surface-base/95 backdrop-blur-xl border-b border-line/30 py-3">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-center gap-2 overflow-x-auto" style="scrollbar-width: none;">
+        <!-- 英文分类名较长，手机上一行放不下：非中文时改为可横向滚动（放得下时仍居中），中文保持原样 -->
+        <div class="flex gap-2 overflow-x-auto" :class="{ 'justify-center': locale === 'zh-CN' }" style="scrollbar-width: none;">
           <button
             v-for="item in categories"
             :key="item.id"
             class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all shrink-0"
-            :class="activeCat === item.id ? 'bg-brand text-white shadow-sm' : 'bg-[#F3F5F2] text-ink-secondary hover:text-ink-primary'"
+            :class="[
+              activeCat === item.id ? 'bg-brand text-white shadow-sm' : 'bg-[#F1F4F2] text-ink-secondary hover:text-ink-primary',
+              { 'first:ml-auto last:mr-auto': locale !== 'zh-CN' },
+            ]"
             @click="switchCategory(item.id)"
           >
             {{ item.label }}
@@ -96,14 +106,14 @@ nextTick(() => {
     <!-- Case Cards -->
     <section class="py-16 md:py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 gap-8">
+        <div class="grid grid-cols-1 gap-6">
           <div
             v-for="c in filteredCases"
             :key="c.id"
-            class="case-card rounded-3xl overflow-hidden bg-white shadow-card border border-line/50 flex flex-col lg:flex-row"
+            class="case-card rounded-2xl overflow-hidden bg-white shadow-card border border-line/50 flex flex-col lg:flex-row"
           >
             <!-- Left: Text (60%) -->
-            <div class="w-full lg:w-[60%] p-6 md:p-10 flex flex-col justify-center">
+            <div class="w-full lg:w-[60%] p-6 md:p-8 flex flex-col justify-center">
               <!-- Category Label -->
               <div class="mb-3">
                 <span
@@ -115,7 +125,7 @@ nextTick(() => {
 
               <!-- Title -->
               <h2
-                class="text-2xl md:text-[28px] font-bold text-ink-primary leading-tight"
+                class="text-2xl md:text-[28px] font-semibold text-ink-primary leading-tight"
               >
                 {{ c.client }}
               </h2>
@@ -135,7 +145,7 @@ nextTick(() => {
               <div class="flex flex-wrap gap-6 md:gap-10 mt-6">
                 <div v-for="m in c.metrics" :key="m.label">
                   <div
-                    class="text-2xl md:text-3xl font-bold text-brand tracking-tight"
+                    class="text-2xl md:text-3xl font-semibold text-brand tracking-tight"
                   >
                     {{ m.value }}
                   </div>
@@ -217,7 +227,7 @@ nextTick(() => {
         @click.self=""
       >
         <div
-          class="case-modal-content bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
+          class="case-modal-content bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
         >
           <!-- Header -->
           <div
@@ -235,7 +245,7 @@ nextTick(() => {
                 </span>
               </div>
               <h3
-                class="text-xl md:text-2xl font-bold text-ink-primary leading-tight"
+                class="text-xl md:text-2xl font-semibold text-ink-primary leading-tight"
               >
                   {{ selectedCase?.client }}
               </h3>
@@ -253,7 +263,7 @@ nextTick(() => {
             <!-- 客户背景 -->
             <div>
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-ink-primary mb-3"
+                class="flex items-center gap-2 text-sm font-semibold text-ink-primary mb-3"
               >
                 <Icon icon="lucide:building" class="w-4 h-4 text-brand" />
                 {{ t('common.customerBackground') }}
@@ -268,7 +278,7 @@ nextTick(() => {
               class="rounded-2xl bg-[#FEF2F2] border border-[#FECACA] p-5 md:p-6"
             >
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-[#991B1B] mb-4"
+                class="flex items-center gap-2 text-sm font-semibold text-[#991B1B] mb-4"
               >
                 <Icon icon="lucide:alert-circle" class="w-4 h-4" />
                 {{ t('common.corePainPoints') }}
@@ -290,7 +300,7 @@ nextTick(() => {
             <!-- 方案细节 -->
             <div>
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+                class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
               >
                 <Icon icon="lucide:check-circle" class="w-4 h-4" />
                 {{ t('common.schemeDetails') }}
@@ -313,7 +323,7 @@ nextTick(() => {
             <!-- 解决了什么问题 -->
             <div v-if="selectedCase?.solved?.length">
               <h4
-                class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+                class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
               >
                 <Icon icon="lucide:check-circle" class="w-4 h-4" />
                 {{ t('common.solveProblems') }}
@@ -341,7 +351,7 @@ nextTick(() => {
               <p class="text-sm md:text-base font-semibold text-brand">
                 <span class="inline-flex items-center gap-2">
                   <Icon icon="lucide:trending-up" class="w-4 h-4" />
-                  {{ t('common.effect') }}：
+                  {{ t('common.effect') }}{{ locale === 'zh-CN' ? '：' : ':' }}
                 </span>
                 {{ selectedCase?.effect || selectedCase.result }}
               </p>
@@ -356,10 +366,10 @@ nextTick(() => {
     <section class="py-16 md:py-24 bg-surface-base overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-20 md:mb-28">
-          <h2 class="text-2xl md:text-3xl font-semibold text-ink-primary tracking-tight">
+          <h2 class="section-title">
             {{ t('cases.clients.title') }}
           </h2>
-          <p class="mt-3 text-base text-ink-secondary">
+          <p class="section-subtitle">
             {{ t('cases.clients.desc') }}
           </p>
         </div>
@@ -369,11 +379,11 @@ nextTick(() => {
       <div class="relative w-full mb-16 md:mb-20">
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cases-marquee-track">
@@ -408,11 +418,11 @@ nextTick(() => {
       <div class="relative w-full">
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cases-marquee-track-reverse">

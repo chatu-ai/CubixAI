@@ -29,15 +29,15 @@ const partners = [
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base overflow-hidden">
+  <section class="py-10 md:py-16 bg-surface-base overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-16 md:mb-24">
-        <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <h2 class="section-title">
           {{ t('home.partners.title') }}
         </h2>
       </div>
 
-      <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-14 md:gap-x-20 md:gap-y-16">
+      <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-10 md:gap-x-16 md:gap-y-12">
         <div
           v-for="p in partners"
           :key="p.name"

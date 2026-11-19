@@ -2,8 +2,12 @@
 import { watch, nextTick } from 'vue'
 import gsap from 'gsap'
 import { Icon } from '@iconify/vue'
+import { useI18n } from 'vue-i18n'
 import type { CaseItem } from '../data/cases'
-import { categories } from '../data/cases'
+
+const { t, locale } = useI18n()
+// 分类名与小标题跟随当前语言（中文仍显示原来的文字）
+const categoryLabel = (id?: string) => (id && id !== 'all' ? t(`cases.tabs.${id}`) : '')
 
 const props = defineProps<{
   modelValue: boolean
@@ -77,7 +81,7 @@ watch(
       @click="onBackdropClick"
     >
       <div
-        class="case-detail-modal-content bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        class="case-detail-modal-content bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl"
       >
         <!-- Header -->
         <div
@@ -88,14 +92,14 @@ watch(
               <span
                 class="px-3 py-1 rounded-md text-sm font-semibold bg-brand-soft text-brand"
               >
-                {{ categories.find(cat => cat.id === caseItem?.category)?.label }}
+                {{ categoryLabel(caseItem?.category) }}
               </span>
               <span class="text-xs text-ink-tertiary">
                 {{ caseItem?.title }}
               </span>
             </div>
             <h3
-              class="text-xl md:text-2xl font-bold text-ink-primary leading-tight"
+              class="text-xl md:text-2xl font-semibold text-ink-primary leading-tight"
             >
               {{ caseItem?.client }}
             </h3>
@@ -113,10 +117,10 @@ watch(
           <!-- 客户背景 -->
           <div>
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-ink-primary mb-3"
+              class="flex items-center gap-2 text-sm font-semibold text-ink-primary mb-3"
             >
               <Icon icon="lucide:building" class="w-4 h-4 text-brand" />
-              客户背景
+              {{ t('common.customerBackground') }}
             </h4>
             <p class="text-base text-ink-secondary leading-relaxed">
               {{ caseItem?.background || caseItem?.client }}
@@ -128,10 +132,10 @@ watch(
             class="rounded-2xl bg-[#FEF2F2] border border-[#FECACA] p-5 md:p-6"
           >
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-[#991B1B] mb-4"
+              class="flex items-center gap-2 text-sm font-semibold text-[#991B1B] mb-4"
             >
               <Icon icon="lucide:alert-circle" class="w-4 h-4" />
-              核心痛点
+              {{ t('common.corePainPoints') }}
             </h4>
             <ul class="space-y-3">
               <li
@@ -150,10 +154,10 @@ watch(
           <!-- 方案细节 -->
           <div>
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+              class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
             >
               <Icon icon="lucide:check-circle" class="w-4 h-4" />
-              方案细节
+              {{ t('common.schemeDetails') }}
             </h4>
             <ul class="space-y-3">
               <li
@@ -173,10 +177,10 @@ watch(
           <!-- 解决了什么问题 -->
           <div v-if="caseItem?.solved?.length">
             <h4
-              class="flex items-center gap-2 text-sm font-bold text-brand mb-4"
+              class="flex items-center gap-2 text-sm font-semibold text-brand mb-4"
             >
               <Icon icon="lucide:check-circle" class="w-4 h-4" />
-              解决问题
+              {{ t('common.solveProblems') }}
             </h4>
             <ul class="space-y-3">
               <li
@@ -201,7 +205,7 @@ watch(
             <p class="text-sm md:text-base font-semibold text-brand">
               <span class="inline-flex items-center gap-2">
                 <Icon icon="lucide:trending-up" class="w-4 h-4" />
-                成效：
+                {{ t('common.effect') }}{{ locale === 'zh-CN' ? '：' : ':' }}
               </span>
               {{ caseItem?.effect || caseItem?.result }}
             </p>

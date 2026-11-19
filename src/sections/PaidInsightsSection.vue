@@ -15,20 +15,20 @@ useScrollReveal(cardRef, { y: 40, delay: 0.1 })
 </script>
 
 <template>
-  <section id="paid-insights" class="pt-12 md:pt-16 pb-20 md:pb-[120px] bg-surface-base scroll-mt-24">
+  <section id="paid-insights" class="pt-12 md:pt-16 pb-10 md:pb-16 bg-surface-base scroll-mt-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div ref="titleRef" class="text-center mb-10 md:mb-14">
-        <h2 class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight">
+        <h2 class="section-title">
           {{ t('home.paidInsights.title') }}
         </h2>
-        <p class="mt-3 text-base md:text-lg text-ink-secondary">
+        <p class="section-subtitle">
           {{ t('home.paidInsights.subtitle') }}
         </p>
       </div>
 
       <div
         ref="cardRef"
-        class="rounded-3xl bg-white border border-line/50 shadow-card overflow-hidden"
+        class="rounded-2xl bg-white border border-line/50 shadow-card overflow-hidden"
       >
         <div class="flex items-center justify-between gap-4 px-5 md:px-8 py-4 border-b border-line/50 bg-brand-soft/40">
           <span class="inline-flex items-center gap-2 text-sm font-semibold text-brand-deep">
@@ -47,7 +47,7 @@ useScrollReveal(cardRef, { y: 40, delay: 0.1 })
               class="group flex flex-col md:flex-row md:items-center gap-2 md:gap-5 px-5 md:px-8 py-4 md:py-5 transition-colors duration-200 hover:bg-brand-soft/30 focus-visible:outline-none focus-visible:bg-brand-soft/30"
             >
               <span
-                class="paid-tag self-start shrink-0 inline-flex items-center px-2.5 py-1 rounded-md text-xs md:text-sm font-bold text-white bg-[#F2592A] shadow-sm"
+                class="paid-tag self-start shrink-0 inline-flex items-center px-2.5 py-1 rounded-md text-xs md:text-sm font-semibold text-white bg-[#F2592A] shadow-sm"
               >
                 {{ t('home.paidInsights.pricePrefix', { price: item.price }) }}
               </span>

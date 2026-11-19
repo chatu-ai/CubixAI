@@ -25,6 +25,27 @@ export default {
     comingSoon: '敬请期待',
     close: '关闭',
     languageLoadError: '语言资源加载失败，请刷新页面或稍后重试。',
+    privacyPolicy: '隐私政策',
+    consultModal: {
+      title: '联系我们',
+      agentAlt: '客服',
+      message: '有任何问题或需求，欢迎随时联系我们',
+      qrAlt: '联系我们二维码',
+      scanHint: '微信扫码，添加专属顾问',
+      emailLabel: '商务合作邮箱',
+      copy: '复制',
+      copied: '已复制',
+    },
+  },
+
+  // ========================
+  // Cookie Consent
+  // ========================
+  cookieConsent: {
+    title: 'Cookie 使用说明',
+    message: '我们使用 Cookie 及类似技术记住您的偏好设置，并在您同意后通过百度统计分析网站访问情况。您可以选择接受或拒绝非必要 Cookie。',
+    accept: '全部接受',
+    reject: '拒绝非必要 Cookie',
   },
 
   // ========================
@@ -196,7 +217,7 @@ export default {
   // ========================
   cases: {
     hero: {
-      title: '3000 家企业 · 100+ 行业 · 共同验证',
+      title: '3000 家企业\u00A0· 100+ 行业\u00A0· 共同验证',
       desc: '从政企到个人创作者，AI 落地已跑通',
     },
     tabs: {

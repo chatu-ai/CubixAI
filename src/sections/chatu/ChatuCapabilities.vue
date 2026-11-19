@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const gridRef = ref<HTMLElement | null>(null)
@@ -8,28 +12,32 @@ const gridRef = ref<HTMLElement | null>(null)
 useScrollReveal(titleRef, { y: 30 })
 useScrollReveal(gridRef, { y: 30, delay: 0.15 })
 
-const items = [
-  { image: new URL('../../assets/ChatU/19.webp', import.meta.url).href, title: '多智能体调度', desc: '跨模型协作' },
-  { image: new URL('../../assets/ChatU/18.webp', import.meta.url).href, title: '文本生成创作', desc: '方案/营销/代码/广告' },
-  { image: new URL('../../assets/ChatU/4.webp', import.meta.url).href, title: '多语种互译', desc: '100+ 语种' },
-  { image: new URL('../../assets/ChatU/5.webp', import.meta.url).href, title: '文本分类', desc: '摘要 · 改写' },
-  { image: new URL('../../assets/ChatU/6.webp', import.meta.url).href, title: '多模态交互', desc: '图/文/音/视频' },
-  { image: new URL('../../assets/ChatU/7.webp', import.meta.url).href, title: '文生视频/音乐', desc: 'AIGC 创作' },
-  { image: new URL('../../assets/ChatU/8.webp', import.meta.url).href, title: '阅读理解', desc: '文件分析' },
-  { image: new URL('../../assets/ChatU/9.webp', import.meta.url).href, title: '逻辑推理', desc: '复杂任务分解' },
-  { image: new URL('../../assets/ChatU/10.webp', import.meta.url).href, title: '知识问答', desc: '企业知识库' },
-  { image: new URL('../../assets/ChatU/11.webp', import.meta.url).href, title: '代码生成', desc: '自然语言驱动代码开发' },
+const ITEM_IMAGES = [
+  new URL('../../assets/ChatU/19.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/18.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/4.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/5.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/6.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/7.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/8.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/9.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/10.webp', import.meta.url).href,
+  new URL('../../assets/ChatU/11.webp', import.meta.url).href,
 ]
+
+const items = computed(() =>
+  c.value.capabilities.items.map((item, i) => ({ ...item, image: ITEM_IMAGES[i] ?? '' })),
+)
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
-          10 大 AI 能力矩阵
+          {{ c.capabilities.title }}
         </h2>
       </div>
 

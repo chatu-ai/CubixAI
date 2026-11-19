@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import AppImage from '../../components/AppImage.vue'
 import { getImageUrl } from '../../utils/image'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const cardsRef = ref<HTMLElement | null>(null)
@@ -10,77 +15,55 @@ const cardsRef = ref<HTMLElement | null>(null)
 useScrollReveal(titleRef, { y: 30 })
 useScrollReveal(cardsRef, { y: 30, delay: 0.15 })
 
-const items = [
-  {
-    title: '合规备案，符合规范',
-    desc: '遵循国家网信办、工信部、以及互联网信息服务算法备案系统等管理规定。',
-  },
-  {
-    title: '知识产权清晰、可追溯、可担责',
-    desc: '最新关键词过滤算法，最大限度保证生产内容合法合规，图文审查与协议符合国家规范',
-  },
-  {
-    title: '闭源不是 "封闭" 而是 "可控可用"',
-    desc: '自主研发底层架构，符合国内规范要求，架构稳定，国内使用无限制',
-  },
-]
+const ITEM_ICONS = ['lucide:badge-check', 'lucide:scale', 'lucide:lock-keyhole']
 
-const certImages = [
-  {
-    image: '图片1.webp',
-    name: 'ISO 9001 质量管理体系认证证书',
-  },
-  {
-    image: '图片2.webp',
-    name: 'ChatU CE 符合性认证证书',
-  },
-  {
-    image: '图片3.webp',
-    name: '发明专利公布',
-  },
-  {
-    image: '图片4.webp',
-    name: 'ChatU 企业大模型生成合成调度整合算法备案',
-  },
-  {
-    image: 'CubixAI大模型调度系统证书_01.webp',
-    name: 'CubixAI 大模型调度系统软著证书',
-  },
-  {
-    image: '企业智能销售后台管理系统证书_01.webp',
-    name: '企业智能销售后台管理系统软著证书',
-  },
-].map((cert) => ({
-  ...cert,
-  src: getImageUrl(`zz/${cert.image}`),
-  preview: getImageUrl(`zz/previews/${cert.image}`),
+const items = computed(() =>
+  c.value.trust.items.map((item, i) => ({ ...item, icon: ITEM_ICONS[i] ?? '' })),
+)
+
+// 证书图片文件名（name 来自 c.trust.certs，按顺序对应）
+const CERT_FILES = [
+  '图片1.webp',
+  '图片2.webp',
+  '图片3.webp',
+  '图片4.webp',
+  'CubixAI大模型调度系统证书_01.webp',
+  '企业智能销售后台管理系统证书_01.webp',
+].map((image) => ({
+  image,
+  src: getImageUrl(`zz/${image}`),
+  preview: getImageUrl(`zz/previews/${image}`),
 }))
+
+const certImages = computed(() =>
+  CERT_FILES.map((cert, i) => ({ ...cert, name: c.value.trust.certs[i] ?? '' })),
+)
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
-          权威合规资质・安全可信保障
+          {{ c.trust.title }}
         </h2>
         <p class="mt-4 text-sm text-ink-secondary">
-          大模型生成合成调度整合算法备案号：网信算备110108947947801240011号
+          {{ c.trust.filing }}
         </p>
       </div>
 
       <!-- 资质证书轮播 -->
-      <div class="relative w-full mb-12 md:mb-16 overflow-hidden">
+      <div class="relative w-full mb-6 md:mb-8 overflow-hidden">
         <!-- 渐变遮罩 -->
         <div
           class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-24 z-10"
-          style="background: linear-gradient(to right, #FAFAF7, transparent);"
+          style="background: linear-gradient(to right, #F8FAF9, transparent);"
         />
         <div
           class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 md:w-24 z-10"
-          style="background: linear-gradient(to left, #FAFAF7, transparent);"
+          style="background: linear-gradient(to left, #F8FAF9, transparent);"
         />
 
         <div class="flex cert-marquee-track">
@@ -141,8 +124,11 @@ const certImages = [
         <div
           v-for="item in items"
           :key="item.title"
-          class="p-6 md:p-8 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#433487]/20 transition-all duration-300"
+          class="p-6 md:p-7 rounded-2xl bg-white border border-line/50 shadow-sm hover:shadow-card hover:border-[#433487]/20 transition-all duration-300"
         >
+          <span class="mb-4 w-10 h-10 rounded-xl bg-[#433487]/10 text-[#433487] flex items-center justify-center">
+            <Icon :icon="item.icon" class="w-5 h-5" aria-hidden="true" />
+          </span>
           <h3 class="text-lg font-semibold text-ink-primary">{{ item.title }}</h3>
           <p class="mt-4 text-sm text-ink-secondary leading-relaxed">{{ item.desc }}</p>
         </div>

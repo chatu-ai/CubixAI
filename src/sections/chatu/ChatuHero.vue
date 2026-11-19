@@ -1,9 +1,14 @@
 ﻿<script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
 import BrandButton from '../../components/BrandButton.vue'
 import AppImage from '../../components/AppImage.vue'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
@@ -11,18 +16,28 @@ const rightRef = ref<HTMLElement | null>(null)
 useScrollReveal(leftRef, { y: 30 })
 useScrollReveal(rightRef, { y: 30, delay: 0.15 })
 
-const images = [
-  { src: new URL('@/assets/chatUqd.webp', import.meta.url).href, alt: '产品前端' },
-  { src: new URL('@/assets/zkht.webp', import.meta.url).href, alt: '中控后台' },
-  { src: new URL('@/assets/ChatU/banner3.webp', import.meta.url).href, alt: 'banner3' },
+const IMAGE_SRCS = [
+  new URL('@/assets/chatUqd.webp', import.meta.url).href,
+  new URL('@/assets/zkht.webp', import.meta.url).href,
+  new URL('@/assets/ChatU/banner3.webp', import.meta.url).href,
 ]
+// 宣传图里有文字：非中文访客显示英文版
+const BANNER3_EN = new URL('@/assets/ChatU/banner3_en.webp', import.meta.url).href
+const { locale } = useI18n()
+
+const images = computed(() =>
+  IMAGE_SRCS.map((src, i) => ({
+    src: i === 2 && locale.value !== 'zh-CN' ? BANNER3_EN : src,
+    alt: c.value.hero.imageAlts[i] ?? '',
+  })),
+)
 
 const currentIndex = ref(0)
 let timer: ReturnType<typeof setInterval> | null = null
 
 function startCarousel() {
   timer = setInterval(() => {
-    currentIndex.value = (currentIndex.value + 1) % images.length
+    currentIndex.value = (currentIndex.value + 1) % IMAGE_SRCS.length
   }, 3000)
 }
 
@@ -39,7 +54,7 @@ onUnmounted(stopCarousel)
 
 <template>
   <section
-    class="relative overflow-hidden bg-surface-base pt-12 md:pt-20 pb-16 md:pb-24"
+    class="relative overflow-hidden bg-surface-base pt-8 md:pt-12 pb-8 md:pb-12"
   >
     <!-- 右上绿色光晕 -->
     <div
@@ -56,37 +71,33 @@ onUnmounted(stopCarousel)
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左侧 -->
         <div ref="leftRef">
           <!-- <Chip class="!bg-[#433487]/10 !text-[#433487]">SOFTWARE · AI AGENT OS</Chip> -->
 
           <h1
-            class="mt-6 text-[48px] md:text-[64px] lg:text-[72px] font-semibold text-ink-primary leading-[1.08] tracking-[-0.03em]"
+            class="mt-2 page-title"
           >
-            ChatU（才兔）<br />
+            {{ c.hero.title }}<br />
             <span
-              class="text-3xl md:text-4xl lg:text-5xl font-semibold text-ink-primary"
+              class="inline-block mt-2 text-[22px] md:text-[28px] lg:text-[32px] font-semibold text-ink-primary"
             >
-              企业 AI 操作系统
+              {{ c.hero.subtitle }}
             </span>
           </h1>
 
-          <p class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-xl">
-            多引擎、多模态、多智能体，2023 年 3 月上线至今 服务近 3000
-            家企业，覆盖 100+ 行业
+          <p class="page-subtitle max-w-xl">
+            {{ c.hero.desc }}
           </p>
 
           <div class="flex flex-wrap gap-2 mt-6">
-            <Chip variant="muted">多引擎调度</Chip>
-            <Chip variant="muted">私有部署</Chip>
-            <Chip variant="muted">Agent Store</Chip>
-            <Chip variant="muted">合规备案</Chip>
+            <Chip v-for="chip in c.hero.chips" :key="chip" variant="muted">{{ chip }}</Chip>
           </div>
 
           <div class="mt-8 flex flex-wrap items-center gap-4">
-            <BrandButton href="https://admin.chatu.pro/" target="_blank" class="!bg-none !bg-[#433487]">申请试用</BrandButton>
+            <BrandButton href="https://admin.chatu.pro/" target="_blank" class="!bg-none !bg-[#433487]">{{ c.hero.cta }}</BrandButton>
             <!-- <BrandButton variant="ghost" to="/contact" class="hover:!border-[#433487] hover:!text-[#433487]" arrow>
               查看演示
             </BrandButton> -->

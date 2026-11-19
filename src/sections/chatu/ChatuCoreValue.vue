@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import { Icon } from '@iconify/vue'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const card1Ref = ref<HTMLElement | null>(null)
@@ -15,13 +19,13 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
-          三大核心价值
+          {{ c.coreValue.title }}
         </h2>
       </div>
 
@@ -29,30 +33,26 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
         <!-- Card 1 -->
         <div
           ref="card1Ref"
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="aspect-video rounded-2xl overflow-hidden mb-6">
             <img
               src="@/assets/ChatU/1.webp"
-              alt="多引擎・更自由"
+              :alt="c.coreValue.cards[0]!.title"
               class="w-full h-full object-cover"
             />
           </div>
           <h3 class="text-xl font-semibold text-ink-primary mb-4">
-            多引擎・更自由
+            {{ c.coreValue.cards[0]!.title }}
           </h3>
           <ul class="space-y-3">
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
+            <li
+              v-for="point in c.coreValue.cards[0]!.points"
+              :key="point"
+              class="flex items-start gap-2 text-sm text-ink-secondary"
+            >
               <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              沉淀 AI 资产，兼顾权限管控与高效协同
-            </li>
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
-              <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              不站队任何厂商
-            </li>
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
-              <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              按场景自动路由最优引擎
+              {{ point }}
             </li>
           </ul>
         </div>
@@ -60,30 +60,26 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
         <!-- Card 2 -->
         <div
           ref="card2Ref"
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="aspect-video rounded-2xl overflow-hidden mb-6">
             <img
               src="@/assets/ChatU/2.webp"
-              alt="多模态 · 全能力"
+              :alt="c.coreValue.cards[1]!.title"
               class="w-full h-full object-cover"
             />
           </div>
           <h3 class="text-xl font-semibold text-ink-primary mb-4">
-            多模态 · 全能力
+            {{ c.coreValue.cards[1]!.title }}
           </h3>
           <ul class="space-y-3">
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
+            <li
+              v-for="point in c.coreValue.cards[1]!.points"
+              :key="point"
+              class="flex items-start gap-2 text-sm text-ink-secondary"
+            >
               <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              文本/图像/语音/视频统一调度
-            </li>
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
-              <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              数字人交互能力
-            </li>
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
-              <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              全场景覆盖无短板
+              {{ point }}
             </li>
           </ul>
         </div>
@@ -91,30 +87,26 @@ useScrollReveal(card3Ref, { y: 30, delay: 0.3 })
         <!-- Card 3 -->
         <div
           ref="card3Ref"
-          class="p-8 rounded-3xl bg-surface-card border border-line shadow-card"
+          class="p-6 rounded-2xl bg-surface-card border border-line shadow-card"
         >
           <div class="aspect-video rounded-2xl overflow-hidden mb-6">
             <img
               src="@/assets/ChatU/3.webp"
-              alt="多智能体 · 可编排"
+              :alt="c.coreValue.cards[2]!.title"
               class="w-full h-full object-cover"
             />
           </div>
           <h3 class="text-xl font-semibold text-ink-primary mb-4">
-            多智能体 · 可编排
+            {{ c.coreValue.cards[2]!.title }}
           </h3>
           <ul class="space-y-3">
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
+            <li
+              v-for="point in c.coreValue.cards[2]!.points"
+              :key="point"
+              class="flex items-start gap-2 text-sm text-ink-secondary"
+            >
               <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              Workflow 可视化编排
-            </li>
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
-              <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              企业级任务流自动化
-            </li>
-            <li class="flex items-start gap-2 text-sm text-ink-secondary">
-              <Icon icon="lucide:check" class="w-4 h-4 text-[#433487] shrink-0 mt-0.5" />
-              多智能体协同作业
+              {{ point }}
             </li>
           </ul>
         </div>

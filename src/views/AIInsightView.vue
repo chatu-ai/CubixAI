@@ -11,9 +11,9 @@ import { Icon } from '@iconify/vue'
       style="background: radial-gradient(circle, rgba(85,173,115,0.04) 0%, transparent 70%); filter: blur(80px);" />
 
     <!-- Hero -->
-    <section class="relative pt-32 md:pt-40 pb-10 md:pb-14">
+    <section class="relative pt-10 md:pt-16 pb-6 md:pb-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl md:text-4xl lg:text-[44px] font-semibold text-ink-primary tracking-tight">
+        <h1 class="page-title">
           AI 洞察 · 预见未来
         </h1>
         <p class="mt-3 text-lg text-ink-secondary">
@@ -27,7 +27,7 @@ import { Icon } from '@iconify/vue'
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- ChatU -->
-          <div class="group flex flex-col items-center p-6 md:p-8 rounded-2xl bg-white border border-line shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
+          <div class="group flex flex-col items-center p-6 md:p-7 rounded-2xl bg-white border border-line shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
             <div class="w-12 h-12 rounded-xl bg-[#EFF6FF] flex items-center justify-center mb-4">
               <Icon icon="lucide:box" class="w-6 h-6 text-[#2563EB]" />
             </div>
@@ -42,7 +42,7 @@ import { Icon } from '@iconify/vue'
           </div>
 
           <!-- PEC -->
-          <div class="group flex flex-col items-center p-6 md:p-8 rounded-2xl bg-white border border-line shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
+          <div class="group flex flex-col items-center p-6 md:p-7 rounded-2xl bg-white border border-line shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
             <div class="w-12 h-12 rounded-xl bg-[#E8F5EE] flex items-center justify-center mb-4">
               <Icon icon="lucide:flame" class="w-6 h-6 text-[#2E8B57]" />
             </div>
@@ -57,7 +57,7 @@ import { Icon } from '@iconify/vue'
           </div>
 
           <!-- 软积木 -->
-          <div class="group flex flex-col items-center p-6 md:p-8 rounded-2xl bg-white border border-line shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
+          <div class="group flex flex-col items-center p-6 md:p-7 rounded-2xl bg-white border border-line shadow-sm hover:shadow-card hover:-translate-y-1 transition-all duration-300">
             <div class="w-12 h-12 rounded-xl bg-[#FFF3E0] flex items-center justify-center mb-4">
               <Icon icon="lucide:building-2" class="w-6 h-6 text-[#D97706]" />
             </div>

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,12 +8,12 @@
     --color-brand-deep: #2E8B57;
     --color-brand-soft: #E8F5EE;
     --color-brand-ink: #0F1F17;
-    --color-surface-base: #FAFAF7;
+    --color-surface-base: #F8FAF9;
     --color-surface-card: #FFFFFF;
-    --color-surface-muted: #F3F5F2;
+    --color-surface-muted: #F1F4F2;
     --color-ink-primary: #0F1F17;
     --color-ink-secondary: #5C6B63;
-    --color-ink-tertiary: #8A958F;
+    --color-ink-tertiary: #6E7A73;
     --color-line: #E5EBE7;
     --color-gold: #C9A961;
   }
@@ -29,5 +27,68 @@
     @apply bg-surface-base text-ink-primary font-sans antialiased;
     font-feature-settings: 'tnum';
     overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  html[lang='en'] :is(h1, h2) {
+    letter-spacing: -0.02em;
+  }
+
+  /* 韩文按词换行（不影响字体） */
+  html[lang='ko'] body {
+    word-break: keep-all;
+  }
+}
+
+@layer components {
+  /* ---------- 字号层级：全站标题与副标题统一使用 ---------- */
+  .page-title {
+    @apply text-[32px] leading-[1.15] md:text-[42px] lg:text-[50px] font-semibold tracking-tight text-ink-primary;
+  }
+  .display-title {
+    @apply text-[28px] leading-tight md:text-[36px] lg:text-[44px] font-semibold tracking-tight text-ink-primary;
+  }
+  .section-title {
+    @apply text-[26px] leading-tight md:text-[30px] lg:text-[34px] font-semibold tracking-tight text-ink-primary;
+  }
+  .section-subtitle {
+    @apply mt-3 text-[15px] md:text-base leading-relaxed text-ink-secondary;
+  }
+  .page-subtitle {
+    @apply mt-4 text-base md:text-lg leading-relaxed text-ink-secondary;
+  }
+
+}
+
+/* ---------- 页面切换：淡入并轻微上浮 ---------- */
+.page-enter-active {
+  transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.page-leave-active {
+  transition: opacity 0.15s ease-in;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-leave-to {
+  opacity: 0;
+}
+
+
+/* 系统开启「减少动态效果」时关闭所有装饰性动画 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

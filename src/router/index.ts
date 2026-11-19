@@ -1,12 +1,18 @@
+import { watch } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
+import type { RouteLocationNormalized, RouteMeta, RouteRecordRaw } from 'vue-router'
+import i18n, { type SupportedLocale } from '../i18n'
+import { trackPageview } from '../utils/cookieConsent'
 
-declare const _hmt: any[]
+/** 非中文语言的页面标题（浏览器标签栏、分享标题），按当前语言切换 */
+export type LocalizedTitles = Record<Exclude<SupportedLocale, 'zh-CN'>, string>
 
 // 扩展 vue-router 的 RouteMeta 类型，支持 SEO 字段
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string
+    /** title 的英文、日文、韩文版本；固定语言的页面（如 /en/contact）不需要 */
+    titles?: LocalizedTitles
     description?: string
     ogTitle?: string
     ogDescription?: string
@@ -29,6 +35,22 @@ const defaultSeo = {
   ogDescription:
     '软积木专注于企业 AI 落地，提供 ChatU 大模型平台、智方体 AgentStation、OPC Hub 园区算力生态及 AI 培训服务。',
   ogImage: DEFAULT_OG_IMAGE,
+}
+
+const defaultTitles: LocalizedTitles = {
+  en: 'CubixAI | Enterprise AI Agent Platform · Bridging the Last Mile of AI Adoption',
+  ja: 'CubixAI | 企業向けAIエージェントプラットフォーム · AI導入のラストマイルを解決',
+  ko: 'CubixAI | 기업용 AI 에이전트 플랫폼 · AI 도입의 마지막 한 걸음을 해결',
+}
+
+/** 按当前语言选页面标题：非中文优先用该语言的标题，没有则用页面自身的标题 */
+export function resolveTitle(meta: RouteMeta, locale: SupportedLocale): string {
+  if (locale !== 'zh-CN') {
+    const localized = meta.titles?.[locale]
+    if (localized) return localized
+    if (!meta.title) return defaultTitles[locale]
+  }
+  return meta.title || defaultSeo.title
 }
 
 // 通用组织信息（所有页面共用）
@@ -68,6 +90,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/HomeView.vue'),
     meta: {
       title: '软积木 CubixAI | 企业级AI智能体平台，解决企业AI落地最后三公里',
+      titles: {
+        en: 'CubixAI | Enterprise AI Agent Platform · Bridging the Last Mile of AI Adoption',
+        ja: 'CubixAI | 企業向けAIエージェントプラットフォーム · AI導入のラストマイルを解決',
+        ko: 'CubixAI | 기업용 AI 에이전트 플랫폼 · AI 도입의 마지막 한 걸음을 해결',
+      },
       description:
         '软积木（北京）科技有限公司专注于企业 AI 落地，提供 ChatU 企业大模型平台、智方体 AgentStation AI 工作站、OPC Hub 园区算力生态及 AI 咨询培训服务。',
       schema: websiteSchema,
@@ -79,6 +106,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/ChatuView.vue'),
     meta: {
       title: 'ChatU 企业大模型平台 | 软积木 CubixAI',
+      titles: {
+        en: 'ChatU Enterprise LLM Platform | CubixAI',
+        ja: 'ChatU 企業向け大規模言語モデルプラットフォーム | CubixAI',
+        ko: 'ChatU 기업용 대형 언어 모델 플랫폼 | CubixAI',
+      },
       description:
         'ChatU 是软积木推出的企业级大模型平台，支持私有化部署、知识库构建、多 Agent 协同与安全合规，助力企业高效落地生成式 AI。',
       schema: {
@@ -99,6 +131,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/AgentStationView.vue'),
     meta: {
       title: '智方体 AgentStation AI 工作站 | 软积木 CubixAI',
+      titles: {
+        en: 'AgentStation AI Workstation | CubixAI',
+        ja: 'AgentStation AIワークステーション | CubixAI',
+        ko: 'AgentStation AI 워크스테이션 | CubixAI',
+      },
       description:
         '智方体 AgentStation 是企业级 AI 智能体工作站，支持可视化编排、多 Agent 协作与企业知识融合，让 AI 真正融入业务流。',
       schema: {
@@ -119,6 +156,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/AIInsightView.vue'),
     meta: {
       title: 'AI 洞察 | 软积木 CubixAI 前沿观点',
+      titles: {
+        en: 'AI Insight | CubixAI',
+        ja: 'AIインサイト | CubixAI',
+        ko: 'AI 인사이트 | CubixAI',
+      },
       description:
         '软积木 AI 洞察栏目，分享大模型、AI Agent、企业智能化转型的前沿观点、实战案例与行业趋势分析。',
       schema: {
@@ -135,6 +177,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/PaidInsightsView.vue'),
     meta: {
       title: '有偿资讯 · 企业 AI 落地实战技巧 | 软积木 CubixAI',
+      titles: {
+        en: 'Paid Insights · Practical Enterprise AI Playbooks | CubixAI',
+        ja: '有料インサイト · 企業AI導入の実践ノウハウ | CubixAI',
+        ko: '유료 인사이트 · 기업 AI 도입 실전 노하우 | CubixAI',
+      },
       description:
         '软积木有偿资讯栏目，汇集企业 AI 落地实战技巧：知识库清洗、RAG 调优、私有化部署选型等，扫码付费即可查看完整内容。',
       schema: {
@@ -151,6 +198,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/PaidInsightPayView.vue'),
     meta: {
       title: '有偿资讯 · 企业 AI 落地实战技巧 | 软积木 CubixAI',
+      titles: {
+        en: 'Paid Insights · Practical Enterprise AI Playbooks | CubixAI',
+        ja: '有料インサイト · 企業AI導入の実践ノウハウ | CubixAI',
+        ko: '유료 인사이트 · 기업 AI 도입 실전 노하우 | CubixAI',
+      },
       description:
         '软积木有偿资讯栏目，提供企业 AI 落地实战技巧，扫码付费即可查看完整内容。',
       schema: {
@@ -168,6 +220,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/SolutionsView.vue'),
     meta: {
       title: '行业解决方案 | 软积木 CubixAI',
+      titles: {
+        en: 'Industry Solutions | CubixAI',
+        ja: '業界別ソリューション | CubixAI',
+        ko: '산업별 솔루션 | CubixAI',
+      },
       description:
         '软积木为电信、金融、教育、医疗、电商、广告等行业提供定制化 AI 解决方案，加速企业智能化转型升级。',
       schema: {
@@ -186,6 +243,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/EcosystemView.vue'),
     meta: {
       title: '生态合作 | 软积木 CubixAI',
+      titles: {
+        en: 'Ecosystem Partnerships | CubixAI',
+        ja: 'エコシステム | CubixAI',
+        ko: '에코시스템 | CubixAI',
+      },
       description:
         '加入软积木 CubixAI 生态，与渠道伙伴、技术伙伴、算力伙伴共建企业 AI 落地生态，共享 AI 时代增长机遇。',
       schema: {
@@ -204,6 +266,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/CasesView.vue'),
     meta: {
       title: '客户案例 | 软积木 CubixAI',
+      titles: {
+        en: 'Case Studies | CubixAI',
+        ja: '導入事例 | CubixAI',
+        ko: '고객 사례 | CubixAI',
+      },
       description:
         '查看软积木 CubixAI 在金融、制造、零售、教育等行业的企业 AI 落地案例，了解 ChatU、AgentStation 如何创造业务价值。',
       schema: {
@@ -220,6 +287,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/ContactView.vue'),
     meta: {
       title: '联系我们 | 软积木 CubixAI',
+      titles: {
+        en: 'Contact Us | CubixAI',
+        ja: 'お問い合わせ | CubixAI',
+        ko: '문의하기 | CubixAI',
+      },
       description:
         '联系软积木（北京）科技有限公司，获取 ChatU、AgentStation、OPC Hub 与 AI 培训的产品咨询与商务合作。',
       schema: {
@@ -284,6 +356,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/OPCHubView.vue'),
     meta: {
       title: 'OPC Hub 园区算力生态 | 软积木 CubixAI',
+      titles: {
+        en: 'OPC Hub · Campus AI Computing Ecosystem | CubixAI',
+        ja: 'OPC Hub · 園区AIコンピューティング・エコシステム | CubixAI',
+        ko: 'OPC Hub · 단지형 AI 컴퓨팅 생태계 | CubixAI',
+      },
       description:
         'OPC Hub 是软积木打造的园区算力生态与 AI 产业孵化平台，整合算力调度、课程培训、线下活动与创业导师资源。',
       schema: {
@@ -298,11 +375,35 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/privacy',
+    name: 'Privacy',
+    component: () => import('../views/PrivacyView.vue'),
+    meta: {
+      title: '隐私政策 | 软积木 CubixAI',
+      titles: {
+        en: 'Privacy Policy | CubixAI',
+        ja: 'プライバシーポリシー | CubixAI',
+        ko: '개인정보 처리방침 | CubixAI',
+      },
+      description: '软积木 CubixAI 网站隐私政策：我们收集哪些信息、如何使用 Cookie，以及您享有的权利和选择。',
+      schema: {
+        '@type': 'WebPage',
+        name: '隐私政策',
+        url: `${SITE_ORIGIN}/privacy`,
+      },
+    },
+  },
+  {
     path: '/training',
     name: 'Training',
     component: () => import('../views/TrainingView.vue'),
     meta: {
       title: 'AI 培训与认证 | 软积木 CubixAI',
+      titles: {
+        en: 'AI Training & Certification | CubixAI',
+        ja: 'AI研修・認定 | CubixAI',
+        ko: 'AI 교육 및 인증 | CubixAI',
+      },
       description:
         '软积木提供企业 AI 内训、个人 AI 进阶课程与 OPC 认证体系，帮助企业与个人掌握大模型、AI Agent 等前沿技术落地能力。',
       schema: {
@@ -320,11 +421,17 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  scrollBehavior(to, _from, savedPosition) {
-    if (savedPosition) return savedPosition
-    // 支持 /#paid-insights 之类的锚点定位，预留固定头部高度
-    if (to.hash) return { el: to.hash, top: 96, behavior: 'smooth' }
-    return { top: 0 }
+  scrollBehavior(to, from, savedPosition) {
+    // 换页时等旧页淡出、新页挂载后再滚动（页面切换动画约 150ms），锚点元素才存在
+    const wait = to.path !== from.path ? 180 : 0
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (savedPosition) resolve(savedPosition)
+        // 支持 /#paid-insights 之类的锚点定位，预留固定头部高度
+        else if (to.hash) resolve({ el: to.hash, top: 80, behavior: 'smooth' })
+        else resolve({ top: 0 })
+      }, wait)
+    })
   },
   routes,
 })
@@ -393,7 +500,7 @@ function buildJsonLd(routeSchema: Record<string, any> | Record<string, any>[] | 
  */
 function updateSeo(to: RouteLocationNormalized) {
   const meta = to.meta
-  const title = meta.title || defaultSeo.title
+  const title = resolveTitle(meta, i18n.global.locale.value as SupportedLocale)
   const description = meta.description || defaultSeo.description
   const ogTitle = meta.ogTitle || title
   const ogDescription = meta.ogDescription || description
@@ -423,13 +530,17 @@ function updateSeo(to: RouteLocationNormalized) {
   setJsonLd(jsonLd)
 }
 
+// 切换语言时，当前页面的标题跟着更新
+watch(
+  () => i18n.global.locale.value,
+  () => updateSeo(router.currentRoute.value),
+)
+
 router.afterEach((to) => {
   updateSeo(to)
 
-  // 百度统计：SPA 路由切换后手动上报页面路径
-  if (typeof _hmt !== 'undefined') {
-    _hmt.push(['_trackPageview', to.fullPath])
-  }
+  // 百度统计：SPA 路由切换后手动上报页面路径（访客未同意或已撤回同意时不上报）
+  trackPageview(to.fullPath)
 })
 
 export default router

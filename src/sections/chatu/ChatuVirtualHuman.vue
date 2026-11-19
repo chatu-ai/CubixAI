@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const leftRef = ref<HTMLElement | null>(null)
 const rightRef = ref<HTMLElement | null>(null)
@@ -9,21 +14,18 @@ const rightRef = ref<HTMLElement | null>(null)
 useScrollReveal(leftRef, { y: 30, delay: 0.15 })
 useScrollReveal(rightRef, { y: 30 })
 
-const features = [
-  '24 小时不间断服务',
-  '智能化交互与生成',
-  '高度适配性与灵活性',
-  '推动行业数字化转型',
-]
+const FEATURE_ICONS = ['lucide:clock', 'lucide:sparkles', 'lucide:sliders-horizontal', 'lucide:trending-up']
 
-const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
+const features = computed(() =>
+  c.value.virtualHuman.features.map((text, i) => ({ text, icon: FEATURE_ICONS[i] ?? '' })),
+)
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
       >
         <!-- 左：形象占位 + 切换 -->
         <div ref="leftRef">
@@ -32,7 +34,7 @@ const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
           >
             <img
               src="@/assets/szr.webp"
-              alt="虚拟数字人"
+              :alt="c.virtualHuman.imageAlt"
               class="w-full"
             />
           </div>
@@ -57,24 +59,27 @@ const tags = ['构建智能对话', '文字互动问答', '语音互动问答']
           <h2
             class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight leading-tight"
           >
-            虚拟数字人 · AI 世界的交互媒介
+            {{ c.virtualHuman.title }}
           </h2>
-          <p class="mt-4 text-lg text-ink-secondary leading-relaxed">
-            通过智能化交互与生成能力，优化生产要素组合。
+          <p class="section-subtitle">
+            {{ c.virtualHuman.subtitle }}
           </p>
 
           <div class="grid grid-cols-2 gap-3 mt-8">
             <div
               v-for="f in features"
-              :key="f"
-              class="p-4 rounded-xl bg-surface-card border border-line/50"
+              :key="f.text"
+              class="p-4 rounded-xl bg-surface-card border border-line/50 flex items-center gap-3"
             >
-              <span class="text-sm font-medium text-ink-primary">{{ f }}</span>
+              <span class="w-8 h-8 rounded-lg bg-[#433487]/10 text-[#433487] flex items-center justify-center shrink-0">
+                <Icon :icon="f.icon" class="w-4 h-4" aria-hidden="true" />
+              </span>
+              <span class="text-sm font-medium text-ink-primary">{{ f.text }}</span>
             </div>
           </div>
 
           <div class="flex flex-wrap gap-2 mt-8">
-            <Chip v-for="tag in tags" :key="tag" variant="muted">
+            <Chip v-for="tag in c.virtualHuman.tags" :key="tag" variant="muted">
               {{ tag }}
             </Chip>
           </div>

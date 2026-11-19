@@ -4,8 +4,14 @@ import { useScrollReveal } from '../../composables/useScrollReveal'
 import Chip from '../../components/Chip.vue'
 import BrandButton from '../../components/BrandButton.vue'
 import CaseDetailModal from '../../components/CaseDetailModal.vue'
-import { cases } from '../../data/cases'
 import type { CaseItem } from '../../data/cases'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+import { useLocalizedCases } from '@/content/cases'
+
+const content = useContent(chatuContent)
+// 案例文字跟随语言：中文为原始数据，其他语言为英文（与 /cases 页共用 src/content/cases.ts）
+const cases = useLocalizedCases()
 
 const titleRef = ref<HTMLElement | null>(null)
 const card1Ref = ref<HTMLElement | null>(null)
@@ -26,27 +32,31 @@ function setCardRef(el: HTMLElement | null, idx: number) {
 const featuredIds = ['c1', 'c3', 'c5']
 const featuredCases = computed(() => {
   return featuredIds
-    .map((id) => cases.find((c) => c.id === id))
+    .map((id) => cases.value.find((c) => c.id === id))
     .filter(Boolean) as CaseItem[]
 })
 
-const selectedCase = ref<CaseItem | null>(null)
+const selectedId = ref<string | null>(null)
+// 按 id 取当前语言的案例，切换语言时弹窗内容同步更新
+const selectedCase = computed<CaseItem | null>(
+  () => cases.value.find((c) => c.id === selectedId.value) ?? null
+)
 const isModalOpen = ref(false)
 
 function openCaseModal(caseItem: CaseItem) {
-  selectedCase.value = caseItem
+  selectedId.value = caseItem.id
   isModalOpen.value = true
 }
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
-          客户案例精选
+          {{ content.cases.title }}
         </h2>
       </div>
 
@@ -55,7 +65,7 @@ function openCaseModal(caseItem: CaseItem) {
           v-for="(c, idx) in featuredCases"
           :key="c.id"
           :ref="(el) => setCardRef(el as HTMLElement | null, idx)"
-          class="group rounded-3xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+          class="group rounded-2xl bg-surface-card border border-line shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
         >
           <!-- 图片区域 -->
           <div class="relative h-52 overflow-hidden">
@@ -70,7 +80,7 @@ function openCaseModal(caseItem: CaseItem) {
           </div>
 
           <!-- 内容区域 -->
-          <div class="p-6 md:p-8">
+          <div class="p-6 md:p-7">
             <Chip variant="muted">{{ c.tag }}</Chip>
             <h3 class="mt-4 text-xl font-semibold text-ink-primary leading-tight">
               {{ c.client }}
@@ -89,7 +99,7 @@ function openCaseModal(caseItem: CaseItem) {
                 arrow
                 @click="openCaseModal(c)"
               >
-                查看案例
+                {{ content.cases.viewCase }}
               </BrandButton>
             </div>
           </div>
@@ -98,7 +108,7 @@ function openCaseModal(caseItem: CaseItem) {
 
       <div class="mt-10 text-center">
         <BrandButton variant="ghost" to="/cases" class="hover:!border-[#433487] hover:!text-[#433487]" arrow>
-          查看全部案例
+          {{ content.cases.viewAll }}
         </BrandButton>
       </div>
     </div>

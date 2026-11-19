@@ -1,35 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
 import { Icon } from '@iconify/vue'
+import { useContent } from '@/i18n/useContent'
+import { agentStationContent } from '@/content/agentstation'
+
+const c = useContent(agentStationContent)
 
 const sectionRef = ref<HTMLElement | null>(null)
 useScrollReveal(sectionRef, { y: 30 })
 
-const columns = ['对比项', '智方体', '云端 AI 工具', '传统 AI 盒子', '自行下载安装']
-
-const rows = [
-  { dim: '数据存放', us: '默认本地，可接内网 / 云端', cloud: '上传云端', box: '本地', diy: '取决于配置' },
-  { dim: '安装配置', us: '不需要，开箱即用', cloud: '不需要', box: '需要专业安装', diy: '需要自行搭建，门槛高' },
-  { dim: '新手上手', us: '2 分钟', cloud: '容易', box: '较难', diy: '很难' },
-  { dim: '费用方式', us: '一次买断，软件终身升级', cloud: '按月订阅', box: '硬件费用', diy: '时间成本高' },
-  { dim: '自带屏幕', us: '7 英寸触屏', cloud: '—', box: '无，需另配', diy: '视设备而定' },
-  { dim: '专为 Agent 设计', us: '预装整套智能体', cloud: '否', box: '部分', diy: '否' },
-  { dim: '出问题找谁', us: '24 小时智能客服 + 专家远程', cloud: '平台客服', box: '自己 / 社区', diy: '自己' },
-]
+const columns = computed(() => c.value.compare.columns)
+const rows = computed(() => c.value.compare.rows)
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-20 md:py-[120px] bg-surface-base">
+  <section ref="sectionRef" class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
-          为什么选择智方体？
+          {{ c.compare.title }}
         </h2>
-        <p class="mt-4 text-lg text-ink-secondary">
-          同样是「用 AI」，差别在这里
+        <p class="section-subtitle">
+          {{ c.compare.subtitle }}
         </p>
       </div>
 
@@ -69,7 +64,7 @@ const rows = [
       <!-- 底部大字 -->
       <div class="mt-10 text-center">
         <p class="text-2xl md:text-[32px] font-semibold text-[#2DB4E6]">
-          省时、省力、省心、零门槛
+          {{ c.compare.tagline }}
         </p>
       </div>
     </div>

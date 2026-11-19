@@ -11,18 +11,18 @@ useScrollReveal(contentRef, { y: 30 })
 
 <template>
   <section class="relative overflow-hidden bg-surface-base">
-    <div class="relative pt-20 md:pt-[120px] pb-10 md:pb-16">
+    <div class="relative pt-10 md:pt-16 pb-10 md:pb-16">
       <div
         ref="contentRef"
         class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
         <h2
-          class="text-3xl md:text-4xl lg:text-[56px] font-semibold text-ink-primary tracking-tight leading-tight"
+          class="display-title"
         >
           {{ t('about.hero.desc') }}
         </h2>
         <p
-          class="mt-6 text-lg text-ink-secondary leading-relaxed max-w-2xl mx-auto"
+          class="section-subtitle max-w-2xl mx-auto"
         >
           {{ t('home.hero.slide1Desc') }}
         </p>

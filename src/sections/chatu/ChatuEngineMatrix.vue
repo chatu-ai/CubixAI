@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../../composables/useScrollReveal'
+import { useContent } from '@/i18n/useContent'
+import { chatuContent } from '@/content/chatu'
+
+const c = useContent(chatuContent)
 
 const titleRef = ref<HTMLElement | null>(null)
 const gridRef = ref<HTMLElement | null>(null)
@@ -30,18 +34,18 @@ const engines = [
 </script>
 
 <template>
-  <section class="py-20 md:py-[120px] bg-surface-base">
+  <section class="py-10 md:py-16 bg-surface-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref="titleRef" class="text-center mb-12 md:mb-16">
+      <div ref="titleRef" class="text-center mb-6 md:mb-8">
         <h2
-          class="text-3xl md:text-4xl lg:text-[40px] font-semibold text-ink-primary tracking-tight"
+          class="section-title"
         >
-          不依赖特定模型，可随心切换
+          {{ c.engineMatrix.title }}
         </h2>
         <p
           class="mt-4 text-lg text-ink-secondary leading-relaxed max-w-3xl mx-auto"
         >
-          对接全球 16+ 主流大模型，按场景自动路由最优引擎
+          {{ c.engineMatrix.subtitle }}
         </p>
       </div>
 
