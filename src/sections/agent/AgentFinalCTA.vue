@@ -5,6 +5,7 @@ import { useContent } from '@/i18n/useContent'
 import { agentStationContent } from '@/content/agentstation'
 import AppImage from '../../components/AppImage.vue'
 import BrandButton from '../../components/BrandButton.vue'
+import JdStoreButton from './JdStoreButton.vue'
 import jszcImg from '@/assets/jszc.webp'
 import lxhsqImg from '@/assets/lxwm.webp'
 import wjhImg from '@/assets/wjh.webp'
@@ -43,6 +44,7 @@ const items = computed(() => c.value.finalCta.items.map((item, i) => ({ ...item,
         </p>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
           <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">{{ c.finalCta.bookCta }}</BrandButton>
+          <JdStoreButton :label="c.finalCta.jdCta" :logo-alt="c.finalCta.jdLogoAlt" />
           <BrandButton variant="ghost" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" @click="openModal">
             {{ c.finalCta.partnerCta }}
           </BrandButton>

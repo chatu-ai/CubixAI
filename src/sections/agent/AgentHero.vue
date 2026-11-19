@@ -4,6 +4,7 @@ import { useScrollReveal } from '../../composables/useScrollReveal'
 import { useContent } from '@/i18n/useContent'
 import { agentStationContent } from '@/content/agentstation'
 import BrandButton from '../../components/BrandButton.vue'
+import JdStoreButton from './JdStoreButton.vue'
 import AppImage from '../../components/AppImage.vue'
 
 const c = useContent(agentStationContent)
@@ -115,6 +116,7 @@ onUnmounted(stopCarousel)
           </div>
           <div class="mt-5 flex flex-wrap items-center gap-4">
             <BrandButton class="!bg-none !bg-[#2DB4E6]" @click="goBooking">{{ c.hero.bookCta }}</BrandButton>
+            <JdStoreButton :label="c.hero.jdCta" :logo-alt="c.hero.jdLogoAlt" />
             <BrandButton variant="ghost" class="hover:!border-[#2DB4E6] hover:!text-[#2DB4E6]" arrow @click="openModal">
               {{ c.hero.versionsCta }}
             </BrandButton>
