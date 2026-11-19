@@ -172,10 +172,11 @@ onUnmounted(() => {
     >
       <!-- Slides track -->
       <div class="grid h-full w-full" style="grid-template-columns: 100%; grid-template-rows: 100%;">
+        <!-- 每张横幅裁到自己的范围：手机上横幅图比屏幕宽，不裁的话第二张会盖住第一张的右侧 -->
         <div
           v-for="(slide, i) in slides"
           :key="i"
-          class="relative col-start-1 row-start-1 h-full w-full"
+          class="relative col-start-1 row-start-1 h-full w-full overflow-hidden"
           :class="isDragging ? '' : 'transition-transform duration-500 ease-out'"
           :style="{
             transform: `translateX(calc(${(i - current) * 100}% + ${dragOffset}px))`
