@@ -1,8 +1,26 @@
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref, useId, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, useId, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Icon } from '@iconify/vue'
 
 const { t, locale } = useI18n()
+// 二维码是企业微信，只给中文访客显示；外语版本只留邮箱
+const isZh = computed(() => locale.value === 'zh-CN')
+
+/** 商务合作邮箱，显示在弹窗底部 */
+const CONTACT_EMAIL = 'BD@CubixAI.com'
+const copied = ref(false)
+let copiedTimer: ReturnType<typeof setTimeout> | null = null
+async function copyEmail() {
+  try {
+    await navigator.clipboard.writeText(CONTACT_EMAIL)
+    copied.value = true
+    if (copiedTimer) clearTimeout(copiedTimer)
+    copiedTimer = setTimeout(() => (copied.value = false), 2000)
+  } catch {
+    // 浏览器不允许写入剪贴板时，访客仍可点击邮箱直接发邮件
+  }
+}
 const titleId = useId()
 const dialogRef = ref<HTMLElement | null>(null)
 const closeButtonRef = ref<HTMLButtonElement | null>(null)
@@ -91,6 +109,7 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
   document.removeEventListener('focusin', onFocusIn)
+  if (copiedTimer) clearTimeout(copiedTimer)
   releaseDialog()
 })
 </script>
@@ -120,39 +139,71 @@ onUnmounted(() => {
             role="dialog"
             aria-modal="true"
             :aria-labelledby="titleId"
-            class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden p-4 pt-10"
+            class="relative w-full max-w-[400px] bg-white rounded-3xl shadow-2xl overflow-hidden"
           >
-            <h2 :id="titleId" class="sr-only">{{ t('common.contactUs') }}</h2>
             <button
               ref="closeButtonRef"
               type="button"
               :aria-label="t('common.close')"
-              class="absolute top-2 right-2 w-8 h-8 rounded-full hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand"
+              class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full flex items-center justify-center text-ink-secondary bg-white/70 backdrop-blur hover:bg-white hover:text-ink-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand"
               @click="close"
             >
-              <span aria-hidden="true" class="text-xl">&times;</span>
+              <Icon icon="lucide:x" class="w-4 h-4" aria-hidden="true" />
             </button>
-            <!-- Content -->
-            <div class="flex gap-4 items-stretch">
-              <div class="w-28 shrink-0 rounded-xl overflow-hidden">
+
+            <!-- 顶部：客服形象 + 标题 -->
+            <div class="relative h-[132px] bg-gradient-to-br from-brand-soft via-[#F1F8F4] to-white overflow-hidden">
+              <span class="absolute -top-10 -right-8 w-40 h-40 rounded-full bg-brand/10" aria-hidden="true" />
+              <span class="absolute top-16 right-24 w-16 h-16 rounded-full bg-brand/5" aria-hidden="true" />
+              <img
+                src="@/assets/kf.webp"
+                :alt="t('common.consultModal.agentAlt')"
+                class="absolute bottom-0 left-5 h-[124px] w-auto object-contain object-bottom select-none"
+                draggable="false"
+              />
+              <div class="absolute inset-y-0 left-[132px] right-12 flex flex-col justify-center">
+                <h2 :id="titleId" class="text-xl font-semibold text-ink-primary">{{ t('common.consultModal.title') }}</h2>
+                <p class="mt-1.5 text-sm leading-relaxed text-ink-secondary text-balance">{{ t('common.consultModal.message') }}</p>
+              </div>
+            </div>
+
+            <!-- 中部：二维码（仅中文） -->
+            <div v-if="isZh" class="px-6 pt-6 pb-5 flex flex-col items-center">
+              <div class="p-3 rounded-2xl bg-white border border-line shadow-card">
                 <img
-                  src="@/assets/kf.webp"
-                  :alt="t('common.consultModal.agentAlt')"
-                  class="w-full h-40 object-cover"
+                  src="@/assets/lxwm.webp"
+                  :alt="t('common.consultModal.qrAlt')"
+                  class="w-40 h-40 object-contain"
+                  draggable="false"
                 />
               </div>
-              <div class="flex-1 flex flex-col gap-2 min-w-0">
-                <p class="text-xs text-ink-secondary text-center leading-snug" :class="locale === 'zh-CN' ? 'whitespace-nowrap' : 'text-balance'">
-                  {{ t('common.consultModal.message') }}
-                </p>
-                <div class="rounded-xl overflow-hidden bg-surface-muted h-40 flex items-center justify-center">
-                  <img
-                    src="@/assets/lxwm.webp"
-                    :alt="t('common.consultModal.qrAlt')"
-                    class="w-full h-full object-contain"
-                  />
-                </div>
+              <p class="mt-3 inline-flex items-center gap-1.5 text-sm text-ink-secondary">
+                <Icon icon="lucide:scan-line" class="w-4 h-4 text-brand" aria-hidden="true" />
+                {{ t('common.consultModal.scanHint') }}
+              </p>
+            </div>
+
+            <!-- 底部：商务邮箱 -->
+            <div class="mx-5 mb-5 flex items-center gap-3 rounded-2xl bg-surface-muted px-4 py-3" :class="{ 'mt-5': !isZh }">
+              <span class="w-9 h-9 shrink-0 rounded-full bg-brand-soft text-brand-deep flex items-center justify-center">
+                <Icon icon="lucide:mail" class="w-4 h-4" aria-hidden="true" />
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="text-xs text-ink-tertiary">{{ t('common.consultModal.emailLabel') }}</p>
+                <a
+                  :href="`mailto:${CONTACT_EMAIL}`"
+                  class="block truncate text-[15px] font-semibold text-ink-primary hover:text-brand-deep transition-colors"
+                >{{ CONTACT_EMAIL }}</a>
               </div>
+              <button
+                type="button"
+                class="shrink-0 inline-flex items-center gap-1 h-8 px-3 rounded-full border border-line bg-white text-xs font-medium transition-colors"
+                :class="copied ? 'text-brand-deep border-brand/40' : 'text-ink-secondary hover:text-ink-primary hover:border-ink-tertiary'"
+                @click="copyEmail"
+              >
+                <Icon :icon="copied ? 'lucide:check' : 'lucide:copy'" class="w-3.5 h-3.5" aria-hidden="true" />
+                <span aria-live="polite">{{ copied ? t('common.consultModal.copied') : t('common.consultModal.copy') }}</span>
+              </button>
             </div>
           </div>
         </Transition>
