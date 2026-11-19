@@ -6,8 +6,9 @@
 | --- | --- |
 | `bgm.mp3` | **统一使用的背景音乐**（10.8 秒，含与动画同步的音效）。全部由程序合成，无版权问题 |
 | `make_bgm.py` | 生成背景音乐的脚本（`python3 make_bgm.py bgm.wav`，需要 numpy、scipy），结果固定可复现 |
-| `capture.cjs` | 逐帧录制首页横幅画面（第一张 5 秒 + 切到第二张 5 秒，30 帧/秒） |
-| `build.sh` | 一键生成中、英、日、韩四个版本的视频（1920×634，H.264 + AAC） |
+| `capture.cjs` | 逐帧录制首页横幅画面（第一张 5 秒 + 切到第二张 5 秒，30 帧/秒）；加 `--vertical` 时按 2 倍分辨率录制竖屏素材 |
+| `compose_vertical.py` | 把录制画面重排成竖屏 1080×1920（9:16）：文字在上、立方体 / ChatU 标志放大在中间、底部 Logo，两张之间向上推入切换 |
+| `build.sh` | 一键生成中、英、日、韩四个版本的横屏（1920×634）和竖屏（1080×1920）视频，H.264 + AAC |
 
 ## 生成视频
 
@@ -16,7 +17,10 @@ npm run dev
 bash marketing/banner-video/build.sh
 ```
 
-输出在 `marketing/banner-video/out/cubixai-banner-{zh,en,ja,ko}.mp4`。录线上网站：`BASE_URL=https://www.cubixai.com bash marketing/banner-video/build.sh`。
+输出在 `marketing/banner-video/out/`：横屏 `cubixai-banner-{zh,en,ja,ko}.mp4`，竖屏（抖音、视频号、小红书等短视频平台）`cubixai-banner-vertical-{zh,en,ja,ko}.mp4`。
+录线上网站：`BASE_URL=https://www.cubixai.com bash marketing/banner-video/build.sh`；只要横屏版：`VERTICAL=0 bash marketing/banner-video/build.sh`。
+
+竖屏版的版式（裁剪坐标、位置）在 `compose_vertical.py` 开头；首页横幅的排版改动后需要相应调整。
 
 ## 音画对应
 
