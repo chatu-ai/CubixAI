@@ -22,9 +22,12 @@ import lidUrl from '@/assets/hero/cube/lid.webp'
  * 原横幅图被拆成背景、立方体、文字、图标几层（静止时叠起来和原图一致），各层分别做入场、悬浮和鼠标视差动画。
  * 所有坐标都是原图像素（3392 × 1120），按百分比摆放，任何屏幕宽度下都和原图对齐。
  *
- * 立方体入场是「搭积木」：先弹出空的底座，8 块积木从上方由下往上依次砸进槽里（落地压扁、回弹、底座震一下），
- * 最后顶盖重重砸下：整个立方体一沉、闪白、底座冲击波、画面震动，8 个光点从立方体中心炸开飞到原位。
- * 底座和积木由 hero-cube.webp 拆出（src/assets/hero/cube/），叠起来与原立方体一致，所以动画结束的画面与原图相同。
+ * 立方体入场是「搭积木」：先弹出深青色底板，荧光蓝图线逐条描出每个槽位，一道全息扫描光扫过；
+ * 8 块积木从上方由下往上依次砸进槽里（落地压扁、回弹、发亮、底部冒出光尘，底座震一下）；
+ * 最后顶盖重重砸下：立方体一沉、闪白，背后炸开一圈光芒、火花四射，底座冲击波，画面震动，
+ * 8 个光点从立方体中心炸开飞到原位，再一道扫描光扫过成品。
+ * 底座和积木由 hero-cube.webp 拆出（src/assets/hero/cube/）：每块积木连同四周的缝隙一起拆出，
+ * 全部落下后完全盖住底板，所以动画结束的画面与原图相同。
  */
 const props = defineProps<{
   lang: 'zh' | 'en'
@@ -69,19 +72,36 @@ const RING = { cx: 2650, cy: 922, rx: 525, ry: 114 }
 // ---- 搭积木：积木在立方体图层（833 × 963）内的位置，按落下顺序排列（先底层后上层，顶盖最后） ----
 const CW = 833
 const CH = 963
-const BLOCK_START = 0.35 // 第一块积木开始落下的时间（秒）
-const BLOCK_GAP = 0.09 // 相邻两块积木的间隔
-const BLOCKS: { src: string; box: Box; rot: number; from: number }[] = [
-  { src: b1Url, box: [78, 388, 408, 848], rot: -5, from: 130 },
-  { src: b2Url, box: [419, 612, 642, 854], rot: 4, from: 120 },
-  { src: b3Url, box: [657, 552, 748, 716], rot: 7, from: 125 },
-  { src: b4Url, box: [417, 325, 647, 718], rot: -4, from: 135 },
-  { src: b5Url, box: [654, 408, 752, 577], rot: 6, from: 120 },
-  { src: b6Url, box: [182, 311, 414, 557], rot: -6, from: 130 },
-  { src: b7Url, box: [78, 263, 171, 418], rot: -7, from: 125 },
-  { src: b8Url, box: [656, 270, 754, 437], rot: 5, from: 120 },
+// 时间线（秒）。改动这里的时间时，样式里 hero-jolt 关键帧中的落地时刻也要跟着改
+const BLOCK_START = 0.6 // 第一块积木开始落下（之前是底板弹出和蓝图描线）
+const BLOCK_GAP = 0.09 // 相邻两块积木的间隔；每块下落 0.62 秒，在 48% 处落地
+const LID_START = 1.45 // 顶盖开始落下；下落 0.85 秒，在 45% 处砸实
+const LID_HIT = LID_START + 0.85 * 0.45
+const SETTLE = LID_HIT + 1.05 // 开始悬浮、底座波纹
+/** box：积木图片（含四周缝隙）的位置；foot：积木底边中点和宽度，落地光尘从这里冒出 */
+const BLOCKS: { src: string; box: Box; foot: [number, number, number]; rot: number; from: number }[] = [
+  { src: b1Url, box: [74, 376, 420, 855], foot: [242, 845, 325], rot: -5, from: 130 },
+  { src: b2Url, box: [407, 600, 654, 858], foot: [530, 851, 218], rot: 4, from: 120 },
+  { src: b3Url, box: [643, 539, 754, 728], foot: [702, 713, 86], rot: 7, from: 125 },
+  { src: b4Url, box: [407, 325, 659, 730], foot: [531, 715, 225], rot: -4, from: 135 },
+  { src: b5Url, box: [642, 396, 757, 590], foot: [702, 574, 93], rot: 6, from: 120 },
+  { src: b6Url, box: [170, 312, 422, 569], foot: [297, 554, 227], rot: -6, from: 130 },
+  { src: b7Url, box: [74, 252, 182, 430], foot: [124, 415, 88], rot: -7, from: 125 },
+  { src: b8Url, box: [644, 259, 758, 449], foot: [704, 434, 93], rot: 5, from: 120 },
 ]
-const LID: Box = [92, 81, 743, 454]
+const LID: Box = [80, 77, 754, 466]
+/** 蓝图线：每个槽位的轮廓（立方体图层坐标），按积木落下顺序排列，顶盖最后 */
+const BLUEPRINT = [
+  'M84 403 88 642 380 829 395 829 397 579 119 414Z',
+  'M634 632 618 633 463 732 427 743 425 838 442 837 630 723Z',
+  'M741 567 727 567 665 605 664 696 678 696 737 656Z',
+  'M639 336 620 338 428 448 425 702 441 701 634 583Z',
+  'M745 422 731 422 663 462 661 561 676 561 742 521Z',
+  'M189 324 190 424 388 543 402 543 403 440 220 332Z',
+  'M84 280 84 362 149 402 163 402 163 313 113 282Z',
+  'M747 292 708 296 665 324 663 422 678 422 745 382Z',
+  'M107 248 111 267 168 304 206 311 413 433 430 432 620 325 648 322 724 271 724 257 423 91 409 91Z',
+]
 const cubeBox = ([x0, y0, x1, y1]: Box) => ({
   left: `${(x0 / CW) * 100}%`,
   top: `${(y0 / CH) * 100}%`,
@@ -99,8 +119,19 @@ const blocks = BLOCKS.map((b, i) => ({
     animationDelay: `${BLOCK_START + i * BLOCK_GAP}s`,
   },
   imgDelay: `${BLOCK_START + i * BLOCK_GAP}s`,
+  // 落地光尘：以积木底边中点为中心的扁椭圆，落地瞬间出现
+  puff: {
+    left: `${((b.foot[0] - b.foot[2] / 2) / CW) * 100}%`,
+    top: `${((b.foot[1] - b.foot[2] / 6) / CH) * 100}%`,
+    width: `${(b.foot[2] / CW) * 100}%`,
+    height: `${(b.foot[2] / 3 / CH) * 100}%`,
+    animationDelay: `${BLOCK_START + i * BLOCK_GAP + 0.62 * 0.48 - 0.02}s`,
+  },
 }))
 const lidImg = cubeBox(LID)
+// 扫光、扫描光、闪白都只画在立方体形状内
+const cubeMask = { maskImage: `url(${cubeUrl})`, WebkitMaskImage: `url(${cubeUrl})` }
+const blueprint = BLUEPRINT.map((d, i) => ({ d, delay: `${0.12 + i * 0.035}s` }))
 
 const textUrl = computed(() => (props.lang === 'zh' ? textZhUrl : textEnUrl))
 const bands = computed(() => BANDS[props.lang])
@@ -136,9 +167,33 @@ const dotStyle = ([x, y]: [number, number], i: number) => ({
   top: `${(y / H) * 100}%`,
   '--fx': `${((BURST_FROM.x - x) / DOT_SIZE) * 100}%`,
   '--fy': `${((BURST_FROM.y - y) / DOT_SIZE) * 100}%`,
-  animationDelay: `${1.55 + i * 0.025}s, ${2.45 + ((i * 0.7) % 3)}s`,
+  animationDelay: `${LID_HIT + 0.02 + i * 0.025}s, ${SETTLE + ((i * 0.7) % 3)}s`,
   animationDuration: `0.85s, ${3.2 + (i % 4) * 0.6}s`,
 })
+
+// 顶盖砸实时立方体背后炸开的一圈光芒（以立方体中心为圆心的正方形）
+const RAYS_SIZE = 1500
+const raysStyle = {
+  left: `${((BURST_FROM.x - RAYS_SIZE / 2) / W) * 100}%`,
+  top: `${((BURST_FROM.y - RAYS_SIZE / 2) / H) * 100}%`,
+  width: `${(RAYS_SIZE / W) * 100}%`,
+}
+// 顶盖砸实时四射的火花：从立方体边缘沿放射方向飞出（火花长度 = 原图宽的 1.8%，位移按自身长度的百分比）
+const SPARK_LEN = W * 0.018
+const sparks = Array.from({ length: 18 }, (_, i) => {
+  const angle = i * 20 + (((i * 37) % 11) - 5) * 1.6
+  const reach = 440 + ((i * 53) % 5) * 55
+  return {
+    left: `${(BURST_FROM.x / W) * 100}%`,
+    top: `${(BURST_FROM.y / H) * 100}%`,
+    '--ang': `${angle}deg`,
+    '--d0': `${(210 / SPARK_LEN) * 100}%`,
+    '--d1': `${(reach / SPARK_LEN) * 100}%`,
+    animationDelay: `${LID_HIT + ((i * 7) % 4) * 0.012}s`,
+  }
+})
+/** 和顶盖砸实同步的效果（闪白、震动、冲击波、光芒、火花、扫描光）都以这个时间为准 */
+const rootStyle = { '--lid-hit': `${LID_HIT}s`, '--settle': `${SETTLE}s` }
 
 // ---- 鼠标视差：鼠标在横幅上移动时，立方体、光点、文字按不同深度轻微位移 ----
 const root = ref<HTMLElement | null>(null)
@@ -193,6 +248,7 @@ onUnmounted(() => cancelAnimationFrame(rafId))
     ref="root"
     class="hero-art absolute inset-y-0 left-0 h-full aspect-[3392/1120]"
     :class="{ 'is-playing': ready && active, 'is-waiting': !ready && active }"
+    :style="rootStyle"
     role="img"
     :aria-label="alt"
     @pointermove="onPointerMove"
@@ -211,28 +267,44 @@ onUnmounted(() => cancelAnimationFrame(rafId))
         <span class="ripple ripple-2" :style="ringStyle" />
       </div>
 
+      <!-- 顶盖砸实时立方体背后炸开的光芒 -->
+      <div class="rays absolute" :style="raysStyle" aria-hidden="true" />
+
       <!-- 立方体投影：立方体浮起时变淡、略收小 -->
       <div class="cube-shadow absolute" :style="box(SHADOW)" aria-hidden="true">
         <img :src="shadowUrl" alt="" class="cube-shadow-img w-full h-full" draggable="false" />
       </div>
 
-      <!-- 立方体：空底座弹出 → 积木依次砸入 → 顶盖砸下；之后持续悬浮、扫光 -->
+      <!-- 立方体：底板弹出、蓝图描线 → 积木依次砸入 → 顶盖砸下；之后持续悬浮、扫光 -->
       <div class="cube absolute" :style="box(CUBE)" aria-hidden="true">
         <div class="cube-parallax w-full h-full">
           <div class="cube-float w-full h-full">
             <div class="cube-jolt absolute inset-0">
               <img :src="trayUrl" alt="" class="tray absolute inset-0 w-full h-full" draggable="false" />
+              <span class="scan scan-1" :style="cubeMask" />
+              <!-- 蓝图线：荧光线逐条描出每个槽位（外层模糊一层做辉光） -->
+              <svg class="bp absolute inset-0 w-full h-full" :viewBox="`0 0 ${CW} ${CH}`" fill="none">
+                <path v-for="(p, i) in blueprint" :key="`g${i}`" class="bp-glow" :d="p.d" pathLength="1" :style="{ animationDelay: p.delay }" />
+                <path v-for="(p, i) in blueprint" :key="`l${i}`" class="bp-line" :d="p.d" pathLength="1" :style="{ animationDelay: p.delay }" />
+              </svg>
               <div v-for="(b, i) in blocks" :key="i" class="blk absolute inset-0" :style="b.wrap">
                 <img :src="b.src" alt="" class="blk-img absolute" :style="{ ...b.img, animationDelay: b.imgDelay }" draggable="false" />
               </div>
               <div class="blk blk-lid absolute inset-0">
                 <img :src="lidUrl" alt="" class="blk-img absolute" :style="lidImg" draggable="false" />
               </div>
-              <span class="cube-shine" :style="{ maskImage: `url(${cubeUrl})`, WebkitMaskImage: `url(${cubeUrl})` }" />
-              <span class="cube-flash" :style="{ maskImage: `url(${cubeUrl})`, WebkitMaskImage: `url(${cubeUrl})` }" />
+              <span v-for="(b, i) in blocks" :key="`p${i}`" class="puff" :style="b.puff" />
+              <span class="cube-shine" :style="cubeMask" />
+              <span class="scan scan-2" :style="cubeMask" />
+              <span class="cube-flash" :style="cubeMask" />
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- 顶盖砸实时四射的火花 -->
+      <div class="sparks-layer absolute inset-0" aria-hidden="true">
+        <span v-for="(sp, i) in sparks" :key="i" class="spark" :style="sp" />
       </div>
 
       <!-- 环绕光点：顶盖砸下时从立方体中心炸开，之后轻轻浮动 -->
@@ -317,8 +389,9 @@ onUnmounted(() => cancelAnimationFrame(rafId))
 }
 
 /* ---------- 搭积木 ----------
- * 时间线（秒）：0.05 底座弹出 → 0.35 起每 0.09 秒落下一块积木（落地约在 0.3 秒后）→ 1.15 顶盖落下，1.53 砸实
- * → 冲击波、闪白、画面震动、光点炸开 → 1.8 扫光，2.45 开始悬浮和底座波纹。 */
+ * 时间线（秒）：0.05 底板弹出 → 0.12 起蓝图线逐条描出、扫描光扫过 → 0.6 起每 0.09 秒落下一块积木（落地约在 0.3 秒后）
+ * → 1.45 顶盖落下，1.83（--lid-hit）砸实：闪白、光芒、火花、冲击波、画面震动、光点炸开 → 扫描光扫过成品
+ * → 2.88（--settle）开始悬浮和底座波纹。 */
 .tray {
   transform-origin: 50% 80%;
 }
@@ -337,6 +410,110 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   100% {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* 蓝图线：未播放时隐藏；播放时逐条描出，顶盖砸实时淡出（此时已全部被积木盖住） */
+.bp {
+  opacity: 0;
+  overflow: visible;
+}
+.is-playing .bp {
+  animation: hero-fade-out 0.25s linear calc(var(--lid-hit) - 0.05s) both;
+}
+.bp path {
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+}
+.bp-glow {
+  stroke: rgba(110, 240, 160, 0.55);
+  stroke-width: 10;
+  filter: blur(4px);
+}
+.bp-line {
+  stroke: #9ff5bd;
+  stroke-width: 3;
+}
+.is-playing .bp path {
+  animation: hero-draw 0.55s cubic-bezier(0.6, 0, 0.3, 1) both;
+}
+@keyframes hero-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes hero-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* 全息扫描光：一道亮线从上往下扫过立方体。scan-1 在底板上（积木下方），scan-2 在成品上 */
+.scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(120, 255, 170, 0) 45%,
+    rgba(120, 255, 170, 0.35) 49%,
+    rgba(235, 255, 242, 0.95) 50%,
+    rgba(120, 255, 170, 0.35) 51%,
+    rgba(120, 255, 170, 0) 55%
+  );
+  background-size: 100% 300%;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.is-playing .scan-1 {
+  animation: hero-scan 0.8s cubic-bezier(0.45, 0, 0.55, 1) 0.1s both;
+}
+.is-playing .scan-2 {
+  animation: hero-scan 0.75s cubic-bezier(0.45, 0, 0.55, 1) calc(var(--lid-hit) + 0.12s) both;
+}
+@keyframes hero-scan {
+  from {
+    background-position: 0 100%;
+    opacity: 1;
+  }
+  to {
+    background-position: 0 0;
+    opacity: 1;
+  }
+}
+
+/* 积木落地时底部冒出的一团光尘 */
+.puff {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(225, 255, 235, 0.95), rgba(120, 235, 160, 0.55) 45%, rgba(120, 235, 160, 0) 100%);
+  opacity: 0;
+}
+.is-playing .puff {
+  animation: hero-puff 0.45s ease-out both;
+}
+@keyframes hero-puff {
+  0% {
+    opacity: 0;
+    transform: scale(0.3, 0.5);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5, 1.15);
   }
 }
 
@@ -386,10 +563,12 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   }
   45% {
     transform: scale(0.96, 1.07);
+    filter: brightness(1);
     animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1);
   }
   51% {
     transform: scale(1.1, 0.84);
+    filter: brightness(1.4);
     animation-timing-function: ease-out;
   }
   62% {
@@ -397,10 +576,12 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   }
   74% {
     transform: scale(1.025, 0.975);
+    filter: brightness(1);
   }
   86%,
   100% {
     transform: scale(1, 1);
+    filter: none;
   }
 }
 
@@ -409,10 +590,10 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   transform-origin: 50.1% 27.8%;
 }
 .is-playing .blk-lid {
-  animation: hero-slam 0.85s linear 1.15s both;
+  animation: hero-slam 0.85s linear 1.45s both;
 }
 .is-playing .blk-lid .blk-img {
-  animation: hero-slam-squash 0.85s linear 1.15s both;
+  animation: hero-slam-squash 0.85s linear 1.45s both;
 }
 @keyframes hero-slam {
   0% {
@@ -450,10 +631,12 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   }
   43% {
     transform: scale(0.98, 1.05);
+    filter: brightness(1);
     animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1);
   }
   49% {
     transform: scale(1.07, 0.8);
+    filter: brightness(1.3);
     animation-timing-function: ease-out;
   }
   60% {
@@ -461,59 +644,61 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   }
   72% {
     transform: scale(1.015, 0.985);
+    filter: brightness(1);
   }
   84%,
   100% {
     transform: scale(1, 1);
+    filter: none;
   }
 }
 
-/* 整个立方体：每块积木落地时底座一震，顶盖砸实时整体一沉再弹起 */
+/* 整个立方体：每块积木落地时底座一震，顶盖砸实时整体一沉再弹起（关键帧里的百分比 = 各次落地时刻 / 2.3 秒） */
 .cube-jolt {
   transform-origin: 50% 100%;
 }
 .is-playing .cube-jolt {
-  animation: hero-jolt 2s linear both;
+  animation: hero-jolt 2.3s linear both;
 }
 @keyframes hero-jolt {
   0%,
-  32% {
+  38.6% {
     transform: translateY(0) scale(1, 1);
   }
-  32.4%,
-  36.9%,
-  41.4%,
-  45.9%,
-  50.4%,
-  54.9%,
-  59.4%,
-  63.9% {
+  39.0%,
+  42.9%,
+  46.9%,
+  50.8%,
+  54.7%,
+  58.6%,
+  62.5%,
+  66.4% {
     transform: translateY(0.45%) scale(1, 1);
   }
-  34.6%,
-  39.1%,
-  43.6%,
-  48.1%,
-  52.6%,
-  57.1%,
-  61.6%,
-  66.4% {
+  41.2%,
+  45.1%,
+  49.0%,
+  52.9%,
+  56.9%,
+  60.8%,
+  64.7%,
+  68.6% {
     transform: translateY(-0.12%) scale(1, 1);
   }
-  69%,
-  76.4% {
+  71.2%,
+  79.5% {
     transform: translateY(0) scale(1, 1);
   }
-  77.1% {
+  80.3% {
     transform: translateY(2%) scale(1.035, 0.95);
   }
-  80.1% {
+  83.4% {
     transform: translateY(-0.8%) scale(0.985, 1.025);
   }
-  83.5% {
+  86.6% {
     transform: translateY(0.3%) scale(1.008, 0.993);
   }
-  87.5%,
+  90.5%,
   100% {
     transform: translateY(0) scale(1, 1);
   }
@@ -535,7 +720,7 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   opacity: 0;
 }
 .is-playing .cube-flash {
-  animation: hero-flash 0.7s ease-out 1.53s both;
+  animation: hero-flash 0.7s ease-out var(--lid-hit) both;
 }
 @keyframes hero-flash {
   0% {
@@ -551,7 +736,7 @@ onUnmounted(() => cancelAnimationFrame(rafId))
 
 /* 顶盖砸实：整幅画面震动（略放大，震动时边缘不露底） */
 .is-playing .quake {
-  animation: hero-quake 0.55s linear 1.53s both;
+  animation: hero-quake 0.55s linear var(--lid-hit) both;
 }
 @keyframes hero-quake {
   0%,
@@ -580,7 +765,7 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   transform: translate3d(calc(var(--mx) * -12px), calc(var(--my) * -8px), 0);
 }
 .is-playing .cube-float {
-  animation: hero-float 6s ease-in-out 2.45s infinite;
+  animation: hero-float 6s ease-in-out var(--settle) infinite;
 }
 @keyframes hero-float {
   0%,
@@ -604,7 +789,7 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   opacity: 0;
 }
 .is-playing .cube-shine {
-  animation: hero-shine 5s ease-in-out 1.8s infinite;
+  animation: hero-shine 5s ease-in-out calc(var(--lid-hit) + 0.8s) infinite;
 }
 @keyframes hero-shine {
   0% {
@@ -627,7 +812,7 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   transform: translate3d(calc(var(--mx) * -6px), calc(var(--my) * -4px), 0);
 }
 .is-playing .cube-shadow-img {
-  animation: hero-shadow 6s ease-in-out 2.45s infinite;
+  animation: hero-shadow 6s ease-in-out var(--settle) infinite;
 }
 @keyframes hero-fade-in {
   from {
@@ -661,10 +846,10 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   opacity: 0;
 }
 .is-playing .ripple {
-  animation: hero-ripple 4.8s cubic-bezier(0.2, 0.6, 0.3, 1) 2.45s infinite;
+  animation: hero-ripple 4.8s cubic-bezier(0.2, 0.6, 0.3, 1) var(--settle) infinite;
 }
 .is-playing .ripple-2 {
-  animation-delay: 4.85s;
+  animation-delay: calc(var(--settle) + 2.4s);
 }
 .shock,
 .shock-fill {
@@ -682,14 +867,14 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   background: radial-gradient(closest-side, rgba(200, 255, 210, 0.8), rgba(85, 173, 115, 0.35) 55%, rgba(85, 173, 115, 0) 100%);
 }
 .is-playing .shock {
-  animation: hero-shock 0.9s cubic-bezier(0.1, 0.75, 0.3, 1) 1.53s both;
+  animation: hero-shock 0.9s cubic-bezier(0.1, 0.75, 0.3, 1) var(--lid-hit) both;
 }
 .is-playing .shock-2 {
   animation-duration: 1.15s;
-  animation-delay: 1.65s;
+  animation-delay: calc(var(--lid-hit) + 0.12s);
 }
 .is-playing .shock-fill {
-  animation: hero-shock-fill 0.7s ease-out 1.53s both;
+  animation: hero-shock-fill 0.7s ease-out var(--lid-hit) both;
 }
 @keyframes hero-shock {
   0% {
@@ -728,6 +913,76 @@ onUnmounted(() => cancelAnimationFrame(rafId))
   100% {
     transform: scale(1.45);
     opacity: 0;
+  }
+}
+
+/* ---------- 顶盖砸实：背后炸开的光芒、四射的火花 ---------- */
+.rays {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(52, 193, 83, 0) 0deg,
+    rgba(52, 193, 83, 0.65) 3deg,
+    rgba(52, 193, 83, 0) 7deg,
+    rgba(52, 193, 83, 0) 15deg
+  );
+  mask-image: radial-gradient(circle closest-side, transparent 16%, #000 30%, rgba(0, 0, 0, 0.55) 62%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle closest-side, transparent 16%, #000 30%, rgba(0, 0, 0, 0.55) 62%, transparent 100%);
+  opacity: 0;
+}
+.is-playing .rays {
+  animation: hero-rays 1.1s cubic-bezier(0.2, 0.7, 0.3, 1) var(--lid-hit) both;
+}
+@keyframes hero-rays {
+  0% {
+    opacity: 0;
+    transform: scale(0.45) rotate(-10deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25) rotate(18deg);
+  }
+}
+.spark {
+  position: absolute;
+  width: 1.8%;
+  aspect-ratio: 8 / 1;
+  margin-top: -0.1125%;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(47, 191, 85, 0), #2fbf55 40%, #dcffe5);
+  box-shadow: 0 0 8px 1px rgba(52, 193, 83, 0.9);
+  transform-origin: 0 50%;
+  opacity: 0;
+}
+.is-playing .spark {
+  animation: hero-spark 0.85s linear both;
+}
+/* 先快速拉长飞出，再收短、减速、淡出 */
+@keyframes hero-spark {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--ang)) translateX(var(--d0)) scaleX(0.3);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+  }
+  8% {
+    opacity: 1;
+  }
+  30% {
+    transform: rotate(var(--ang)) translateX(calc(var(--d0) * 0.35 + var(--d1) * 0.65)) scaleX(1);
+    animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--ang)) translateX(var(--d1)) scaleX(0.2);
   }
 }
 
