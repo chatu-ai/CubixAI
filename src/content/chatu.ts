@@ -40,7 +40,7 @@ const zh = {
         points: ['文本/图像/语音/视频统一调度', '数字人交互能力', '全场景覆盖无短板'],
       },
       {
-        title: '多智能体 · 可编排',
+        title: '多智能体\u00A0· 可编排',
         points: ['Workflow 可视化编排', '企业级任务流自动化', '多智能体协同作业'],
       },
     ],
@@ -208,7 +208,7 @@ const zh = {
     // 案例文字本身见 src/content/cases.ts（中文为 src/data/cases.ts 原始数据）
   },
   pricing: {
-    title: '更灵活 · 更安全 · 更便捷',
+    title: '更灵活\u00A0· 更安全\u00A0· 更便捷',
     advantages: [
       '按需选择方案 · 无需高额一次性支付',
       '灵活控制成本 · 业务变化随时调整',
@@ -230,7 +230,7 @@ const zh = {
     ],
   },
   finalCta: {
-    title: '注册 ChatU · 赠送 10000 体验点数',
+    title: '注册 ChatU\u00A0· 赠送 10000 体验点数',
     subtitle: '企业试用申请 / 中控后台体验',
     register: '立即注册',
     trial: '申请企业试用',
@@ -288,7 +288,7 @@ const en: typeof zh = {
         ],
       },
       {
-        title: 'Multi-Agent · Orchestrable',
+        title: 'Multi-Agent\u00A0· Orchestrable',
         points: ['Visual Workflow orchestration', 'Enterprise-grade task flow automation', 'Multi-agent collaboration'],
       },
     ],
@@ -467,7 +467,7 @@ const en: typeof zh = {
     viewAll: 'View All Cases',
   },
   pricing: {
-    title: 'Flexible · Secure · Convenient',
+    title: 'Flexible\u00A0· Secure\u00A0· Convenient',
     advantages: [
       'Choose plans as needed · No large upfront payment',
       'Flexible cost control · Adjust anytime as your business changes',
@@ -488,7 +488,7 @@ const en: typeof zh = {
     ],
   },
   finalCta: {
-    title: 'Sign Up for ChatU · Get 10,000 Free Trial Credits',
+    title: 'Sign Up for ChatU\u00A0· Get 10,000 Free Trial Credits',
     subtitle: 'Apply for an enterprise trial / Try the admin console',
     register: 'Sign Up Now',
     trial: 'Request an Enterprise Trial',

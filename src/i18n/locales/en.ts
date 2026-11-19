@@ -193,7 +193,7 @@ export default {
 
   cases: {
     hero: {
-      title: '3,000+ Enterprises · 100+ Industries · Proven Together',
+      title: '3,000+ Enterprises\u00A0· 100+ Industries\u00A0· Proven Together',
       desc: 'From government to individual creators — AI deployment validated across the board',
     },
     tabs: {
@@ -249,7 +249,7 @@ export default {
       desc: 'Authoritative Certifications · Continuous Innovation',
     },
     locations: {
-      title: 'Global Offices · Local Service',
+      title: 'Global Offices\u00A0· Local Service',
     },
     contact: {
       title: 'Multiple Ways · Contact Anytime',
