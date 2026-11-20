@@ -17,7 +17,7 @@ it('keeps the fixed title of single-language pages such as /en/contact', async (
 
 it('every page with a Chinese title also has English, Japanese and Korean titles', async () => {
   const { default: router } = await import('./index')
-  const fixedLanguagePages = ['/en/contact', '/jp/contact', '/hg/contact']
+  const fixedLanguagePages = ['/en/contact', '/ja/contact', '/ko/contact']
   const missing = router
     .getRoutes()
     .filter((r) => r.meta.title && !fixedLanguagePages.includes(r.path))

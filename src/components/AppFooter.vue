@@ -1,5 +1,7 @@
 ﻿<script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
+import { stripLocale } from '../i18n/paths'
+import { useLocalePath } from '../composables/useLocalePath'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
@@ -14,10 +16,13 @@ const isChinese = computed(() => locale.value === 'zh-CN')
 const footerLogoSrc = computed(() => (isChinese.value ? logo2Zh : logo2En))
 const footerLogoAlt = computed(() => (isChinese.value ? '软积木' : 'CubixAI'))
 const route = useRoute()
+const lp = useLocalePath()
+/** 去掉语言前缀后的页面路径（/en/cases → /cases） */
+const basePath = computed(() => stripLocale(route.path))
 
 const greenRoutes = ['/', '/solutions', '/cases', '/ai-insight', '/contact']
-const isGreenBg = computed(() => greenRoutes.includes(route.path))
-const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chatu', '/ecosystem', '/ai-insight', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/cases', '/solutions', '/opc-hub', '/training', '/privacy'].includes(route.path))
+const isGreenBg = computed(() => greenRoutes.includes(basePath.value))
+const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chatu', '/ecosystem', '/ai-insight', '/contact', '/cases', '/solutions', '/opc-hub', '/training', '/privacy'].includes(basePath.value))
 </script>
 
 <template>
@@ -55,7 +60,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
           <ul class="space-y-2.5">
             <li>
               <RouterLink
-                to="/products/chatu"
+                :to="lp('/products/chatu')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.chatu') }}
@@ -63,7 +68,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             </li>
             <li>
               <!-- <RouterLink
-                to="/products/agentstation"
+                :to="lp('/products/agentstation')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.agentStation') }}
@@ -71,7 +76,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             </li>
             <li>
               <RouterLink
-                to="/opc-hub"
+                :to="lp('/opc-hub')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.opcHub') }}
@@ -79,7 +84,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             </li>
             <li>
               <RouterLink
-                to="/training"
+                :to="lp('/training')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.training') }}
@@ -93,7 +98,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
           <ul class="space-y-2.5">
             <li>
               <RouterLink
-                to="/contact"
+                :to="lp('/contact')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.aboutUs') }}
@@ -101,7 +106,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             </li>
             <li>
               <RouterLink
-                to="/cases"
+                :to="lp('/cases')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.customerCases') }}
@@ -109,7 +114,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             </li>
             <li>
               <RouterLink
-                to="/contact"
+                :to="lp('/contact')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.contactUs') }}
@@ -123,7 +128,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
           <ul class="space-y-2.5">
             <li>
               <RouterLink
-                to="/solutions"
+                :to="lp('/solutions')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.solutions') }}
@@ -131,7 +136,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             </li>
             <li>
               <RouterLink
-                to="/ecosystem"
+                :to="lp('/ecosystem')"
                 class="text-sm text-white/75 hover:text-white transition-colors"
               >
                 {{ t('footer.ecosystem') }}
@@ -161,7 +166,7 @@ const showLogo2 = computed(() => ['/', '/products/agentstation', '/products/chat
             />
             <span>京ICP备2023016063号</span>
           </a>
-          <RouterLink to="/privacy" class="text-white/60 hover:text-white hover:underline underline-offset-2">
+          <RouterLink :to="lp('/privacy')" class="text-white/60 hover:text-white hover:underline underline-offset-2">
             {{ t('common.privacyPolicy') }}
           </RouterLink>
         </p>

@@ -26,7 +26,9 @@ const SLIDE3 = 4.0 // 入场动画约 2.7 秒，之后停在结束画面
   })
   await ctx.route('**/hm.baidu.com/**', (r) => r.abort())
   const page = await ctx.newPage()
-  await page.goto(base + '/', { waitUntil: 'networkidle' })
+  // 各语言首页：中文 /，英文 /en，日文 /ja，韩文 /ko
+  const prefix = { 'en-US': '/en', 'ja-JP': '/ja', 'ko-KR': '/ko' }[locale] || ''
+  await page.goto(base + (prefix || '/'), { waitUntil: 'networkidle' })
   await page.waitForSelector('.hero-art.is-playing')
   // 视频里不显示切换按钮
   await page.addStyleTag({

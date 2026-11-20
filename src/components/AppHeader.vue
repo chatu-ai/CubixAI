@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { RouterLink, useRoute, useRouter, isNavigationFailure, NavigationFailureType } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
-import i18n, { localeMap, localeLabels, setLocale } from '../i18n'
+import i18n, { localeMap, localeLabels } from '../i18n'
+import { localizePath, stripLocale } from '../i18n/paths'
+import { useLocalePath } from '../composables/useLocalePath'
 import logoZh from '@/assets/logo.webp'
 import logoEn from '@/assets/logo-en.webp'
 
 const { t, locale } = useI18n()
 const route = useRoute()
 const router = useRouter()
+const lp = useLocalePath()
+/** 去掉语言前缀后的当前页面路径（/en/cases → /cases），用来判断导航高亮 */
+const basePath = computed(() => stripLocale(route.path))
 
 // 中文用「软积木」logo，其他语言用英文 CubixAI logo，随当前语言自动切换
 const isChinese = computed(() => locale.value === 'zh-CN')
@@ -18,39 +23,18 @@ const logoAlt = computed(() => (isChinese.value ? '软积木' : 'CubixAI'))
 
 const showProductMenu = ref(false)
 const showLangMenu = ref(false)
-const showContactLangMenu = ref(false)
 const mobileOpen = ref(false)
 const productMenuRef = ref<HTMLElement | null>(null)
 const langMenuRef = ref<HTMLElement | null>(null)
-const contactLangMenuRef = ref<HTMLElement | null>(null)
-
-const SHOW_CONTACT_LANG_SWITCHER = true
 
 // 控制左侧全局 i18n 语言切换按钮显示/隐藏
 const SHOW_GLOBAL_LANG_SWITCHER = true
 const languageLoading = ref(false)
 const languageError = ref('')
 
-const contactLangRoutes: Record<string, string> = {
-  'zh-CN': '/contact',
-  'en': '/en/contact',
-  'ko': '/hg/contact',
-  'ja': '/jp/contact',
-}
-
-const contactPaths = ['/contact', '/en/contact', '/hg/contact', '/jp/contact']
-const isContactPage = computed(() => contactPaths.includes(route.path))
-
 const currentLangLabel = computed(() => {
   const key = i18n.global.locale.value
   return (localeLabels as Record<string, string>)[key] || '中文'
-})
-
-const currentContactLangLabel = computed(() => {
-  if (route.path === '/en/contact') return 'English'
-  if (route.path === '/hg/contact') return '한국어'
-  if (route.path === '/jp/contact') return '日本語'
-  return '中文'
 })
 
 const langList: string[] = ['中文', 'English', '한국어', '日本語']
@@ -61,8 +45,14 @@ async function selectLang(lang: string) {
   languageError.value = ''
   languageLoading.value = true
   try {
-    await setLocale(newLocale)
-    localStorage.setItem('locale', newLocale)
+    // 换到同一页面的另一语言网址（/cases → /en/cases）；语言包在路由守卫里加载
+    try {
+      localStorage.setItem('locale', newLocale)
+    } catch {
+      // 浏览器禁用存储时只是记不住选择，不影响切换
+    }
+    const failure = await router.push(localizePath(route.fullPath, newLocale))
+    if (failure && !isNavigationFailure(failure, NavigationFailureType.duplicated)) throw failure
     showLangMenu.value = false
     mobileOpen.value = false
   } catch (error) {
@@ -73,55 +63,44 @@ async function selectLang(lang: string) {
   }
 }
 
-function selectContactLang(lang: string) {
-  const newLocale = localeMap[lang]
-  if (!newLocale) return
-
-  if (isContactPage.value) {
-    router.replace(contactLangRoutes[newLocale])
-  }
-
-  showContactLangMenu.value = false
-  mobileOpen.value = false
-}
-
+// path 是不带语言前缀的页面路径，渲染链接时用 lp() 加上当前语言前缀
 const navItems = computed(() => [
-  { label: t('header.solutions'), to: '/solutions' },
-  { label: t('header.cases'), to: '/cases' },
+  { label: t('header.solutions'), path: '/solutions' },
+  { label: t('header.cases'), path: '/cases' },
 ])
 
 const moreNavItems = computed(() => [
-  { label: t('header.ecosystem'), to: '/ecosystem' },
-  { label: t('header.aiInsight'), to: '/ai-insight' },
-  { label: t('header.aboutUs'), to: '/contact' },
-  { label: t('header.paidInsights'), to: '/paid-insights' },
+  { label: t('header.ecosystem'), path: '/ecosystem' },
+  { label: t('header.aiInsight'), path: '/ai-insight' },
+  { label: t('header.aboutUs'), path: '/contact' },
+  { label: t('header.paidInsights'), path: '/paid-insights' },
 ])
 
 const mobileProductItems = computed(() => [
-  { label: 'ChatU', to: '/products/chatu' },
-  { label: t('header.agentName'), to: '/products/agentstation' },
-  { label: 'OPC Hub', to: '/opc-hub' },
-  { label: t('header.trainingName'), to: '/training' },
+  { label: 'ChatU', path: '/products/chatu' },
+  { label: t('header.agentName'), path: '/products/agentstation' },
+  { label: 'OPC Hub', path: '/opc-hub' },
+  { label: t('header.trainingName'), path: '/training' },
 ])
 
 function isActive(path: string): boolean {
+  const current = basePath.value
   if (path === '/') {
-    return route.path === '/'
+    return current === '/'
   }
-  if (path === '/paid-insights' && route.path.startsWith('/paid-insight/')) {
+  if (path === '/paid-insights' && current.startsWith('/paid-insight/')) {
     return true
   }
-  return route.path === path || route.path.startsWith(path + '/')
+  return current === path || current.startsWith(path + '/')
 }
 
 function isProductActive(): boolean {
-  return ['/products/chatu', '/products/agentstation', '/opc-hub', '/training'].includes(route.path)
+  return ['/products/chatu', '/products/agentstation', '/opc-hub', '/training'].includes(basePath.value)
 }
 
 // 悬停菜单：延迟关闭，避免鼠标从按钮移向面板途中触发 mouseleave 导致菜单消失
 const HOVER_CLOSE_DELAY = 150
 let langMenuCloseTimer: ReturnType<typeof setTimeout> | null = null
-let contactLangMenuCloseTimer: ReturnType<typeof setTimeout> | null = null
 
 function openLangMenu() {
   if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
@@ -134,20 +113,6 @@ function scheduleCloseLangMenu() {
   langMenuCloseTimer = setTimeout(() => {
     showLangMenu.value = false
     langMenuCloseTimer = null
-  }, HOVER_CLOSE_DELAY)
-}
-
-function openContactLangMenu() {
-  if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
-  contactLangMenuCloseTimer = null
-  showContactLangMenu.value = true
-}
-
-function scheduleCloseContactLangMenu() {
-  if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
-  contactLangMenuCloseTimer = setTimeout(() => {
-    showContactLangMenu.value = false
-    contactLangMenuCloseTimer = null
   }, HOVER_CLOSE_DELAY)
 }
 
@@ -165,9 +130,6 @@ function onDocumentClick(event: MouseEvent) {
   }
   if (langMenuRef.value && !langMenuRef.value.contains(event.target as Node)) {
     showLangMenu.value = false
-  }
-  if (contactLangMenuRef.value && !contactLangMenuRef.value.contains(event.target as Node)) {
-    showContactLangMenu.value = false
   }
 }
 
@@ -187,7 +149,6 @@ onUnmounted(() => {
   document.removeEventListener('click', onDocumentClick)
   window.removeEventListener('scroll', onScroll)
   if (langMenuCloseTimer) clearTimeout(langMenuCloseTimer)
-  if (contactLangMenuCloseTimer) clearTimeout(contactLangMenuCloseTimer)
 })
 </script>
 
@@ -203,7 +164,7 @@ onUnmounted(() => {
       <div class="flex items-center justify-between h-14 md:h-16">
         <!-- Logo -->
         <div class="flex-1 basis-0 min-w-0 flex items-center">
-          <RouterLink to="/" class="flex items-center gap-2.5">
+          <RouterLink :to="lp('/')" class="flex items-center gap-2.5">
             <img
               :src="logoSrc"
               :alt="logoAlt"
@@ -215,7 +176,7 @@ onUnmounted(() => {
         <!-- Desktop Nav -->
         <nav class="hidden md:flex shrink-0 items-center justify-center gap-0.5">
           <RouterLink
-            to="/"
+            :to="lp('/')"
             class="px-3 py-2 text-sm font-medium transition-colors rounded-lg"
             :class="isActive('/') ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
           >
@@ -241,7 +202,7 @@ onUnmounted(() => {
               class="absolute top-full left-0 mt-1 w-80 bg-surface-card rounded-2xl shadow-card border border-line/50 p-2"
             >
               <RouterLink
-                to="/products/chatu"
+                :to="lp('/products/chatu')"
                 class="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-muted transition-colors"
                 @click="closeProductMenu"
               >
@@ -258,7 +219,7 @@ onUnmounted(() => {
                 </div>
               </RouterLink>
               <RouterLink
-                to="/products/agentstation"
+                :to="lp('/products/agentstation')"
                 class="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-muted transition-colors mt-1"
                 @click="closeProductMenu"
               >
@@ -275,7 +236,7 @@ onUnmounted(() => {
                 </div>
               </RouterLink>
               <RouterLink
-                to="/opc-hub"
+                :to="lp('/opc-hub')"
                 class="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-muted transition-colors mt-1"
                 @click="closeProductMenu"
               >
@@ -292,7 +253,7 @@ onUnmounted(() => {
                 </div>
               </RouterLink>
               <RouterLink
-                to="/training"
+                :to="lp('/training')"
                 class="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-muted transition-colors mt-1"
                 @click="closeProductMenu"
               >
@@ -313,20 +274,20 @@ onUnmounted(() => {
 
           <RouterLink
             v-for="item in navItems"
-            :key="item.to"
-            :to="item.to"
+            :key="item.path"
+            :to="lp(item.path)"
             class="px-3 py-2 text-sm font-medium transition-colors rounded-lg"
-            :class="isActive(item.to) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
+            :class="isActive(item.path) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
           >
             {{ item.label }}
           </RouterLink>
 
           <RouterLink
             v-for="item in moreNavItems"
-            :key="item.to"
-            :to="item.to"
+            :key="item.path"
+            :to="lp(item.path)"
             class="px-3 py-2 text-sm font-medium transition-colors rounded-lg"
-            :class="isActive(item.to) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
+            :class="isActive(item.path) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
           >
             {{ item.label }}
           </RouterLink>
@@ -336,7 +297,7 @@ onUnmounted(() => {
         <div class="flex-1 basis-0 min-w-0 flex items-center justify-end gap-1">
         <!-- Language Switcher -->
         <div
-          v-if="SHOW_GLOBAL_LANG_SWITCHER && !isContactPage"
+          v-if="SHOW_GLOBAL_LANG_SWITCHER"
           ref="langMenuRef"
           data-lang-switcher="global"
           class="hidden md:block relative"
@@ -373,43 +334,6 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- Contact Language Switcher -->
-        <div
-          v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage"
-          ref="contactLangMenuRef"
-          data-lang-switcher="contact"
-          class="hidden md:block relative"
-          @mouseenter="openContactLangMenu"
-          @mouseleave="scheduleCloseContactLangMenu"
-        >
-          <button
-            class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink-primary transition-colors rounded-lg hover:bg-surface-muted"
-            @click.stop="showContactLangMenu = !showContactLangMenu"
-          >
-            <Icon icon="lucide:globe" class="w-4 h-4" />
-            <span>{{ currentContactLangLabel }}</span>
-            <Icon
-              icon="lucide:chevron-down"
-              class="w-3.5 h-3.5 transition-transform"
-              :class="showContactLangMenu && 'rotate-180'"
-            />
-          </button>
-          <div v-show="showContactLangMenu" class="absolute top-full right-0 pt-1 w-36">
-            <div class="bg-surface-card rounded-2xl shadow-card border border-line/50 p-1.5">
-            <button
-              v-for="l in langList"
-              :key="l"
-              class="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-xl transition-colors"
-              :class="currentContactLangLabel === l ? 'bg-brand-soft text-brand font-medium' : 'text-ink-secondary hover:bg-surface-muted'"
-              @click="selectContactLang(l)"
-            >
-              <span class="w-2 h-2 rounded-full" :class="currentContactLangLabel === l ? 'bg-brand' : 'bg-line'"></span>
-              {{ l }}
-            </button>
-            </div>
-          </div>
-        </div>
-
         <!-- Mobile toggle -->
         <button class="md:hidden p-2 -mr-2" @click="mobileOpen = !mobileOpen">
           <Icon
@@ -427,7 +351,7 @@ onUnmounted(() => {
       class="md:hidden bg-surface-card border-t border-line/50 px-4 py-4 space-y-1"
     >
       <RouterLink
-        to="/"
+        :to="lp('/')"
         class="block px-3 py-2 text-sm font-medium rounded-lg"
         :class="isActive('/') ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
         @click="mobileOpen = false"
@@ -440,10 +364,10 @@ onUnmounted(() => {
       </div>
       <RouterLink
         v-for="item in mobileProductItems"
-        :key="item.to"
-        :to="item.to"
+        :key="item.path"
+        :to="lp(item.path)"
         class="block px-3 py-2 text-sm font-medium rounded-lg"
-        :class="isActive(item.to) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
+        :class="isActive(item.path) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
         @click="mobileOpen = false"
       >
         {{ item.label }}
@@ -454,15 +378,15 @@ onUnmounted(() => {
           ...navItems,
           ...moreNavItems,
         ]"
-        :key="item.to"
-        :to="item.to"
+        :key="item.path"
+        :to="lp(item.path)"
         class="block px-3 py-2 text-sm font-medium rounded-lg"
-        :class="isActive(item.to) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
+        :class="isActive(item.path) ? 'bg-brand-soft text-brand' : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-muted'"
         @click="mobileOpen = false"
       >
         {{ item.label }}
       </RouterLink>
-      <template v-if="SHOW_GLOBAL_LANG_SWITCHER && !isContactPage">
+      <template v-if="SHOW_GLOBAL_LANG_SWITCHER">
         <div class="border-t border-line/50 my-2" />
         <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
           {{ t('header.language') }}
@@ -475,23 +399,6 @@ onUnmounted(() => {
             :class="currentLangLabel === l ? 'border-brand bg-brand-soft text-brand font-medium' : 'border-line text-ink-secondary hover:bg-surface-muted'"
             :disabled="languageLoading"
             @click="selectLang(l)"
-          >
-            {{ l }}
-          </button>
-        </div>
-      </template>
-      <template v-if="SHOW_CONTACT_LANG_SWITCHER && isContactPage">
-        <div class="border-t border-line/50 my-2" />
-        <div class="px-3 py-2 text-xs font-semibold text-ink-tertiary uppercase tracking-wide">
-          Contact {{ t('header.language') }}
-        </div>
-        <div class="flex gap-2 px-3 py-2" data-lang-switcher="contact">
-          <button
-            v-for="l in langList"
-            :key="l"
-            class="px-3 py-1.5 text-sm rounded-lg border transition-colors"
-            :class="currentContactLangLabel === l ? 'border-brand bg-brand-soft text-brand font-medium' : 'border-line text-ink-secondary hover:bg-surface-muted'"
-            @click="selectContactLang(l)"
           >
             {{ l }}
           </button>

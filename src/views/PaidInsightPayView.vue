@@ -6,9 +6,11 @@ import { Icon } from '@iconify/vue'
 import BrandButton from '../components/BrandButton.vue'
 import payQr from '../assets/pay-qr.svg'
 import { PAID_INSIGHT_CATEGORY, findPaidInsight } from '../data/paidInsights'
+import { useLocalePath } from '../composables/useLocalePath'
 
 type PayMethod = 'wechat' | 'alipay'
 
+const lp = useLocalePath()
 const { t } = useI18n()
 const route = useRoute()
 
@@ -53,7 +55,7 @@ function confirmPaid() {
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
       <RouterLink
-        to="/paid-insights"
+        :to="lp('/paid-insights')"
         class="inline-flex items-center gap-1.5 text-sm font-medium text-ink-secondary hover:text-brand transition-colors"
       >
         <Icon icon="lucide:arrow-left" class="w-4 h-4" aria-hidden="true" />

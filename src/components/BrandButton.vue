@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { Icon } from '@iconify/vue'
+import { localePath } from '../composables/useLocalePath'
 
 interface Props {
   variant?: 'primary' | 'ghost'
@@ -18,6 +19,9 @@ const props = withDefaults(defineProps<Props>(), {
   arrow: false,
 })
 
+/** 站内链接自动带上当前语言前缀（英文页面上 /contact → /en/contact） */
+const localizedTo = computed(() => (props.to?.startsWith('/') ? localePath(props.to) : props.to))
+
 const classes = computed(() => {
   const base =
     'group inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full'
@@ -32,7 +36,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <RouterLink v-if="to" :to="to" :class="classes">
+  <RouterLink v-if="to" :to="localizedTo!" :class="classes">
     <slot />
     <Icon v-if="arrow" icon="lucide:arrow-right" class="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
   </RouterLink>

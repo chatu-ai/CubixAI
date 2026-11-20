@@ -1,5 +1,6 @@
 import { createI18n } from 'vue-i18n'
 import zhCN from './locales/zh-CN'
+import { isBot, localeFromPath } from './paths'
 
 export type SupportedLocale = 'zh-CN' | 'en' | 'ja' | 'ko'
 
@@ -41,6 +42,16 @@ export function getInitialLocale(): SupportedLocale {
   // 3. Other languages (French, German, ...) fall back to English;
   //    no language information at all falls back to Chinese
   return preferred.length > 0 ? 'en' : 'zh-CN'
+}
+
+/**
+ * 进入网站时用哪种语言：网址带 /en、/ja、/ko 就用该语言；不带前缀（中文网址）时，
+ * 访客以前选过其他语言、或浏览器是其他语言，就用那种语言（随后跳到对应网址）。爬虫一律按网址。
+ */
+export function landingLocale(path: string): SupportedLocale {
+  const fromUrl = localeFromPath(path)
+  if (fromUrl !== 'zh-CN' || isBot(navigator.userAgent)) return fromUrl
+  return getInitialLocale()
 }
 
 const initialMessages: Record<string, typeof zhCN> = { 'zh-CN': zhCN }

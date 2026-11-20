@@ -176,7 +176,7 @@ describe('header navigation', () => {
       expect(right!.className).toContain('flex-1')
       expect(right!.className).toContain('justify-end')
       const switcher = right!.querySelector('[data-lang-switcher]')!
-      expect(switcher.getAttribute('data-lang-switcher')).toBe(path === '/contact' ? 'contact' : 'global')
+      expect(switcher.getAttribute('data-lang-switcher')).toBe('global')
       expect(right!.querySelectorAll('[data-lang-switcher]')).toHaveLength(1)
     }
   })
