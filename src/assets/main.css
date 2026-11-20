@@ -43,6 +43,11 @@
   html[lang='ko'] body {
     word-break: keep-all;
   }
+
+  /* 日文按词组换行，避免「ワークステ / ーション」这种把一个词拆到两行（Chrome、Edge 支持，其他浏览器照常换行） */
+  html[lang='ja'] body {
+    word-break: auto-phrase;
+  }
 }
 
 @layer components {

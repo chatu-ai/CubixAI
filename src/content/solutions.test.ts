@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { solutions } from '@/data/solutions'
-import { localizeSolutions, solutionsEn, type SolutionId } from './solutions'
+import { localizeSolutions, solutionsEn, solutionsJa, solutionsKo, type SolutionId } from './solutions'
 
 const CJK = /[　-〿㐀-鿿＀-￯]/
 
@@ -32,6 +32,7 @@ describe('English solution text (src/content/solutions.ts)', () => {
       expect(s.icon).toBe(solutions[i].icon)
       expect(s.subtitle).toBe(solutions[i].subtitle)
     })
-    expect(localizeSolutions('ja')).toBe(en)
+    expect(localizeSolutions('ja').map((s) => s.title)).toEqual(solutions.map((s) => solutionsJa[s.id as SolutionId].title))
+    expect(localizeSolutions('ko').map((s) => s.title)).toEqual(solutions.map((s) => solutionsKo[s.id as SolutionId].title))
   })
 })

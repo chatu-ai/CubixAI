@@ -3,6 +3,7 @@ import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import HeroArt from './HeroArt.vue'
+import { contentKey, type LocalizedContent } from '@/i18n/useContent'
 import HeroChatuArt from './HeroChatuArt.vue'
 import HeroZftArt from './HeroZftArt.vue'
 
@@ -13,6 +14,8 @@ const SLIDE_DURATION = 5000
 
 // 第一张横幅是分层动画版（HeroArt）：标题和图标文字画在图里，中文版用中文文字层，其他语言用英文文字层
 const isChinese = computed(() => locale.value === 'zh-CN')
+/** 横幅图片的替代文字（读屏软件朗读、图片加载失败时显示），按当前语言取 */
+const altFor = (texts: LocalizedContent<string>) => texts[contentKey(locale.value)]
 const slides = computed(() => [
   // 手机上横幅比例比原图窄，左右会被裁掉：第一张的文字在左侧，所以手机上靠左显示，保证标题完整
   {
@@ -20,7 +23,12 @@ const slides = computed(() => [
     chatu: false,
     duration: SLIDE_DURATION,
     src: '',
-    alt: isChinese.value ? '软积木：打通企业 AI 落地最后三公里' : 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption',
+    alt: altFor({
+      zh: '软积木：打通企业 AI 落地最后三公里',
+      en: 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption',
+      ja: 'CubixAI：企業AI導入のラストマイルをつなぐ',
+      ko: 'CubixAI: 기업 AI 도입의 마지막 구간을 잇다',
+    }),
     position: '',
   },
   // 第二张 ChatU 横幅：标志外圈光环旋转（HeroChatuArt），文字为页面上叠加的多语言文字
@@ -33,7 +41,12 @@ const slides = computed(() => [
     zft: true,
     duration: 6000,
     src: '',
-    alt: isChinese.value ? '智方体 AgentStation：开箱即用的企业 AI 工作站，数据不出盒' : 'AgentStation: a plug-and-play enterprise AI workstation — your data never leaves the box',
+    alt: altFor({
+      zh: '智方体 AgentStation：开箱即用的企业 AI 工作站，数据不出盒',
+      en: 'AgentStation: a plug-and-play enterprise AI workstation — your data never leaves the box',
+      ja: 'AgentStation：箱から出してすぐ使える企業向けAIワークステーション。データは箱の外に出ません',
+      ko: 'AgentStation: 꺼내서 바로 쓰는 기업용 AI 워크스테이션, 데이터는 박스 밖으로 나가지 않습니다',
+    }),
     position: '',
   },
 ])
