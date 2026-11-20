@@ -95,8 +95,6 @@ export default {
       zft: {
         seal: 'Data never leaves the box',
         ready: 'Ready',
-        openclaw: 'Planning · Tool use · Task execution',
-        hermes: 'Natural language · Understanding · Interaction',
       },
       slide3Title: 'AgentStation',
       slide3Sub: 'Intelligent Work · Secure at Home',

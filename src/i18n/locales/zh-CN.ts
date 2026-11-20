@@ -108,8 +108,6 @@ export default {
       zft: {
         seal: '数据不出盒',
         ready: '已就绪',
-        openclaw: '自主规划 · 工具调用 · 任务执行',
-        hermes: '自然语言 · 语义理解 · 智能交互',
       },
       slide3Title: '智方体 · AgentStation',
       slide3Sub: '智能工作 · 安全到家',
