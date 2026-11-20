@@ -1,14 +1,15 @@
 import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { solutions, type Solution } from '@/data/solutions'
+import { contentKey } from '@/i18n/useContent'
 
 /**
- * 解决方案页各行业方案的英文文字。
- * 中文访客直接使用 src/data/solutions.ts 中的原始数据；其他语言（英文、日文、韩文）显示这里的英文。
+ * 解决方案页各行业方案的英文、日文、韩文文字。
+ * 中文访客直接使用 src/data/solutions.ts 中的原始数据；英文、日文、韩文访客分别显示这里的 solutionsEn / solutionsJa / solutionsKo。
  * subtitle 原本就是英文，沿用原始数据。
  */
 
-/** src/data/solutions.ts 中所有方案的 id（新增方案时也要在这里补上英文） */
+/** src/data/solutions.ts 中所有方案的 id（新增方案时也要在这里补上英文、日文、韩文） */
 export type SolutionId =
   | 'telecom'
   | 'park_opc'
@@ -172,15 +173,26 @@ export const solutionsEn: Record<SolutionId, SolutionText> = {
   },
 }
 
-/** 英文版方案列表：保留原始数据中的 id、subtitle、图标、图片，只替换文字字段 */
-const englishSolutions: Solution[] = solutions.map((s) => ({ ...s, ...solutionsEn[s.id as SolutionId] }))
+// TODO(翻译中)：日文、韩文暂用英文，翻译完成后替换
+export const solutionsJa: Record<SolutionId, SolutionText> = solutionsEn
+export const solutionsKo: Record<SolutionId, SolutionText> = solutionsEn
 
-/** 按语言取方案列表：中文返回原始 solutions（不做任何改动），其他语言返回英文版 */
-export function localizeSolutions(locale: string): Solution[] {
-  return locale === 'zh-CN' ? solutions : englishSolutions
+/** 各语言版方案列表：保留原始数据中的 id、subtitle、图标、图片，只替换文字字段 */
+const withText = (texts: Record<SolutionId, SolutionText>): Solution[] =>
+  solutions.map((s) => ({ ...s, ...texts[s.id as SolutionId] }))
+const localizedSolutions: Record<'en' | 'ja' | 'ko', Solution[]> = {
+  en: withText(solutionsEn),
+  ja: withText(solutionsJa),
+  ko: withText(solutionsKo),
 }
 
-/** 当前语言的方案列表（computed）：中文访客看原始数据，英文、日文、韩文访客看英文 */
+/** 按语言取方案列表：中文返回原始 solutions（不做任何改动），英文、日文、韩文返回对应译文 */
+export function localizeSolutions(locale: string): Solution[] {
+  const key = contentKey(locale)
+  return key === 'zh' ? solutions : localizedSolutions[key]
+}
+
+/** 当前语言的方案列表（computed） */
 export function useLocalizedSolutions(): ComputedRef<Solution[]> {
   const { locale } = useI18n()
   return computed(() => localizeSolutions(locale.value))

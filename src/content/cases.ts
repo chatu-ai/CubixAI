@@ -1,13 +1,14 @@
 import { computed, type ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { cases, type CaseItem, type Metric } from '@/data/cases'
+import { contentKey } from '@/i18n/useContent'
 
 /**
- * 客户案例（/cases 页、ChatU 页「客户案例精选」及案例弹窗）的英文文字。
- * 中文访客直接使用 src/data/cases.ts 中的原始数据；其他语言（英文、日文、韩文）显示这里的英文。
+ * 客户案例（/cases 页、ChatU 页「客户案例精选」及案例弹窗）的英文、日文、韩文文字。
+ * 中文访客直接使用 src/data/cases.ts 中的原始数据；英文、日文、韩文访客分别显示这里的 casesEn / casesJa / casesKo。
  */
 
-/** src/data/cases.ts 中所有案例的 id（新增案例时也要在这里补上英文） */
+/** src/data/cases.ts 中所有案例的 id（新增案例时也要在这里补上英文、日文、韩文） */
 export type CaseId = 'c1' | 'c2' | 'c3' | 'c4' | 'c5' | 'c6' | 'c7' | 'c9' | 'c10' | 'c11'
 
 /** 案例中随语言切换的文字字段；id、图片、图标、分类等非文字字段沿用原始数据 */
@@ -354,15 +355,25 @@ export const casesEn: Record<CaseId, CaseText> = {
   },
 }
 
-/** 英文版案例列表：保留原始数据中的 id、图片、图标、分类等字段，只替换文字字段 */
-const englishCases: CaseItem[] = cases.map((c) => ({ ...c, ...casesEn[c.id as CaseId] }))
+// TODO(翻译中)：日文、韩文暂用英文，翻译完成后替换
+export const casesJa: Record<CaseId, CaseText> = casesEn
+export const casesKo: Record<CaseId, CaseText> = casesEn
 
-/** 按语言取案例列表：中文返回原始 cases（不做任何改动），其他语言返回英文版 */
-export function localizeCases(locale: string): CaseItem[] {
-  return locale === 'zh-CN' ? cases : englishCases
+/** 各语言版案例列表：保留原始数据中的 id、图片、图标、分类等字段，只替换文字字段 */
+const withText = (texts: Record<CaseId, CaseText>): CaseItem[] => cases.map((c) => ({ ...c, ...texts[c.id as CaseId] }))
+const localizedCases: Record<'en' | 'ja' | 'ko', CaseItem[]> = {
+  en: withText(casesEn),
+  ja: withText(casesJa),
+  ko: withText(casesKo),
 }
 
-/** 当前语言的案例列表（computed）：中文访客看原始数据，英文、日文、韩文访客看英文 */
+/** 按语言取案例列表：中文返回原始 cases（不做任何改动），英文、日文、韩文返回对应译文 */
+export function localizeCases(locale: string): CaseItem[] {
+  const key = contentKey(locale)
+  return key === 'zh' ? cases : localizedCases[key]
+}
+
+/** 当前语言的案例列表（computed） */
 export function useLocalizedCases(): ComputedRef<CaseItem[]> {
   const { locale } = useI18n()
   return computed(() => localizeCases(locale.value))

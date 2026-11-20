@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createApp, defineComponent, h, nextTick, type ComputedRef } from 'vue'
 import { createI18n } from 'vue-i18n'
 import { cases, type CaseItem } from '@/data/cases'
-import { casesEn, localizeCases, useLocalizedCases, type CaseId } from './cases'
+import { casesEn, casesJa, casesKo, localizeCases, useLocalizedCases, type CaseId } from './cases'
 
 const CJK = /[　-〿㐀-鿿＀-￯]/
 const listFields = ['pain', 'solution', 'solved', 'metrics'] as const
@@ -56,7 +56,8 @@ describe('localizeCases', () => {
     expect(cases.find((c) => c.id === 'c5')?.client).toBe('中移系统集成有限公司')
   })
 
-  it.each(['en', 'ja', 'ko'])('returns English text with the original non-text fields for %s', (locale) => {
+  const textsFor = { en: casesEn, ja: casesJa, ko: casesKo } as const
+  it.each(['en', 'ja', 'ko'] as const)('returns the %s text with the original non-text fields', (locale) => {
     const list = localizeCases(locale)
     expect(list.map((c) => c.id)).toEqual(cases.map((c) => c.id))
     list.forEach((c, i) => {
@@ -68,7 +69,7 @@ describe('localizeCases', () => {
         icon: orig.icon,
         category: orig.category,
       })
-      expect(c).toMatchObject(en(orig))
+      expect(c).toMatchObject(textsFor[locale][orig.id as CaseId])
     })
     // 原始中文数据没有被改动
     expect(cases.find((c) => c.id === 'c1')?.client).toBe('清华大学')

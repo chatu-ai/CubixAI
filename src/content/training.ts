@@ -252,4 +252,8 @@ const en: typeof zh = {
   },
 }
 
-export const trainingContent: LocalizedContent<typeof zh> = { zh, en }
+// TODO(翻译中)：日文、韩文暂用英文，翻译完成后替换为 ja / ko
+const ja: typeof zh = en
+const ko: typeof zh = en
+
+export const trainingContent: LocalizedContent<typeof zh> = { zh, en, ja, ko }
