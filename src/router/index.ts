@@ -1,7 +1,7 @@
-import { watch } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { START_LOCATION, createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationNormalized, RouteMeta, RouteRecordRaw } from 'vue-router'
-import i18n, { type SupportedLocale } from '../i18n'
+import i18n, { landingLocale, setLocale, type SupportedLocale } from '../i18n'
+import { HREFLANG, LEGACY_REDIRECTS, SUPPORTED_LOCALES, localeFromPath, localizePath, stripLocale } from '../i18n/paths'
 import { trackPageview } from '../utils/cookieConsent'
 
 /** 非中文语言的页面标题（浏览器标签栏、分享标题），按当前语言切换 */
@@ -11,7 +11,7 @@ export type LocalizedTitles = Record<Exclude<SupportedLocale, 'zh-CN'>, string>
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string
-    /** title 的英文、日文、韩文版本；固定语言的页面（如 /en/contact）不需要 */
+    /** title 的英文、日文、韩文版本；单独做了各语言版本的页面（如 /en/contact）不需要 */
     titles?: LocalizedTitles
     description?: string
     ogTitle?: string
@@ -319,7 +319,7 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: '/jp/contact',
+    path: '/ja/contact',
     name: 'ContactJp',
     component: () => import('../views/ContactJpView.vue'),
     meta: {
@@ -330,12 +330,12 @@ const routes: RouteRecordRaw[] = [
         '@type': 'ContactPage',
         name: 'お問い合わせ',
         description: 'CubixAIへのお問い合わせはこちら。',
-        url: `${SITE_ORIGIN}/jp/contact`,
+        url: `${SITE_ORIGIN}/ja/contact`,
       },
     },
   },
   {
-    path: '/hg/contact',
+    path: '/ko/contact',
     name: 'ContactHg',
     component: () => import('../views/ContactHgView.vue'),
     meta: {
@@ -346,7 +346,7 @@ const routes: RouteRecordRaw[] = [
         '@type': 'ContactPage',
         name: '문의하기',
         description: 'CubixAI에 문의하세요.',
-        url: `${SITE_ORIGIN}/hg/contact`,
+        url: `${SITE_ORIGIN}/ko/contact`,
       },
     },
   },
@@ -419,6 +419,23 @@ const routes: RouteRecordRaw[] = [
   },
 ]
 
+/**
+ * 多语言网址：上面每个页面（中文，不带前缀）再各生成英文 /en、日文 /ja、韩文 /ko 三个版本，组件和 SEO 信息相同，
+ * 页面语言由网址决定（见下面的 beforeEach）。
+ * 关于我们（/contact）的英文、日文、韩文是单独做的页面（ContactEnView 等），直接用上面定义的 /en/contact、/ja/contact、/ko/contact。
+ */
+const SEPARATE_LOCALE_PAGES = new Set(['ContactEn', 'ContactJp', 'ContactHg'])
+const HAS_SEPARATE_LOCALE_PAGES = new Set(['Contact'])
+const baseRoutes = routes.filter((r) => !SEPARATE_LOCALE_PAGES.has(String(r.name)))
+const separateLocaleRoutes = routes.filter((r) => SEPARATE_LOCALE_PAGES.has(String(r.name)))
+const localizedRoutes: RouteRecordRaw[] = SUPPORTED_LOCALES.filter((l) => l !== 'zh-CN').flatMap((locale) =>
+  baseRoutes
+    .filter((r) => !HAS_SEPARATE_LOCALE_PAGES.has(String(r.name)))
+    .map((r) => ({ ...r, path: localizePath(r.path, locale), name: `${String(r.name)}-${locale}` }) as RouteRecordRaw),
+)
+// 以前的单语言联系页地址（/jp/contact、/hg/contact）跳到新地址
+const legacyRoutes: RouteRecordRaw[] = Object.entries(LEGACY_REDIRECTS).map(([path, redirect]) => ({ path, redirect }))
+
 const router = createRouter({
   history: createWebHistory(),
   scrollBehavior(to, from, savedPosition) {
@@ -433,7 +450,20 @@ const router = createRouter({
       }, wait)
     })
   },
-  routes,
+  routes: [...baseRoutes, ...localizedRoutes, ...separateLocaleRoutes, ...legacyRoutes],
+})
+
+// 网址决定语言：进入 /en/… 前先加载英文语言包，页面一出来就是对应语言
+router.beforeEach(async (to, from) => {
+  // 刚进入网站、打开的是中文网址：访客选过其他语言或浏览器是其他语言，换到对应语言的网址（只这一次）
+  if (from === START_LOCATION) {
+    const preferred = landingLocale(to.path)
+    if (preferred !== localeFromPath(to.path)) {
+      return { path: localizePath(to.path, preferred), query: to.query, hash: to.hash, replace: true }
+    }
+  }
+  const locale = localeFromPath(to.path)
+  if (i18n.global.locale.value !== locale) await setLocale(locale)
 })
 
 /**
@@ -461,6 +491,25 @@ function setCanonical(href: string) {
   }
   el.setAttribute('href', href)
 }
+
+/**
+ * 各语言版本的互相指向（hreflang），搜索引擎据此把四个网址当成同一页面的不同语言版本
+ */
+function setAlternates(path: string) {
+  document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove())
+  const base = stripLocale(path)
+  const add = (hreflang: string, href: string) => {
+    const el = document.createElement('link')
+    el.setAttribute('rel', 'alternate')
+    el.setAttribute('hreflang', hreflang)
+    el.setAttribute('href', href)
+    document.head.appendChild(el)
+  }
+  for (const locale of SUPPORTED_LOCALES) add(HREFLANG[locale], `${SITE_ORIGIN}${localizePath(base, locale)}`)
+  add('x-default', `${SITE_ORIGIN}${base}`)
+}
+
+const OG_LOCALE: Record<SupportedLocale, string> = { 'zh-CN': 'zh_CN', en: 'en_US', ja: 'ja_JP', ko: 'ko_KR' }
 
 /**
  * 更新或创建 JSON-LD 结构化数据
@@ -505,7 +554,7 @@ function updateSeo(to: RouteLocationNormalized) {
   const ogTitle = meta.ogTitle || title
   const ogDescription = meta.ogDescription || description
   const ogImage = meta.ogImage || defaultSeo.ogImage
-  const canonical = `${SITE_ORIGIN}${to.fullPath}`
+  const canonical = `${SITE_ORIGIN}${to.path}`
 
   // 基础标签
   document.title = title
@@ -516,25 +565,21 @@ function updateSeo(to: RouteLocationNormalized) {
   setMeta('property', 'og:description', ogDescription)
   setMeta('property', 'og:url', canonical)
   setMeta('property', 'og:image', ogImage)
+  setMeta('property', 'og:locale', OG_LOCALE[localeFromPath(to.path)])
 
   // Twitter Card
   setMeta('name', 'twitter:title', ogTitle)
   setMeta('name', 'twitter:description', ogDescription)
   setMeta('name', 'twitter:image', ogImage)
 
-  // Canonical
+  // Canonical、各语言版本
   setCanonical(canonical)
+  setAlternates(to.path)
 
   // JSON-LD
   const jsonLd = buildJsonLd(meta.schema)
   setJsonLd(jsonLd)
 }
-
-// 切换语言时，当前页面的标题跟着更新
-watch(
-  () => i18n.global.locale.value,
-  () => updateSeo(router.currentRoute.value),
-)
 
 router.afterEach((to) => {
   updateSeo(to)

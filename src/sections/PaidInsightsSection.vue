@@ -5,8 +5,10 @@ import { RouterLink } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
 import { PAID_INSIGHT_CATEGORY, paidInsights } from '../data/paidInsights'
+import { useLocalePath } from '../composables/useLocalePath'
 
 const { t } = useI18n()
+const lp = useLocalePath()
 const titleRef = ref<HTMLElement | null>(null)
 const cardRef = ref<HTMLElement | null>(null)
 
@@ -43,7 +45,7 @@ useScrollReveal(cardRef, { y: 40, delay: 0.1 })
         <ol class="divide-y divide-line/60">
           <li v-for="item in paidInsights" :key="item.id">
             <RouterLink
-              :to="`/paid-insight/${item.id}`"
+              :to="lp(`/paid-insight/${item.id}`)"
               class="group flex flex-col md:flex-row md:items-center gap-2 md:gap-5 px-5 md:px-8 py-4 md:py-5 transition-colors duration-200 hover:bg-brand-soft/30 focus-visible:outline-none focus-visible:bg-brand-soft/30"
             >
               <span

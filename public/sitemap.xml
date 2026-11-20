@@ -1,73 +1,444 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- 每个页面有中文（不带前缀）、英文 /en、日文 /ja、韩文 /ko 四个网址，xhtml:link 标明互为不同语言版本 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.cubixai.com/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/products/chatu</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/chatu"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/products/chatu</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/chatu"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/products/chatu</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/chatu"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/products/chatu</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/chatu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/chatu"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/products/agentstation</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/agentstation"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/products/agentstation</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/agentstation"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/products/agentstation</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/agentstation"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/products/agentstation</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/products/agentstation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/products/agentstation"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/ai-insight</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ai-insight"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/ai-insight</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ai-insight"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/ai-insight</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ai-insight"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/ai-insight</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ai-insight"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ai-insight"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/paid-insights</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/paid-insights"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/paid-insights</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/paid-insights"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/paid-insights</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/paid-insights"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/paid-insights</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/paid-insights"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/paid-insights"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/solutions</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/solutions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/solutions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/solutions"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/solutions</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/solutions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/solutions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/solutions"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/solutions</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/solutions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/solutions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/solutions"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/solutions</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/solutions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/solutions"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/solutions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/solutions"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/ecosystem</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ecosystem"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/ecosystem</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ecosystem"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/ecosystem</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ecosystem"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/ecosystem</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/ecosystem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/ecosystem"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/cases</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/cases"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/cases"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/cases"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/cases"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/cases"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/cases</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/cases"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/cases"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/cases"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/cases"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/cases"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/cases</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/cases"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/cases"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/cases"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/cases"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/cases"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/cases</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/cases"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/cases"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/cases"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/cases"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/cases"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/opc-hub</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/opc-hub"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/opc-hub</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/opc-hub"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/opc-hub</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/opc-hub"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/opc-hub</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/opc-hub"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/opc-hub"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/training</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/training"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/training"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/training"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/training"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/training"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/en/training</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/training"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/training"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/training"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/training"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/training"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ja/training</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/training"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/training"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/training"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/training"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/training"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cubixai.com/ko/training</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/training"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/training"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/training"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/training"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/training"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/contact"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.cubixai.com/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/contact"/>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.cubixai.com/jp/contact</loc>
+    <loc>https://www.cubixai.com/ja/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/contact"/>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.cubixai.com/hg/contact</loc>
+    <loc>https://www.cubixai.com/ko/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.cubixai.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cubixai.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.cubixai.com/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.cubixai.com/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cubixai.com/contact"/>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
 </urlset>

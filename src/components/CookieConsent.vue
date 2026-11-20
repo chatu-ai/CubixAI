@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useLocalePath } from '../composables/useLocalePath'
 import { computed, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -12,6 +13,7 @@ import {
   syncAnalytics,
 } from '@/utils/cookieConsent'
 
+const lp = useLocalePath()
 const { t, locale } = useI18n()
 const currentLocale = computed(() => locale.value as SupportedLocale)
 
@@ -55,7 +57,7 @@ function choose(status: ConsentStatus) {
             <p id="cookie-consent-message" class="mt-1 text-sm leading-relaxed text-ink-secondary">
               {{ t('cookieConsent.message') }}
               <RouterLink
-                to="/privacy"
+                :to="lp('/privacy')"
                 class="font-medium text-brand-deep underline underline-offset-2 hover:text-brand"
               >
                 {{ t('common.privacyPolicy') }}

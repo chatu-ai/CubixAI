@@ -99,11 +99,11 @@ describe('image loading', () => {
   })
 })
 
-describe('contact language navigation', () => {
+describe('language switcher navigation', () => {
   async function headerAt(path: string) {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: ['/', '/products/agentstation', '/contact', '/en/contact', '/hg/contact', '/jp/contact', '/paid-insights']
+      routes: ['/', '/products/agentstation', '/contact', '/en/contact', '/ko/contact', '/ja/contact', '/paid-insights', '/ja/products/agentstation']
         .map((route) => ({ path: route, component: { render: () => null } })),
     })
     await router.push(path)
@@ -112,14 +112,25 @@ describe('contact language navigation', () => {
     return { container, router }
   }
 
-  it('does not expose contact-only language controls on product pages', async () => {
-    const { container, router } = await headerAt('/products/agentstation')
-    expect(container.querySelector('[data-lang-switcher="contact"]')).toBeNull()
-    expect(container.querySelector('[data-lang-switcher="global"]')).not.toBeNull()
-    expect(router.currentRoute.value.path).toBe('/products/agentstation')
+  it('uses the same single language switcher on every page', async () => {
+    for (const path of ['/products/agentstation', '/contact']) {
+      const { container } = await headerAt(path)
+      expect(container.querySelector('[data-lang-switcher="contact"]')).toBeNull()
+      expect(container.querySelector('[data-lang-switcher="global"]')).not.toBeNull()
+      for (const app of apps.splice(0)) app.unmount()
+    }
   })
 
-  it.each([0, 1])('preserves localized contact navigation in language control %i', async (index) => {
+  it('switches to the same page in the chosen language', async () => {
+    const { container, router } = await headerAt('/products/agentstation')
+    const button = [...container.querySelectorAll<HTMLButtonElement>('button')].find((b) => b.textContent?.trim() === '日本語')!
+    button.click()
+    await vi.waitFor(() => expect(router.currentRoute.value.path).toBe('/ja/products/agentstation'))
+    expect(localStorage.getItem('locale')).toBe('ja')
+    localStorage.clear()
+  })
+
+  it.each([0, 1])('switches the contact page to its English version in language control %i', async (index) => {
     const { container, router } = await headerAt('/contact')
     const buttons = [...container.querySelectorAll<HTMLButtonElement>('button')]
       .filter((button) => button.textContent?.trim() === 'English')
