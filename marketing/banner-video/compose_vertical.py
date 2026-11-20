@@ -73,7 +73,13 @@ S3_TEXT = (
     round((t3['y'] - clip['y'] + t3['height'] + pad) * S),
 )
 S3_PROD = img_box(1790, 280, 3230, 905)
-S3_CARDS = img_box(2470, 856, 3290, 975)
+# 卡片宽度随语言变化（韩文最长），从最后一帧里找出卡片实际的左右范围再裁
+_search = img_box(2380, 856, 3392, 975)
+_last = np.asarray(Image.open(frames_dir / f'f{TOTAL_FRAMES - 1:04d}.png').convert('RGB').crop(_search), dtype=np.int16)
+_empty = np.asarray(Image.open(frames_dir / f'f{STARTS[2] + 45:04d}.png').convert('RGB').crop(_search), dtype=np.int16)
+_cols = np.where((np.abs(_last - _empty).max(2) > 18).any(0))[0]
+_pad = round(30 * K)
+S3_CARDS = (_search[0] + max(_cols.min() - _pad, 0), _search[1], _search[0] + min(_cols.max() + _pad, _last.shape[1]), _search[3])
 
 # 版面位置（输出像素）：(左, 上, 宽)
 S1_TEXT_AT = (20, 210, 1040)
@@ -87,12 +93,13 @@ def scaled_h(box, width):
     return round((box[3] - box[1]) * width / (box[2] - box[0]))
 
 
-_h3 = [scaled_h(S3_TEXT, 1000), scaled_h(S3_PROD, 1080), scaled_h(S3_CARDS, 860)]
+_h3 = [scaled_h(S3_TEXT, 1000), scaled_h(S3_PROD, 1080), round((S3_CARDS[3] - S3_CARDS[1]) / K * 1.05)]
 _gap = 40
 _top = max(230, 180 + (1460 - sum(_h3) - 2 * _gap) // 2)
 S3_TEXT_AT = (40, _top, 1000)
 S3_PROD_AT = (0, _top + _h3[0] + _gap, 1080)
-S3_CARDS_AT = (110, S3_PROD_AT[1] + _h3[1] + _gap, 860)
+_cards_w = min(1040, round((S3_CARDS[2] - S3_CARDS[0]) / K * 1.05))
+S3_CARDS_AT = ((W - _cards_w) // 2, S3_PROD_AT[1] + _h3[1] + _gap, _cards_w)
 assert S3_CARDS_AT[1] + _h3[2] < 1650, '第三张内容太高，会压到底部 Logo'
 
 
