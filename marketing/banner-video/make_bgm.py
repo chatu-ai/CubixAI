@@ -9,7 +9,7 @@
   第一张（src/components/HeroArt.vue）：底板弹出 0.05 秒 → 蓝图描线 0.12 秒起 → 8 块积木 0.9～1.53 秒落地
   → 顶盖 1.83 秒砸实（节奏从这里进来）；
   5.0 秒切到第二张 ChatU 横幅；
-  10.0 秒切到第三张智方体横幅（src/components/HeroZftArt.vue）：盒面反光 +0.7 秒 → 屏幕开机 +1.2 秒
+  10.0 秒切到第三张智方体横幅（src/components/HeroZftArt.vue）：屏幕是开机启动画面，盒面反光 +0.7 秒 → 桌面亮起 +1.6 秒
   → 小鲸鱼探头 +1.8 秒 → 智能体卡片 +1.9 / +2.05 / +2.2 秒 →「数据不出盒」+2.35 秒；
   13.83 秒结束和弦，最后 0.8 秒淡出。
 如果改了 HeroArt.vue 里的 BLOCK_START / BLOCK_GAP / LID_START、HeroZftArt.vue 的时间线，或视频里切换横幅的时间，
@@ -89,7 +89,7 @@ BEAT = 0.5                      # 120 BPM, the drop lands on the lid hit
 SLIDE = 5.0                     # switch to the ChatU banner
 SLIDE2 = 10.0                   # switch to the AgentStation banner
 # AgentStation banner (HeroZftArt.vue), seconds after SLIDE2
-ZFT_SHEEN, ZFT_BOOT, ZFT_WHALE, ZFT_CARDS, ZFT_SEAL = 0.7, 1.2, 1.8, (1.9, 2.05, 2.2), 2.35
+ZFT_SHEEN, ZFT_BOOT, ZFT_WHALE, ZFT_CARDS, ZFT_SEAL = 0.7, 1.6, 1.8, (1.9, 2.05, 2.2), 2.35
 
 # ----------------------------------------------------------------- music: intro pad (A minor add9) swelling into the drop
 def pad(notes, t0, t1, gain, cutoff=1800, attack=0.4, release=0.6):
@@ -175,7 +175,7 @@ for t0 in (SLIDE, SLIDE2):
 # light sweeping across the box: a glassy shimmer gliding upwards
 n = int(0.9 * SR)
 add(sweep_noise(n, 2500, 9000, 0.2) * np.sin(np.linspace(0, np.pi, n)) ** 2, SLIDE2 + ZFT_SHEEN, 0.08, pan=0.35, rev=0.5)
-# screen power-on: soft thump + rising tone, then a bright chime (E-B-E, fits the G bar that follows)
+# boot screen gives way to the desktop: soft thump + rising tone, then a bright chime (E-B-E, fits the G bar that follows)
 n = int(0.5 * SR); t = np.arange(n) / SR
 add(np.sin(2 * np.pi * np.cumsum(90 * np.exp(-t / 0.05) + 50) / SR) * np.exp(-t / 0.12) * 0.35, SLIDE2 + ZFT_BOOT, rev=0.2)
 f = 220 * 2 ** (2 * t / t[-1])

@@ -6,6 +6,7 @@ import boxUrl from '@/assets/hero/zft/box-photo.webp'
 import deviceUrl from '@/assets/hero/zft/device.webp'
 import crabUrl from '@/assets/hero/zft/crab.webp'
 import whaleUrl from '@/assets/hero/zft/whale.webp'
+import logoUrl from '@/assets/hero/zft/agentstation-logo.svg'
 import hermesUrl from '@/assets/hero/zft/hermes.webp'
 
 /**
@@ -15,7 +16,7 @@ import hermesUrl from '@/assets/hero/zft/hermes.webp'
  * 不做任何违反物理的动作，只有真实拍摄里会有的变化，看起来才真：
  *   镜头推近：画面从稍大、稍偏右慢慢推到位，近处的设备比远处的包装盒移动得多（视差）；
  *   反光：一道光从包装盒表面扫过；
- *   开机：设备黑屏（带玻璃反光）→ 背光亮起 → 工作台，DeepSeek Harness 卡片亮两下；
+ *   开机：屏幕是开机启动画面（黑底白色 AgentStation 标志）→ 过渡到桌面 → 工作台，DeepSeek Harness 卡片亮两下；
  *   之后 DeepSeek 小鲸鱼从设备后面探头，DeepSeek Harness / OpenClaw / Hermes「已就绪」，「数据不出盒」。
  * 位置用原图坐标（3392 × 1120，与第一张横幅同比例）按百分比摆放；尺寸用 cqw（横幅宽度的 1%）。
  * 静止画面（未播放、减少动态效果）就是动画结束时的样子。
@@ -99,6 +100,8 @@ onMounted(async () => {
             <!-- 屏幕上 DeepSeek Harness 卡片的位置（设备图坐标 248,176 – 815,294） -->
             <span class="zft-ds-ring" />
             <span class="zft-screen-off" />
+            <!-- 开机启动画面：黑底上的白色 AgentStation 标志 -->
+            <img :src="logoUrl" alt="" class="zft-screen-logo" draggable="false" />
             <span class="zft-screen-glow" />
           </div>
         </div>
@@ -202,6 +205,20 @@ onMounted(async () => {
 }
 .zft-screen-glow {
   background: radial-gradient(ellipse at 50% 50%, rgba(150, 195, 255, 0.95), rgba(70, 120, 235, 0.8) 60%, rgba(25, 55, 150, 0.75));
+}
+
+/* 开机启动画面的标志：在屏幕正中（选择器带上 .zft-device，盖过上面设备照片的 inset: 0） */
+.zft-device .zft-screen-logo {
+  position: absolute;
+  inset: auto;
+  left: 50%;
+  top: 48%;
+  width: 46%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 0.35cqw rgba(190, 215, 255, 0.45));
+  pointer-events: none;
+  opacity: 0;
 }
 
 /* 开机后 DeepSeek Harness 卡片外圈亮两下 */
@@ -315,7 +332,8 @@ onMounted(async () => {
 
 /* ============ 动画 ============
  * 时间线（秒）：0～1.4 镜头推近（近处设备比远处盒子多移一点）→ 0.7 盒子表面扫过反光
- * → 1.2 屏幕开机，1.75 工作台完全亮起 → 1.8 小鲸鱼探头、DeepSeek Harness 卡片亮两下 → 1.9 / 2.05 / 2.2 三张卡片
+ * → 0～1.45 屏幕是开机启动画面（黑底白色 AgentStation 标志）→ 1.6～2.1 过渡到桌面和工作台
+ * → 1.8 小鲸鱼探头 → 1.9 / 2.05 / 2.2 三张卡片 → 2.15 DeepSeek Harness 卡片亮两下
  * → 2.35「数据不出盒」。 */
 .is-waiting .zft-stage {
   opacity: 0;
@@ -371,13 +389,32 @@ onMounted(async () => {
   }
 }
 
-/* 开机：黑屏 → 背光亮起 → 工作台 */
+/* 开机：启动画面（黑底 + AgentStation 标志）→ 桌面和工作台 */
 .is-playing .zft-screen-off {
-  animation: zft-screen-off 1.75s linear both;
+  animation: zft-screen-off 2.1s linear both;
 }
 @keyframes zft-screen-off {
   0%,
-  77% {
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.is-playing .zft-screen-logo {
+  animation: zft-screen-logo 1.6s ease-out 0.05s both;
+}
+@keyframes zft-screen-logo {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  88% {
     opacity: 1;
   }
   100% {
@@ -385,14 +422,14 @@ onMounted(async () => {
   }
 }
 .is-playing .zft-screen-glow {
-  animation: zft-screen-glow 0.55s ease-out 1.2s both;
+  animation: zft-screen-glow 0.55s ease-out 1.55s both;
 }
 @keyframes zft-screen-glow {
   0% {
     opacity: 0;
   }
   35% {
-    opacity: 0.8;
+    opacity: 0.3;
   }
   100% {
     opacity: 0;
@@ -400,7 +437,7 @@ onMounted(async () => {
 }
 
 .is-playing .zft-ds-ring {
-  animation: zft-ds-ring 1s ease-out 1.8s 2 both;
+  animation: zft-ds-ring 1s ease-out 2.15s 2 both;
 }
 @keyframes zft-ds-ring {
   0% {
