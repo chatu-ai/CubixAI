@@ -1,4 +1,4 @@
-import { START_LOCATION, createRouter, createWebHistory } from 'vue-router'
+import { START_LOCATION, createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationNormalized, RouteMeta, RouteRecordRaw } from 'vue-router'
 import i18n, { landingLocale, setLocale, type SupportedLocale } from '../i18n'
 import { HREFLANG, LEGACY_REDIRECTS, SUPPORTED_LOCALES, localeFromPath, localizePath, stripLocale } from '../i18n/paths'
@@ -22,7 +22,7 @@ declare module 'vue-router' {
 }
 
 // 站点基础配置（后续换域名时只需改这里）
-const SITE_ORIGIN = 'https://www.cubixai.com'
+export const SITE_ORIGIN = 'https://www.cubixai.com'
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`
 const SITE_LOGO = `${SITE_ORIGIN}/logo.png`
 
@@ -51,6 +51,27 @@ export function resolveTitle(meta: RouteMeta, locale: SupportedLocale): string {
     if (!meta.title) return defaultTitles[locale]
   }
   return meta.title || defaultSeo.title
+}
+
+/** /en、/ja、/ko 下自动生成的页面（路由名以 -en / -ja / -ko 结尾）；单独做的各语言页面（如 ContactEn）不算 */
+export function isGeneratedLocaleRoute(name: unknown): boolean {
+  return /-(en|ja|ko)$/.test(String(name ?? ''))
+}
+
+/**
+ * 页面的标题和描述（浏览器里切换页面时、构建时生成各页面网页文件时共用）。
+ * 自动生成的 /en、/ja、/ko 页面没有对应语言的描述，用该语言的网站简介 tagline，避免英文页面配中文描述。
+ */
+export function pageHead(meta: RouteMeta, routeName: unknown, locale: SupportedLocale, tagline: string) {
+  const title = resolveTitle(meta, locale)
+  const generated = isGeneratedLocaleRoute(routeName)
+  const description = generated ? tagline : meta.description || defaultSeo.description
+  return {
+    title,
+    description,
+    ogTitle: generated ? title : meta.ogTitle || title,
+    ogDescription: generated ? description : meta.ogDescription || description,
+  }
 }
 
 // 通用组织信息（所有页面共用）
@@ -437,7 +458,8 @@ const localizedRoutes: RouteRecordRaw[] = SUPPORTED_LOCALES.filter((l) => l !== 
 const legacyRoutes: RouteRecordRaw[] = Object.entries(LEGACY_REDIRECTS).map(([path, redirect]) => ({ path, redirect }))
 
 const router = createRouter({
-  history: createWebHistory(),
+  // 构建时在 Node 里读取路由信息（生成各页面网页文件）没有 window，用内存历史
+  history: typeof window === 'undefined' ? createMemoryHistory() : createWebHistory(),
   scrollBehavior(to, from, savedPosition) {
     // 换页时等旧页淡出、新页挂载后再滚动（页面切换动画约 150ms），锚点元素才存在
     const wait = to.path !== from.path ? 180 : 0
@@ -549,10 +571,8 @@ function buildJsonLd(routeSchema: Record<string, any> | Record<string, any>[] | 
  */
 function updateSeo(to: RouteLocationNormalized) {
   const meta = to.meta
-  const title = resolveTitle(meta, i18n.global.locale.value as SupportedLocale)
-  const description = meta.description || defaultSeo.description
-  const ogTitle = meta.ogTitle || title
-  const ogDescription = meta.ogDescription || description
+  const locale = i18n.global.locale.value as SupportedLocale
+  const { title, description, ogTitle, ogDescription } = pageHead(meta, to.name, locale, i18n.global.t('common.siteTagline'))
   const ogImage = meta.ogImage || defaultSeo.ogImage
   const canonical = `${SITE_ORIGIN}${to.path}`
 
