@@ -48,7 +48,8 @@ const DEVICE_SHADOW: Box = [1865, 838, 2490, 894]
 const WHALE: Box = [2228, 268, 2440, 453]
 // 三张「已就绪」卡片排一行，在设备和包装盒下面；左边要让开底部居中的翻页按钮（窄屏时按钮右端约在 x≈1915）
 const CARDS_AT = at(1960, 890)
-const SEAL_AT = at(2680, 392)
+// 「数据不出盒」左边对齐在小鲸鱼右侧（各语言长度不同，韩文最长，往右延伸不会压到鲸鱼）
+const SEAL_AT = at(2470, 392)
 
 // 第一次显示时等图片解码完再开始入场
 const ready = ref(false)
@@ -233,7 +234,8 @@ onMounted(async () => {
   font-weight: 600;
   white-space: nowrap;
   box-shadow: 0 0.4cqw 1.4cqw rgba(26, 86, 214, 0.35);
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
+  transform-origin: 0 50%;
 }
 .zft-seal-icon {
   display: flex;
@@ -475,11 +477,11 @@ onMounted(async () => {
 @keyframes zft-seal {
   from {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.3);
+    transform: translateY(-50%) scale(0.3);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateY(-50%) scale(1);
   }
 }
 
