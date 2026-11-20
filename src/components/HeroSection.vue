@@ -4,8 +4,12 @@ import { useI18n } from 'vue-i18n'
 import { Icon } from '@iconify/vue'
 import HeroArt from './HeroArt.vue'
 import HeroChatuArt from './HeroChatuArt.vue'
+import HeroZftArt from './HeroZftArt.vue'
 
 const { t, locale } = useI18n()
+
+// 每张横幅的停留时间：入场动画要能完整看到
+const SLIDE_DURATION = 5000
 
 // 第一张横幅是分层动画版（HeroArt）：标题和图标文字画在图里，中文版用中文文字层，其他语言用英文文字层
 const isChinese = computed(() => locale.value === 'zh-CN')
@@ -14,21 +18,31 @@ const slides = computed(() => [
   {
     art: true,
     chatu: false,
+    duration: SLIDE_DURATION,
     src: '',
     alt: isChinese.value ? '软积木：打通企业 AI 落地最后三公里' : 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption',
     position: '',
   },
   // 第二张 ChatU 横幅：标志外圈光环旋转（HeroChatuArt），文字为页面上叠加的多语言文字
-  { art: false, chatu: true, src: '', alt: 'ChatU', position: '' },
-  // { src: zftBanana, alt: '智方体' },
+  { art: false, chatu: true, duration: SLIDE_DURATION, src: '', alt: 'ChatU', position: '' },
+  // 第三张智方体横幅：真实开箱 → 取出设备立在桌上 → 开机、智能体就绪（HeroZftArt），文字为页面上叠加的多语言文字。
+  // 开箱动画约 4.8 秒，这一张多停一会儿，让结束画面也能看清
+  {
+    art: false,
+    chatu: false,
+    zft: true,
+    duration: 8000,
+    src: '',
+    alt: isChinese.value ? '智方体 AgentStation：开箱即用的企业 AI 工作站，数据不出盒' : 'AgentStation: a plug-and-play enterprise AI workstation — your data never leaves the box',
+    position: '',
+  },
 ])
 
 const current = ref(0)
-let autoTimer: ReturnType<typeof setInterval> | null = null
+let autoTimer: ReturnType<typeof setTimeout> | null = null
 let manualDelayTimer: ReturnType<typeof setTimeout> | null = null
-// 第一张横幅有入场动画，每张停留 5 秒，让动画能完整看到
+// 手动切换后过 5 秒恢复自动轮播
 const AUTOPLAY_DELAY = 5000
-const AUTOPLAY_INTERVAL = 5000
 
 // Drag/swipe state
 const isDragging = ref(false)
@@ -41,16 +55,18 @@ const DRAG_THRESHOLD = 50
 
 let windowPointerUpHandler: ((e: PointerEvent) => void) | null = null
 
+// 自动轮播：每张按自己的停留时间切到下一张
 function startAutoplay() {
-  if (autoTimer) clearInterval(autoTimer)
-  autoTimer = setInterval(() => {
+  stopAutoplay()
+  autoTimer = setTimeout(() => {
     current.value = (current.value + 1) % slides.value.length
-  }, AUTOPLAY_INTERVAL)
+    startAutoplay()
+  }, slides.value[current.value]?.duration ?? SLIDE_DURATION)
 }
 
 function stopAutoplay() {
   if (autoTimer) {
-    clearInterval(autoTimer)
+    clearTimeout(autoTimer)
     autoTimer = null
   }
 }
@@ -206,6 +222,7 @@ onUnmounted(() => {
             :alt="slide.alt"
           />
           <HeroChatuArt v-else-if="slide.chatu" :alt="slide.alt" />
+          <HeroZftArt v-else-if="'zft' in slide && slide.zft" :active="current === i" :alt="slide.alt" />
           <!-- Slide 1 (rjm_banana) text -->
           <!-- <div
             v-if="i === 0"
@@ -224,8 +241,9 @@ onUnmounted(() => {
             v-if="i === 1"
             class="absolute inset-0 flex items-center"
           >
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <!-- 文字按横幅宽度（cqw）等比缩放，保证任何屏幕宽度下都完整落在横幅内；宽屏下不超过原来的 lg 尺寸 -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:pl-16 2xl:pl-8 w-full">
+              <!-- 文字按横幅宽度（cqw）等比缩放，保证任何屏幕宽度下都完整落在横幅内；宽屏下不超过原来的 lg 尺寸。
+                   lg～2xl 左边距加大，避开鼠标移上去时出现的左侧箭头 -->
               <div class="max-w-[68cqw] sm:max-w-[min(40cqw,36rem)]">
                 <p class="text-[length:7cqw] sm:text-[length:min(4.2cqw,3.75rem)] leading-none font-semibold text-[#433487]">{{ t('home.hero.slide2Title') }}</p>
                 <p class="mt-[2.4cqw] sm:mt-[min(1.67cqw,1.5rem)] text-[length:4.4cqw] sm:text-[length:min(2.5cqw,2.25rem)] leading-[1.15] font-semibold text-[#1A1A1A]">{{ t('home.hero.slide2Sub') }}</p>
@@ -234,20 +252,21 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
-          <!-- Slide 3 (zft_banana1) text -->
-          <!-- <div
+          <!-- 第三张（智方体）文字：与第二张同样按横幅宽度（cqw）等比缩放 -->
+          <div
             v-if="i === 2"
-            class="absolute inset-0 flex items-center"
+            class="absolute inset-0 flex items-center pointer-events-none"
           >
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div class="max-w-xl">
-                <p class="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#1A8BC4] drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Title') }}</p>
-                <p class="mt-6 text-2xl md:text-3xl lg:text-4xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Sub') }}</p>
-                <p class="mt-6 text-lg md:text-xl lg:text-2xl font-semibold text-ink-secondary drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Desc1') }}</p>
-                <p class="mt-6 text-lg md:text-xl lg:text-2xl font-semibold text-[#1A1A1A] drop-shadow-lg tracking-wide">{{ t('home.hero.slide3Desc2') }}</p>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:pl-16 2xl:pl-8 w-full">
+              <!-- 手机上横幅图向左平移，立方体在右半边，文字只占左半边 -->
+              <div class="max-w-[46cqw] sm:max-w-[min(38cqw,34rem)]">
+                <p class="text-[length:6cqw] sm:text-[length:min(3.6cqw,3.25rem)] leading-tight font-semibold text-[#1A56D6]">{{ t('home.hero.slide3Title') }}</p>
+                <p class="mt-[2cqw] sm:mt-[min(1.4cqw,1.25rem)] text-[length:4cqw] sm:text-[length:min(2.3cqw,2rem)] leading-[1.15] font-semibold text-[#1A1A1A]">{{ t('home.hero.slide3Sub') }}</p>
+                <p class="mt-[2cqw] sm:mt-[min(1.4cqw,1.25rem)] text-[length:3cqw] sm:text-[length:min(1.55cqw,1.375rem)] leading-[1.4] font-semibold text-ink-secondary">{{ t('home.hero.slide3Desc1') }}</p>
+                <p class="mt-[1cqw] sm:mt-[min(0.8cqw,0.75rem)] text-[length:3cqw] sm:text-[length:min(1.55cqw,1.375rem)] leading-[1.4] font-semibold text-[#1A1A1A]">{{ t('home.hero.slide3Desc2') }}</p>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
 

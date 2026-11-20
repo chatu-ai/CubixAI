@@ -92,6 +92,10 @@ export default {
       prev: '前のスライド',
       next: '次のスライド',
       goTo: 'スライド {n} を表示',
+      zft: {
+        seal: 'データは箱の外に出ません',
+        ready: '準備完了',
+      },
       slide3Title: 'AgentStation',
       slide3Sub: 'インテリジェントワーク · 安全は手元に',
       slide3Desc1: 'すぐに使える企業AIワークステーション · データはオンプレミス',
