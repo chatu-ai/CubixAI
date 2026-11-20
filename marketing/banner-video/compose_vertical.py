@@ -238,7 +238,7 @@ def slide3(i):
     frame = Image.open(frames_dir / f'f{i:04d}.png').convert('RGB')
     canvas = BG3.copy()
     place(canvas, frame, S3_TEXT, S3_TEXT_AT, (55, 45, 70, 45))
-    place(canvas, frame, S3_PROD, S3_PROD_AT, (40, 70, 40, 90))
+    place(canvas, frame, S3_PROD, S3_PROD_AT, (40, 70, 40, 16))
     if i >= CARDS_FROM:
         place_cards(canvas, frame)
     return canvas
