@@ -25,13 +25,13 @@ const slides = computed(() => [
   },
   // 第二张 ChatU 横幅：标志外圈光环旋转（HeroChatuArt），文字为页面上叠加的多语言文字
   { art: false, chatu: true, duration: SLIDE_DURATION, src: '', alt: 'ChatU', position: '' },
-  // 第三张智方体横幅：真实开箱 → 取出设备立在桌上 → 开机、智能体就绪（HeroZftArt），文字为页面上叠加的多语言文字。
-  // 开箱动画约 4.8 秒，这一张多停一会儿，让结束画面也能看清
+  // 第三张智方体横幅：包装盒和真机实拍照片，镜头推近 → 屏幕开机 → 智能体就绪（HeroZftArt），文字为页面上叠加的多语言文字。
+  // 这一张信息多（卡片、标签），多停 1 秒
   {
     art: false,
     chatu: false,
     zft: true,
-    duration: 8000,
+    duration: 6000,
     src: '',
     alt: isChinese.value ? '智方体 AgentStation：开箱即用的企业 AI 工作站，数据不出盒' : 'AgentStation: a plug-and-play enterprise AI workstation — your data never leaves the box',
     position: '',
