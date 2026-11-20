@@ -1,11 +1,10 @@
-import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import indexHtml from '../../index.html?raw'
 import router from '@/router'
 import { paidInsights } from '@/data/paidInsights'
 import { localeFromPath } from '@/i18n/paths'
 import { renderPage, staticPages } from './staticPages'
 
-const indexHtml = readFileSync('index.html', 'utf8')
 const KANA = /[぀-ヿ]/
 const HANGUL = /[가-힯]/
 
