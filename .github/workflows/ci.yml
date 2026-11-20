@@ -40,6 +40,19 @@ jobs:
         run: |
           coscmd upload -r dist/ / --delete --ignore "./*.map"
 
+      # 各页面的网页文件（构建时生成在 dist-routes/）上传到 COS 里和网址同名的位置，
+      # 让 /products/chatu、/en/cases 等地址返回 200 而不是 404（原理见 src/seo/staticPages.ts）。
+      # 上一步的 --delete 会先删掉上次部署的这些文件（dist/ 里没有），这几秒内访问会由 index.html 兜底，页面照常显示。
+      - name: Upload page routes
+        run: |
+          pip install cos-python-sdk-v5 2>/dev/null
+          python3 scripts/upload_route_pages.py
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          COS_BUCKET: ${{ secrets.COS_BUCKET }}
+          COS_REGION: ${{ secrets.COS_REGION }}
+
       # 刷新 CDN 缓存（Python 签名，更可靠）
       - name: Refresh CDN
         run: |
