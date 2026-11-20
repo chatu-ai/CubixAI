@@ -19,7 +19,7 @@ async function bootstrap() {
   const app = createApp(App)
   app.use(router)
   app.use(i18n)
-  await router.isReady()
+  // 不等当前页面的代码加载完就挂载：页头页脚先出来，页面内容随后显示（和以前一样）
   app.mount('#app')
 }
 
