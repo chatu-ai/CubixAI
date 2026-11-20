@@ -5,6 +5,7 @@ import { Icon } from '@iconify/vue'
 import boxUrl from '@/assets/hero/zft/box-photo.webp'
 import deviceUrl from '@/assets/hero/zft/device.webp'
 import crabUrl from '@/assets/hero/zft/crab.webp'
+import whaleUrl from '@/assets/hero/zft/whale.webp'
 import hermesUrl from '@/assets/hero/zft/hermes.webp'
 
 /**
@@ -15,7 +16,7 @@ import hermesUrl from '@/assets/hero/zft/hermes.webp'
  *   镜头推近：画面从稍大、稍偏右慢慢推到位，近处的设备比远处的包装盒移动得多（视差）；
  *   反光：一道光从包装盒表面扫过；
  *   开机：设备黑屏（带玻璃反光）→ 背光亮起 → 工作台，DeepSeek Harness 卡片亮两下；
- *   之后 OpenClaw 龙虾探头，OpenClaw / Hermes「已就绪」，「数据不出盒」。
+ *   之后 DeepSeek 小鲸鱼从设备后面探头，DeepSeek Harness / OpenClaw / Hermes「已就绪」，「数据不出盒」。
  * 位置用原图坐标（3392 × 1120，与第一张横幅同比例）按百分比摆放；尺寸用 cqw（横幅宽度的 1%）。
  * 静止画面（未播放、减少动态效果）就是动画结束时的样子。
  */
@@ -44,15 +45,16 @@ const DEVICE: Box = [1850, 425, 2500, 867]
 // 地面接触阴影：盒子底边、设备底边
 const BOX_SHADOW: Box = [2475, 778, 3155, 843]
 const DEVICE_SHADOW: Box = [1865, 838, 2490, 894]
-const CRAB: Box = [2270, 317, 2420, 455]
-const CARDS_AT = at(2500, 872)
+const WHALE: Box = [2228, 268, 2440, 453]
+// 三张「已就绪」卡片排一行，在设备和包装盒下面；左边要让开底部居中的翻页按钮（窄屏时按钮右端约在 x≈1915）
+const CARDS_AT = at(1960, 890)
 const SEAL_AT = at(2680, 392)
 
 // 第一次显示时等图片解码完再开始入场
 const ready = ref(false)
 onMounted(async () => {
   await Promise.all(
-    [boxUrl, deviceUrl, crabUrl, hermesUrl].map((src) => {
+    [boxUrl, deviceUrl, whaleUrl, crabUrl, hermesUrl].map((src) => {
       const img = new Image()
       img.src = src
       return img.decode().catch(() => undefined)
@@ -84,10 +86,10 @@ onMounted(async () => {
           </div>
         </div>
 
-        <!-- 近处：设备（龙虾在设备后面，从屏幕上沿探出来） -->
+        <!-- 近处：设备（小鲸鱼在设备后面，从屏幕上沿探出来） -->
         <div class="zft-near absolute inset-0">
-          <div class="zft-crab absolute" :style="box(CRAB)">
-            <img :src="crabUrl" alt="" class="zft-crab-img w-full h-full" draggable="false" />
+          <div class="zft-whale absolute" :style="box(WHALE)">
+            <img :src="whaleUrl" alt="" class="zft-whale-img w-full h-full" draggable="false" />
           </div>
           <span class="zft-shadow zft-shadow-dev" :style="box(DEVICE_SHADOW)" />
           <div class="zft-device absolute" :style="box(DEVICE)">
@@ -107,13 +109,17 @@ onMounted(async () => {
         <span class="zft-seal-text">{{ t('home.hero.zft.seal') }}</span>
       </div>
 
-      <!-- 智能体卡片：OpenClaw、Hermes「已就绪」 -->
+      <!-- 智能体卡片：DeepSeek Harness、OpenClaw、Hermes「已就绪」 -->
       <div class="zft-cards" :style="CARDS_AT">
         <div class="zft-card" style="animation-delay: 1.9s">
+          <span class="zft-avatar zft-avatar-whale"><img :src="whaleUrl" alt="" draggable="false" /></span>
+          <span class="zft-card-name">DeepSeek Harness <em>{{ t('home.hero.zft.ready') }}</em></span>
+        </div>
+        <div class="zft-card" style="animation-delay: 2.05s">
           <span class="zft-avatar zft-avatar-claw"><img :src="crabUrl" alt="" draggable="false" /></span>
           <span class="zft-card-name">OpenClaw <em>{{ t('home.hero.zft.ready') }}</em></span>
         </div>
-        <div class="zft-card" style="animation-delay: 2.05s">
+        <div class="zft-card" style="animation-delay: 2.2s">
           <span class="zft-avatar"><img :src="hermesUrl" alt="" draggable="false" /></span>
           <span class="zft-card-name">Hermes <em>{{ t('home.hero.zft.ready') }}</em></span>
         </div>
@@ -278,7 +284,12 @@ onMounted(async () => {
   background: radial-gradient(circle at 40% 35%, #fff1ef, #ffd9d3);
   padding: 0.35cqw;
 }
-.zft-avatar-claw img {
+.zft-avatar-whale {
+  background: radial-gradient(circle at 40% 35%, #f1f4ff, #d9e1ff);
+  padding: 0.25cqw;
+}
+.zft-avatar-claw img,
+.zft-avatar-whale img {
   object-fit: contain;
 }
 .zft-card-name {
@@ -302,7 +313,8 @@ onMounted(async () => {
 
 /* ============ 动画 ============
  * 时间线（秒）：0～1.4 镜头推近（近处设备比远处盒子多移一点）→ 0.7 盒子表面扫过反光
- * → 1.2 屏幕开机，1.75 工作台完全亮起 → 1.8 龙虾探头、DeepSeek Harness 卡片亮两下 → 1.9 卡片 → 2.2「数据不出盒」。 */
+ * → 1.2 屏幕开机，1.75 工作台完全亮起 → 1.8 小鲸鱼探头、DeepSeek Harness 卡片亮两下 → 1.9 / 2.05 / 2.2 三张卡片
+ * → 2.35「数据不出盒」。 */
 .is-waiting .zft-stage {
   opacity: 0;
 }
@@ -402,14 +414,14 @@ onMounted(async () => {
   }
 }
 
-/* 龙虾：从屏幕后面向上探出来，之后不时扭一扭 */
-.zft-crab-img {
+/* 小鲸鱼：从屏幕后面向上探出来，之后不时扭一扭 */
+.zft-whale-img {
   transform-origin: 50% 80%;
 }
-.is-playing .zft-crab {
-  animation: zft-crab 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) 1.8s both;
+.is-playing .zft-whale {
+  animation: zft-whale 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) 1.8s both;
 }
-@keyframes zft-crab {
+@keyframes zft-whale {
   from {
     opacity: 0;
     transform: translateY(55%) scale(0.85);
@@ -422,7 +434,7 @@ onMounted(async () => {
     transform: none;
   }
 }
-.is-playing .zft-crab-img {
+.is-playing .zft-whale-img {
   animation: zft-wiggle 4s ease-in-out 2.5s infinite;
 }
 @keyframes zft-wiggle {
@@ -458,7 +470,7 @@ onMounted(async () => {
   }
 }
 .is-playing .zft-seal {
-  animation: zft-seal 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) 2.2s both;
+  animation: zft-seal 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) 2.35s both;
 }
 @keyframes zft-seal {
   from {
@@ -471,7 +483,7 @@ onMounted(async () => {
   }
 }
 
-/* 手机：横幅图左移，包装盒在右半边；设备、龙虾、卡片会压到文字，隐藏；
+/* 手机：横幅图左移，包装盒在右半边；设备、小鲸鱼、卡片会压到文字，隐藏；
  * 「数据不出盒」会和标题挤在一起（副标题里已有这句），也隐藏 */
 @media (max-width: 639px) {
   .zft-near,
