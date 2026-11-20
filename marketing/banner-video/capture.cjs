@@ -1,15 +1,19 @@
 // 逐帧录制首页横幅：第一张（搭积木动画）5 秒，然后切到第二张（ChatU）再录 5 秒，每秒 30 帧。
-// 用法：node marketing/banner-video/capture.cjs <输出目录> <网站地址> <语言，如 zh-CN / en-US / ja-JP / ko-KR>
+// 用法：node marketing/banner-video/capture.cjs <输出目录> <网站地址> <语言，如 zh-CN / en-US / ja-JP / ko-KR> [--vertical]
 // 需要 Playwright（Chromium）。录制时暂停所有动画、逐帧推进时间，所以画面不会掉帧，和配乐严格对齐。
+// --vertical：给竖屏版准备素材——按 2 倍分辨率录制，切到第二张时跳过横向滑动（竖屏版自己做转场），
+//             并把第二张文字块的位置写到 <输出目录>/layout.json，供 compose_vertical.py 裁剪重排。
+const fs = require('node:fs')
 const { chromium } = require('playwright')
-const [out, base, locale] = process.argv.slice(2)
+const [out, base, locale, mode] = process.argv.slice(2)
+const VERTICAL = mode === '--vertical'
 const FPS = 30
 const SLIDE1 = 5.0 // 与 make_bgm.py 中的 SLIDE 一致
 const SLIDE2 = 5.0
 
 ;(async () => {
   const browser = await chromium.launch()
-  const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1, locale })
+  const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: VERTICAL ? 2 : 1, locale })
   await ctx.addInitScript(() => {
     try {
       localStorage.setItem('cookie-consent', 'rejected')
@@ -63,6 +67,19 @@ const SLIDE2 = 5.0
     document.querySelectorAll('[aria-roledescription="carousel"] > div.absolute > div > button')[1].click()
   })
   await page.waitForTimeout(30)
+  if (VERTICAL) {
+    // 直接把横向滑动的过渡播完，第二张从静止位置开始录
+    await page.evaluate(() => {
+      for (const a of document.getAnimations()) if (a instanceof CSSTransition) a.finish()
+    })
+    await page.waitForTimeout(50)
+    const text = await page.evaluate(() => {
+      const el = [...document.querySelectorAll('[aria-roledescription="carousel"] p')].find((p) => p.textContent.includes('ChatU'))
+      const r = el.parentElement.getBoundingClientRect()
+      return { x: r.x, y: r.y, width: r.width, height: r.height }
+    })
+    fs.writeFileSync(`${out}/layout.json`, JSON.stringify({ scale: 2, clip, chatuText: text }, null, 1))
+  }
   await page.evaluate(() => {
     window.__base = new Map()
     for (const a of document.getAnimations()) {
