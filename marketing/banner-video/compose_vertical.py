@@ -72,7 +72,7 @@ S3_TEXT = (
     round((t3['x'] - clip['x'] + t3['width'] + pad) * S),
     round((t3['y'] - clip['y'] + t3['height'] + pad) * S),
 )
-S3_PROD = img_box(1790, 270, 3230, 912)
+S3_PROD = img_box(1790, 280, 3230, 905)
 S3_CARDS = img_box(2470, 856, 3290, 975)
 
 # 版面位置（输出像素）：(左, 上, 宽)
@@ -80,17 +80,20 @@ S1_TEXT_AT = (20, 210, 1040)
 S1_CUBE_AT = (0, 700, 1080)
 S2_TEXT_AT = (40, 230, 1000)
 S2_RING_AT = (40, 720, 1000)
-# 第三张：文字下面紧接产品图，再下面是卡片（文字行数随语言变化，所以按文字高度往下排）
-S3_TEXT_AT = (40, 230, 1000)
+# 第三张：文字、产品图、卡片从上到下排，整组在 Logo 上方的空间里垂直居中（文字行数随语言变化，按实际高度计算）
 
 
 def scaled_h(box, width):
     return round((box[3] - box[1]) * width / (box[2] - box[0]))
 
 
-S3_PROD_AT = (0, S3_TEXT_AT[1] + scaled_h(S3_TEXT, S3_TEXT_AT[2]) + 10, 1080)
-S3_CARDS_AT = (110, S3_PROD_AT[1] + scaled_h(S3_PROD, 1080) + 10, 860)
-assert S3_CARDS_AT[1] + scaled_h(S3_CARDS, 860) < 1650, '第三张内容太高，会压到底部 Logo'
+_h3 = [scaled_h(S3_TEXT, 1000), scaled_h(S3_PROD, 1080), scaled_h(S3_CARDS, 860)]
+_gap = 40
+_top = max(230, 180 + (1460 - sum(_h3) - 2 * _gap) // 2)
+S3_TEXT_AT = (40, _top, 1000)
+S3_PROD_AT = (0, _top + _h3[0] + _gap, 1080)
+S3_CARDS_AT = (110, S3_PROD_AT[1] + _h3[1] + _gap, 860)
+assert S3_CARDS_AT[1] + _h3[2] < 1650, '第三张内容太高，会压到底部 Logo'
 
 
 def gradient(top, bottom, glow_center, glow_color, glow_radius):
@@ -162,7 +165,28 @@ def border_color(frame_name, box):
 
 BG1 = gradient(border_color('f0149.png', S1_TEXT), (229, 244, 235), (540, 1150), (85, 173, 115, 0.18), 760)
 BG2 = gradient(border_color('f0299.png', S2_TEXT), (236, 232, 249), (540, 1180), (67, 52, 135, 0.10), 760)
-BG3 = gradient(border_color(f'f{TOTAL_FRAMES - 1:04d}.png', S3_TEXT), (226, 237, 255), (540, 1100), (64, 150, 255, 0.12), 760)
+
+
+def stops_gradient(stops):
+    """竖直方向按 (y, 颜色) 插值的底色"""
+    ys = [y for y, _ in stops]
+    col = np.stack([np.interp(np.arange(H), ys, [c[k] for _, c in stops]) for k in range(3)], 1)
+    return Image.fromarray(np.broadcast_to(col[:, None, :], (H, W, 3)).clip(0, 255).astype(np.uint8))
+
+
+# 第三张底色：每一块所在高度的底色取这一块四周的颜色（卡片取出现前的空白画面），裁出的各块边缘才看不出接缝
+_f3 = f'f{TOTAL_FRAMES - 1:04d}.png'
+_c_text = border_color(_f3, S3_TEXT)
+_c_prod = border_color(_f3, S3_PROD)
+_c_cards = border_color(f'f{STARTS[2] + 20:04d}.png', S3_CARDS)
+_mid = lambda at, h: at[1] + h // 2  # noqa: E731
+BG3 = stops_gradient([
+    (0, _c_text),
+    (_mid(S3_TEXT_AT, _h3[0]), _c_text),
+    (_mid(S3_PROD_AT, _h3[1]), _c_prod),
+    (_mid(S3_CARDS_AT, _h3[2]), _c_cards),
+    (H - 1, _c_cards),
+])
 footer(BG1)
 footer(BG2)
 footer(BG3)
@@ -184,12 +208,32 @@ def slide2(i):
     return canvas
 
 
+# 卡片只贴出「和卡片出现前的空白画面不一样」的部分（卡片和它的阴影），盒子的投影等底色变化不会带过来。
+# 参考帧取镜头推近结束后、卡片出现前（第三张 1.5 秒）；卡片 1.9 秒才出现，之前不贴
+CARDS_REF = np.asarray(Image.open(frames_dir / f'f{STARTS[2] + 45:04d}.png').convert('RGB').crop(S3_CARDS), dtype=np.int16)
+CARDS_FROM = STARTS[2] + 50
+
+
+def place_cards(canvas, frame):
+    x, y, width = S3_CARDS_AT
+    region = np.asarray(frame.crop(S3_CARDS), dtype=np.int16)
+    alpha = np.clip(np.abs(region - CARDS_REF).max(2) / 18.0, 0, 1)
+    im = Image.fromarray(region.astype(np.uint8))
+    a = Image.fromarray((alpha * 255).astype(np.uint8))
+    height = round(im.height * width / im.width)
+    im = im.resize((width, height), Image.LANCZOS)
+    a = a.resize((width, height), Image.LANCZOS)
+    a = Image.fromarray((np.asarray(a, float) * np.asarray(feather(width, height, 20, 10, 20, 10), float) / 255).astype(np.uint8))
+    canvas.paste(im, (x, y), a)
+
+
 def slide3(i):
     frame = Image.open(frames_dir / f'f{i:04d}.png').convert('RGB')
     canvas = BG3.copy()
     place(canvas, frame, S3_TEXT, S3_TEXT_AT, (55, 45, 70, 45))
-    place(canvas, frame, S3_PROD, S3_PROD_AT, (90, 70, 90, 70))
-    place(canvas, frame, S3_CARDS, S3_CARDS_AT, (40, 30, 40, 30))
+    place(canvas, frame, S3_PROD, S3_PROD_AT, (40, 70, 40, 90))
+    if i >= CARDS_FROM:
+        place_cards(canvas, frame)
     return canvas
 
 
