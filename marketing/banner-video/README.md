@@ -34,9 +34,9 @@ bash marketing/banner-video/build.sh
 | 10.0 秒 | 切到智方体横幅，镜头推近 | 转场「嗖」 |
 | 10.7 秒 | 包装盒表面扫过反光 | 玻璃质感的闪光滑音 |
 | 11.2 秒 | 设备屏幕开机 | 轻柔开机声 + 三音铃声 |
-| 11.8 秒 | OpenClaw 龙虾探头 | 两声俏皮的上滑音 |
-| 11.9 / 12.05 秒 | OpenClaw、Hermes「已就绪」 | 两声清脆的提示音 |
-| 12.2 秒 | 「数据不出盒」 | 锁扣「咔哒」+ 高音闪光 |
+| 11.8 秒 | DeepSeek 小鲸鱼探头 | 两声俏皮的上滑音 |
+| 11.9 / 12.05 / 12.2 秒 | DeepSeek Harness、OpenClaw、Hermes「已就绪」 | 三声清脆的提示音 |
+| 12.35 秒 | 「数据不出盒」 | 锁扣「咔哒」+ 高音闪光 |
 | 13.83～14.8 秒 | 结束 | A 小调和弦收尾，淡出 |
 
 动画时间线改动后（`src/components/HeroArt.vue` 的 `BLOCK_START`、`BLOCK_GAP`、`LID_START`，`src/components/HeroZftArt.vue` 的时间线），需同步修改 `make_bgm.py` 里的 `BLOCK_HITS`、`LID_HIT`、`ZFT_*`，重新生成 `bgm.mp3`：

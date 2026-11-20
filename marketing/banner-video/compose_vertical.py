@@ -72,9 +72,9 @@ S3_TEXT = (
     round((t3['x'] - clip['x'] + t3['width'] + pad) * S),
     round((t3['y'] - clip['y'] + t3['height'] + pad) * S),
 )
-S3_PROD = img_box(1790, 280, 3230, 905)
+S3_PROD = img_box(1790, 255, 3230, 888)
 # 卡片宽度随语言变化（韩文最长），从最后一帧里找出卡片实际的左右范围再裁
-_search = img_box(2380, 856, 3392, 975)
+_search = img_box(1900, 872, 3392, 1000)
 _last = np.asarray(Image.open(frames_dir / f'f{TOTAL_FRAMES - 1:04d}.png').convert('RGB').crop(_search), dtype=np.int16)
 _empty = np.asarray(Image.open(frames_dir / f'f{STARTS[2] + 45:04d}.png').convert('RGB').crop(_search), dtype=np.int16)
 _cols = np.where((np.abs(_last - _empty).max(2) > 18).any(0))[0]

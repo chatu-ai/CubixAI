@@ -10,7 +10,7 @@
   → 顶盖 1.83 秒砸实（节奏从这里进来）；
   5.0 秒切到第二张 ChatU 横幅；
   10.0 秒切到第三张智方体横幅（src/components/HeroZftArt.vue）：盒面反光 +0.7 秒 → 屏幕开机 +1.2 秒
-  → 龙虾探头 +1.8 秒 → 智能体卡片 +1.9 / +2.05 秒 →「数据不出盒」+2.2 秒；
+  → 小鲸鱼探头 +1.8 秒 → 智能体卡片 +1.9 / +2.05 / +2.2 秒 →「数据不出盒」+2.35 秒；
   13.83 秒结束和弦，最后 0.8 秒淡出。
 如果改了 HeroArt.vue 里的 BLOCK_START / BLOCK_GAP / LID_START、HeroZftArt.vue 的时间线，或视频里切换横幅的时间，
 这里的 BLOCK_HITS / LID_HIT / SLIDE / SLIDE2 / ZFT_* 也要一起改。
@@ -89,7 +89,7 @@ BEAT = 0.5                      # 120 BPM, the drop lands on the lid hit
 SLIDE = 5.0                     # switch to the ChatU banner
 SLIDE2 = 10.0                   # switch to the AgentStation banner
 # AgentStation banner (HeroZftArt.vue), seconds after SLIDE2
-ZFT_SHEEN, ZFT_BOOT, ZFT_CRAB, ZFT_CARDS, ZFT_SEAL = 0.7, 1.2, 1.8, (1.9, 2.05), 2.2
+ZFT_SHEEN, ZFT_BOOT, ZFT_WHALE, ZFT_CARDS, ZFT_SEAL = 0.7, 1.2, 1.8, (1.9, 2.05, 2.2), 2.35
 
 # ----------------------------------------------------------------- music: intro pad (A minor add9) swelling into the drop
 def pad(notes, t0, t1, gain, cutoff=1800, attack=0.4, release=0.6):
@@ -185,13 +185,13 @@ for k, m in enumerate([76, 83, 88]):
     fb = note(m)
     bell = (np.sin(2 * np.pi * fb * t) + 0.35 * np.sin(2 * np.pi * fb * 2.0 * t) * np.exp(-t / 0.1)) * np.exp(-t / 0.35)
     add(bell * 0.11, SLIDE2 + ZFT_BOOT + 0.2 + k * 0.09, pan=(k - 1) * 0.4, rev=0.6)
-# crab peeking out: two playful upward blips
+# whale peeking out: two playful upward blips
 for k, (f0, f1) in enumerate(((620, 1240), (820, 1640))):
     n = int(0.11 * SR); t = np.arange(n) / SR
     f = f0 * (f1 / f0) ** (t / t[-1])
-    add(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.05) * 0.12, SLIDE2 + ZFT_CRAB + 0.05 + k * 0.1, pan=-0.3, rev=0.3)
-# agent cards popping in: tuned ticks (G6, B6)
-for t0, m in zip(ZFT_CARDS, (91, 95)):
+    add(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.05) * 0.12, SLIDE2 + ZFT_WHALE + 0.05 + k * 0.1, pan=-0.3, rev=0.3)
+# agent cards popping in: tuned ticks (E6, G6, B6)
+for t0, m in zip(ZFT_CARDS, (88, 91, 95)):
     n = int(0.25 * SR); t = np.arange(n) / SR
     pop = np.sin(2 * np.pi * note(m) * t) * np.exp(-t / 0.06) + hp(rng.standard_normal(n), 3000) * np.exp(-t / 0.004) * 0.4
     add(pop * 0.12, SLIDE2 + t0 + 0.05, pan=0.4, rev=0.35)
