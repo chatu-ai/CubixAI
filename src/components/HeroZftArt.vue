@@ -9,11 +9,12 @@ import hermesUrl from '@/assets/hero/zft/hermes.webp'
 
 /**
  * 首页第三张横幅：智方体（AgentStation）产品照。
- * 包装盒、设备都是实拍照片抠图（包装盒取自实拍视频，设备取自真机照片、屏幕换成 ChatU Mate 工作台），
+ * 包装盒、设备都是实拍照片抠图（包装盒取自实拍视频，设备取自真机照片）。
+ * 屏幕和真机一样是 Windows 桌面上开着 ChatU Mate 窗口（不是全屏），工作台里 DeepSeek Harness 放大、运行中；
  * 不做任何违反物理的动作，只有真实拍摄里会有的变化，看起来才真：
  *   镜头推近：画面从稍大、稍偏右慢慢推到位，近处的设备比远处的包装盒移动得多（视差）；
  *   反光：一道光从包装盒表面扫过；
- *   开机：设备黑屏（带玻璃反光）→ 背光亮起 → 工作台；
+ *   开机：设备黑屏（带玻璃反光）→ 背光亮起 → 工作台，DeepSeek Harness 卡片亮两下；
  *   之后 OpenClaw 龙虾探头，OpenClaw / Hermes「已就绪」，「数据不出盒」。
  * 位置用原图坐标（3392 × 1120，与第一张横幅同比例）按百分比摆放；尺寸用 cqw（横幅宽度的 1%）。
  * 静止画面（未播放、减少动态效果）就是动画结束时的样子。
@@ -92,6 +93,8 @@ onMounted(async () => {
           <div class="zft-device absolute" :style="box(DEVICE)">
             <img :src="deviceUrl" alt="" class="w-full h-full" draggable="false" />
             <!-- 设备图 924 × 628 中屏幕在 61,56 – 861,556 -->
+            <!-- 屏幕上 DeepSeek Harness 卡片的位置（设备图坐标 248,176 – 815,294） -->
+            <span class="zft-ds-ring" />
             <span class="zft-screen-off" />
             <span class="zft-screen-glow" />
           </div>
@@ -194,6 +197,21 @@ onMounted(async () => {
   background: radial-gradient(ellipse at 50% 50%, rgba(150, 195, 255, 0.95), rgba(70, 120, 235, 0.8) 60%, rgba(25, 55, 150, 0.75));
 }
 
+/* 开机后 DeepSeek Harness 卡片外圈亮两下 */
+.zft-ds-ring {
+  position: absolute;
+  left: 26.84%;
+  top: 27.95%;
+  width: 61.36%;
+  height: 18.79%;
+  border-radius: 0.2cqw;
+  box-shadow:
+    0 0 0 0.1cqw rgba(var(--blue), 0.9),
+    0 0 0.8cqw 0.15cqw rgba(var(--blue), 0.55);
+  pointer-events: none;
+  opacity: 0;
+}
+
 /* ---------- 封盖标签 ---------- */
 .zft-seal {
   position: absolute;
@@ -284,7 +302,7 @@ onMounted(async () => {
 
 /* ============ 动画 ============
  * 时间线（秒）：0～1.4 镜头推近（近处设备比远处盒子多移一点）→ 0.7 盒子表面扫过反光
- * → 1.2 屏幕开机，1.75 工作台完全亮起 → 1.8 龙虾探头 → 1.9 卡片 → 2.2「数据不出盒」。 */
+ * → 1.2 屏幕开机，1.75 工作台完全亮起 → 1.8 龙虾探头、DeepSeek Harness 卡片亮两下 → 1.9 卡片 → 2.2「数据不出盒」。 */
 .is-waiting .zft-stage {
   opacity: 0;
 }
@@ -364,6 +382,23 @@ onMounted(async () => {
   }
   100% {
     opacity: 0;
+  }
+}
+
+.is-playing .zft-ds-ring {
+  animation: zft-ds-ring 1s ease-out 1.8s 2 both;
+}
+@keyframes zft-ds-ring {
+  0% {
+    opacity: 0;
+    transform: none;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05, 1.16);
   }
 }
 
