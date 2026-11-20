@@ -105,6 +105,12 @@ export default {
       prev: '上一张',
       next: '下一张',
       goTo: '切换到第 {n} 张',
+      zft: {
+        seal: '数据不出盒',
+        ready: '已就绪',
+        openclaw: '自主规划 · 工具调用 · 任务执行',
+        hermes: '自然语言 · 语义理解 · 智能交互',
+      },
       slide3Title: '智方体 · AgentStation',
       slide3Sub: '智能工作 · 安全到家',
       slide3Desc1: '开箱即用的企业 AI 工作站 · 数据不出盒',

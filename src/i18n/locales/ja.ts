@@ -92,6 +92,12 @@ export default {
       prev: '前のスライド',
       next: '次のスライド',
       goTo: 'スライド {n} を表示',
+      zft: {
+        seal: 'データは箱の外に出ません',
+        ready: '準備完了',
+        openclaw: '自律計画 · ツール呼び出し · タスク実行',
+        hermes: '自然言語 · 意味理解 · 対話',
+      },
       slide3Title: 'AgentStation',
       slide3Sub: 'インテリジェントワーク · 安全は手元に',
       slide3Desc1: 'すぐに使える企業AIワークステーション · データはオンプレミス',

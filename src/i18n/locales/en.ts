@@ -92,6 +92,12 @@ export default {
       prev: 'Previous slide',
       next: 'Next slide',
       goTo: 'Go to slide {n}',
+      zft: {
+        seal: 'Data never leaves the box',
+        ready: 'Ready',
+        openclaw: 'Planning · Tool use · Task execution',
+        hermes: 'Natural language · Understanding · Interaction',
+      },
       slide3Title: 'AgentStation',
       slide3Sub: 'Intelligent Work · Secure at Home',
       slide3Desc1: 'Plug-and-play enterprise AI workstation · Data stays on-premises',

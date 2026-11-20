@@ -35,8 +35,11 @@ function buttons(container: HTMLElement, label: string) {
   return [...container.querySelectorAll<HTMLButtonElement>(`section button[aria-label="${label}"]`)]
 }
 
-const FIRST = ['translateX(calc(0% + 0px))', 'translateX(calc(100% + 0px))']
-const SECOND = ['translateX(calc(-100% + 0px))', 'translateX(calc(0% + 0px))']
+// 三张横幅：软积木、ChatU、智方体
+const at = (current: number) => [0, 1, 2].map((i) => `translateX(calc(${(i - current) * 100}% + 0px))`)
+const FIRST = at(0)
+const SECOND = at(1)
+const THIRD = at(2)
 
 function pointer(type: string, target: Element) {
   target.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerId: 1, clientX: 100, buttons: type === 'pointerdown' ? 1 : 0 }))
@@ -55,7 +58,7 @@ describe('首页横幅底部圆点', () => {
     const capture = vi.spyOn(HTMLElement.prototype, 'setPointerCapture').mockImplementation(() => {})
     const container = render()
     const dotButtons = dots(container)
-    expect(dotButtons).toHaveLength(2)
+    expect(dotButtons).toHaveLength(3)
     expect(slideTransforms(container)).toEqual(FIRST)
 
     // 真实浏览器里，容器捕获指针后 click 会派发给容器而不是圆点按钮（happy-dom 不模拟这一点），
@@ -79,6 +82,13 @@ describe('首页横幅底部圆点', () => {
     expect(capture).toHaveBeenCalledWith(1)
   })
 
+  it('点第三个圆点切到智方体横幅', async () => {
+    const container = render()
+    dots(container)[2]!.click()
+    await nextTick()
+    expect(slideTransforms(container)).toEqual(THIRD)
+  })
+
   it('左右箭头和底部「上一张 / 下一张」按钮都能切换，首尾循环，按下时不捕获指针', async () => {
     vi.useFakeTimers()
     const capture = vi.spyOn(HTMLElement.prototype, 'setPointerCapture').mockImplementation(() => {})
@@ -91,8 +101,10 @@ describe('首页横幅底部圆点', () => {
 
     for (const [btn, expected] of [
       [next[0], SECOND],
-      [next[1], FIRST],
-      [prev[0], SECOND],
+      [next[1], THIRD],
+      [next[0], FIRST],
+      [prev[0], THIRD],
+      [prev[1], SECOND],
       [prev[1], FIRST],
     ] as const) {
       pointer('pointerdown', btn!)
