@@ -8,6 +8,9 @@ import HeroZftArt from './HeroZftArt.vue'
 
 const { t, locale } = useI18n()
 
+// 每张横幅的停留时间：入场动画要能完整看到
+const SLIDE_DURATION = 5000
+
 // 第一张横幅是分层动画版（HeroArt）：标题和图标文字画在图里，中文版用中文文字层，其他语言用英文文字层
 const isChinese = computed(() => locale.value === 'zh-CN')
 const slides = computed(() => [
@@ -15,17 +18,20 @@ const slides = computed(() => [
   {
     art: true,
     chatu: false,
+    duration: SLIDE_DURATION,
     src: '',
     alt: isChinese.value ? '软积木：打通企业 AI 落地最后三公里' : 'CubixAI: Bridging the Last Mile of Enterprise AI Adoption',
     position: '',
   },
   // 第二张 ChatU 横幅：标志外圈光环旋转（HeroChatuArt），文字为页面上叠加的多语言文字
-  { art: false, chatu: true, src: '', alt: 'ChatU', position: '' },
-  // 第三张智方体横幅：开盒 → 设备升起 → 智能体就绪 → 合盒「数据不出盒」（HeroZftArt），文字为页面上叠加的多语言文字
+  { art: false, chatu: true, duration: SLIDE_DURATION, src: '', alt: 'ChatU', position: '' },
+  // 第三张智方体横幅：真实开箱 → 取出设备立在桌上 → 开机、智能体就绪（HeroZftArt），文字为页面上叠加的多语言文字。
+  // 开箱动画约 4.8 秒，这一张多停一会儿，让结束画面也能看清
   {
     art: false,
     chatu: false,
     zft: true,
+    duration: 8000,
     src: '',
     alt: isChinese.value ? '智方体 AgentStation：开箱即用的企业 AI 工作站，数据不出盒' : 'AgentStation: a plug-and-play enterprise AI workstation — your data never leaves the box',
     position: '',
@@ -33,11 +39,10 @@ const slides = computed(() => [
 ])
 
 const current = ref(0)
-let autoTimer: ReturnType<typeof setInterval> | null = null
+let autoTimer: ReturnType<typeof setTimeout> | null = null
 let manualDelayTimer: ReturnType<typeof setTimeout> | null = null
-// 第一张横幅有入场动画，每张停留 5 秒，让动画能完整看到
+// 手动切换后过 5 秒恢复自动轮播
 const AUTOPLAY_DELAY = 5000
-const AUTOPLAY_INTERVAL = 5000
 
 // Drag/swipe state
 const isDragging = ref(false)
@@ -50,16 +55,18 @@ const DRAG_THRESHOLD = 50
 
 let windowPointerUpHandler: ((e: PointerEvent) => void) | null = null
 
+// 自动轮播：每张按自己的停留时间切到下一张
 function startAutoplay() {
-  if (autoTimer) clearInterval(autoTimer)
-  autoTimer = setInterval(() => {
+  stopAutoplay()
+  autoTimer = setTimeout(() => {
     current.value = (current.value + 1) % slides.value.length
-  }, AUTOPLAY_INTERVAL)
+    startAutoplay()
+  }, slides.value[current.value]?.duration ?? SLIDE_DURATION)
 }
 
 function stopAutoplay() {
   if (autoTimer) {
-    clearInterval(autoTimer)
+    clearTimeout(autoTimer)
     autoTimer = null
   }
 }

@@ -130,3 +130,20 @@ describe('首页横幅底部圆点', () => {
     expect(slideTransforms(container)).toEqual(FIRST)
   })
 })
+
+describe('首页横幅自动轮播', () => {
+  it('前两张各停 5 秒；智方体开箱动画较长，停 8 秒后回到第一张', async () => {
+    vi.useFakeTimers()
+    const container = render()
+    expect(slideTransforms(container)).toEqual(FIRST)
+
+    await vi.advanceTimersByTimeAsync(5000)
+    expect(slideTransforms(container)).toEqual(SECOND)
+    await vi.advanceTimersByTimeAsync(5000)
+    expect(slideTransforms(container)).toEqual(THIRD)
+    await vi.advanceTimersByTimeAsync(7000)
+    expect(slideTransforms(container)).toEqual(THIRD)
+    await vi.advanceTimersByTimeAsync(1000)
+    expect(slideTransforms(container)).toEqual(FIRST)
+  })
+})
